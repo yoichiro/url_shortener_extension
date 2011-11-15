@@ -1,0 +1,149 @@
+body {
+    width: 600px;
+    height: 400px;
+}
+
+div#contents {
+    position: relative;
+    height: 100%;
+}
+
+div#login_pane {
+    padding: 5px;
+    height: 300px;
+    display: none;
+}
+
+div#login_link {
+    cursor: pointer;
+    text-decoration: underline;
+    top: 150px;
+    left: 230px;
+    position: relative;
+}
+
+div#history_pane {
+    display: block;
+}
+
+div.section_title {
+    width: 100%;
+    border-top: 1px solid #36C;
+    background-color: #E5ECF9;
+    font-weight: bold;
+    padding-left: 2px;
+}
+
+table {
+    width: 100%;
+}
+
+td {
+    font-size: 12px;
+    border-bottom: 1px solid #E5ECF9;
+    white-space: nowrap;
+}
+
+td div.long_url {
+    overflow: hidden;
+    width: 430px;
+}
+
+td div.short_url {
+    width: 100px;
+}
+
+td a {
+    text-decoration: none;
+    color: black;
+}
+
+td a:hover {
+    text-decoration: underline;
+}
+
+td a:-webkit-any-link {
+    cursor: auto;
+}
+
+td div.click_count {
+    width: 50px;
+    text-align: right;
+    font-weight: bold;
+}
+
+div#history_table_progress {
+    text-align: center;
+}
+
+div#shortener_pane {
+    padding: 2px;
+    height: 55px;
+}
+
+input#input_long_url {
+    border: 1px solid gray;
+    font-size: 14px;
+    width: 320px;
+    height: 23px;
+    vertical-align: top;
+    margin-top: 6px;
+}
+
+button#shorten {
+    -webkit-appearance: button;
+    background-color: #EEE;
+    background-image: -webkit-gradient(linear,0% 0%,0% 100%,from(white),to(#ddd));
+    border: 1px solid #999;
+    width: 80px;
+    height: 23px;
+    vertical-align: top;
+    cursor: pointer;
+    margin-top: 6px;
+}
+
+img#shorten_progress {
+    display: none;
+}
+
+input#input_short_url {
+    border: 0px;
+    font-size: 14px;
+    width: 180px;
+    height: 23px;
+    vertical-align: top;
+    margin-top: 6px;
+    text-align: right;
+}
+
+div.message_pane {
+    width: 100%;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    vertical-align: top;
+}
+
+div#message {
+    color: red;
+    font-size: 12px;
+    float: right;
+    width: 200px;
+    margin-top: 5px;
+    margin-right: 5px;
+    text-align: right;
+}
+
+div#twitter {
+    float: right;
+    width: 60px;
+    display: none;
+}
+
+div.footer {
+    bottom: 0;
+    position: absolute;
+    font-size: 10px;
+    color: gray;
+    text-align: center;
+    width: 100%;
+}

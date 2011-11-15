@@ -1,0 +1,54 @@
+<html>
+
+<head>
+<link rel="stylesheet" type="text/css" href="./popup.css" />
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/prototype/1.7.0.0/prototype.js"></script>
+<script type="text/javascript" src="./popup_window.js"></script>
+<script type="text/javascript" src="./popup.js"></script>
+</head>
+
+<body onload="popup.start();">
+
+<script type="text/javascript" src="./analytics.js"></script>
+
+<div id="contents">
+
+<div class="section_title">Google URL Shortener extension</div>
+
+<div id="login_pane">
+  <div id="login_link">Login to Google</div>
+</div>
+
+<div id="shortener_pane">
+  <input type="text" id="input_long_url" />
+  <button id="shorten" type="submit"><p>Shorten</p></button>
+  <img id="shorten_progress" src="./progress.gif" />
+  <input type="text" id="input_short_url" readonly value="http://goo.gl/..." />
+  <div class="message_pane">
+    <div id="twitter"></div>
+    <div id="message"></div>
+    <br style="clear: both;" />
+  </div>
+</div>
+
+<div id="history_pane">
+  <div class="section_title">History</div>
+  <div id="history_table">
+    <table id="history_table_table">
+    </table>
+  </div>
+  <div id="history_table_progress">
+    <img src="./progress.gif" />
+  </div>
+</div>
+
+<div class="footer">
+  Copyright (C) 2011 <a href="http://www.eisbahn.jp/yoichiro/en" target="_blank">Yoichiro Tanaka</a>. All rights reserved.
+  <a href="http://goo.gl/" target="_blank">goo.gl</a>
+</div>
+
+</div>
+
+</body>
+
+</html>
