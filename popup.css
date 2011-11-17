@@ -31,7 +31,7 @@ div.section_title {
     border-top: 1px solid #36C;
     background-color: #E5ECF9;
     font-weight: bold;
-    padding-left: 2px;
+    padding: 1px 2px;
 }
 
 table {
@@ -46,7 +46,7 @@ td {
 
 td div.long_url {
     overflow: hidden;
-    width: 430px;
+    width: 415px;
 }
 
 td div.short_url {
@@ -67,7 +67,7 @@ td a:-webkit-any-link {
 }
 
 td div.click_count {
-    width: 50px;
+    width: 40px;
     text-align: right;
     font-weight: bold;
 }
@@ -127,7 +127,7 @@ div#message {
     color: red;
     font-size: 12px;
     float: right;
-    width: 200px;
+    width: 400px;
     margin-top: 5px;
     margin-right: 5px;
     text-align: right;
@@ -146,4 +146,9 @@ div.footer {
     color: gray;
     text-align: center;
     width: 100%;
+}
+
+a#clear_timer {
+    position: absolute;
+    right: 0;
 }

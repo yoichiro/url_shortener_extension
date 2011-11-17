@@ -19,6 +19,7 @@ Popup.prototype = {
         $("input_long_url").onclick = this.selectInputLongUrl.bind(this);
         $("shorten").onclick = this.onClickShorten.bind(this);
         $("input_short_url").onclick = this.onClickShortUrl.bind(this);
+        $("clear_timer").onclick = this.onClickClearTimer.bind(this);
     },
     setupOAuthWindow: function() {
         var host = location.host;
@@ -37,12 +38,7 @@ Popup.prototype = {
             windowOptions: "width=640,height=480",
             onOpen: function() {},
             onClose: function() {
-                var notification = webkitNotifications.createNotification(
-                    "./url_shortener_extension_48.png",
-                    "URL Shortener extension",
-                    "Authentication completed. Please push the extension button again."
-                );
-                notification.show();
+                this.bg.gl.showOAuthCompletedNofitication();
             }.bind(this)
         });
     },
@@ -79,8 +75,11 @@ Popup.prototype = {
         this.setVisible($("history_table_progress"), visible);
         this.setVisible($("history_table"), !visible);
     },
+    onClickShortUrlLink: function(url) {
+        this.setShortUrl(url);
+    },
     showHistory: function(response) {
-        var tmpl = "<tr><td><div class='long_url'><a href='${longUrl}' target='_blank'>${longUrl}</a></div></td><td><div class='short_url'><a href='${shortUrl1}' target='_blank'>${shortUrl2}</a></div></td><td><div class='click_count'>${clickCount}</div></td></tr>";
+        var tmpl = "<tr><td><div class='long_url'><a href='${longUrl}' target='_blank'>${longUrl}</a></div></td><td><div class='short_url'><a href='${shortUrl1}' onclick='popup.onClickShortUrlLink(\"${shortUrl1}\")' title='Start watching'>${shortUrl2}</a></div></td><td><div class='click_count'>${clickCount}</div></td></tr>";
         var table = $("history_table_table");
         table.innerHTML = "";
         var items = response.items;
@@ -88,9 +87,9 @@ Popup.prototype = {
         for (var i = 0; i < count; i++) {
             var item = items[i];
             table.innerHTML += tmpl.replace(/\$\{longUrl\}/g, item.longUrl)
-                .replace("${shortUrl1}", item.id)
+                .replace(/\$\{shortUrl1\}/g, item.id)
                 .replace("${shortUrl2}", item.id.substring(7))
-                .replace("${clickCount}", item.analytics.week.shortUrlClicks);
+                .replace("${clickCount}", item.analytics.allTime.shortUrlClicks);
         }
     },
     setCurrentLongUrl: function() {
@@ -112,7 +111,8 @@ Popup.prototype = {
             this.setTwitter("");
             var result = this.bg.gl.shortenLongUrl(url, {
                 onSuccess: function(req) {
-                    this.setShortUrl(req.responseJSON);
+                    this.setShortUrl(req.responseJSON.id);
+                    this.loadHistory();
                 }.bind(this),
                 onFailure: function(req) {
                     $("input_short_url").value = "http://goo.gl/...";
@@ -132,13 +132,13 @@ Popup.prototype = {
             }
         }
     },
-    setShortUrl: function(response) {
-        $("input_short_url").value = response.id;
-        this.setMessage("Copied shorten URL to clipboard", false);
-        this.setTwitter(response.id);
+    setShortUrl: function(shortUrl) {
+        $("input_short_url").value = shortUrl;
+        this.setMessage("Copied shorten URL to clipboard. Watching started.", false);
+        this.setTwitter(shortUrl);
         this.onClickShortUrl();
         document.execCommand("copy");
-        this.loadHistory();
+        this.bg.gl.startWatchCount(shortUrl);
     },
     setVisible: function(elem, visible) {
         Element.setStyle(elem, {
@@ -160,6 +160,7 @@ Popup.prototype = {
         }.bind(this), 5000);
     },
     setTwitter: function(url) {
+        $("twitter").innerHTML = "";
         if (url) {
             var a = document.createElement("a");
             a.setAttribute("href", "https://twitter.com/share");
@@ -174,13 +175,15 @@ Popup.prototype = {
             $("twitter").appendChild(a);
             this.setVisible($("twitter"), true);
         } else {
-            $("twitter").innerHTML = "";
             this.setVisible($("twitter"), false);
         }
     },
     onClickShortUrl: function() {
         $("input_short_url").focus();
         $("input_short_url").select();
+    },
+    onClickClearTimer: function() {
+        this.bg.gl.startWatchCount(null);
     }
 };
 
