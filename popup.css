@@ -11,17 +11,23 @@ div#contents {
 }
 
 div#login_pane {
-    padding: 5px;
-    height: 300px;
     display: none;
+    width: 100%;
+    text-align: center;
+    padding-top: 100px;
 }
 
 div#login_link {
     cursor: pointer;
     text-decoration: underline;
-    top: 150px;
-    left: 230px;
     position: relative;
+}
+
+div.login_desc {
+    font-size: 12px;
+    color: gray;
+    position: relative;
+    margin-top: 5px;
 }
 
 div#history_pane {
@@ -139,6 +145,14 @@ div#twitter {
     float: right;
     width: 60px;
     display: none;
+}
+
+div#url_detail {
+    float: right;
+    font-size: 13px;
+    display: none;
+    margin-top: 2px;
+    margin-right: 5px;
 }
 
 div.footer {

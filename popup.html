@@ -15,10 +15,6 @@
 
 <div class="section_title">Google URL Shortener extension</div>
 
-<div id="login_pane">
-  <div id="login_link">Login to Google</div>
-</div>
-
 <div id="shortener_pane">
   <input type="text" id="input_long_url" />
   <button id="shorten" type="submit"><p>Shorten</p></button>
@@ -26,6 +22,7 @@
   <input type="text" id="input_short_url" readonly value="http://goo.gl/..." />
   <div class="message_pane">
     <div id="twitter"></div>
+    <div id="url_detail"></div>
     <div id="message"></div>
     <br style="clear: both;" />
   </div>
@@ -39,6 +36,10 @@
   </div>
   <div id="history_table_progress">
     <img src="./progress.gif" />
+  </div>
+  <div id="login_pane">
+    <div id="login_link">Login to Google</div>
+    <div class="login_desc">If you want to check your history, please login and authorize to Google.</div>
   </div>
 </div>
 

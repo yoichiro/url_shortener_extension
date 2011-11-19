@@ -51,8 +51,7 @@ Popup.prototype = {
     },
     setDisplayMode: function(needLogin) {
         this.setVisible($("login_pane"), needLogin);
-        this.setVisible($("history_pane"), !needLogin);
-        this.setVisible($("shortener_pane"), !needLogin);
+        this.setVisible($("history_table"), !needLogin);
     },
     loadHistory: function() {
         this.setLoadHistoryProgressVisible(true);
@@ -68,6 +67,7 @@ Popup.prototype = {
             }.bind(this)
         });
         if (!result) {
+            this.setLoadHistoryProgressVisible(false);
             this.setDisplayMode(true);
         }
     },
@@ -101,18 +101,24 @@ Popup.prototype = {
         $("input_long_url").focus();
         $("input_long_url").select();
     },
+    clearShortenResult: function() {
+        $("input_short_url").value = "";
+        this.setMessage("", false);
+        this.setTwitter("");
+        this.setUrlDetail("");
+    },
     onClickShorten: function() {
         var url = $("input_long_url").value;
         if (url) {
             this.setVisibleForm($("shorten"), false);
             this.setVisibleForm($("shorten_progress"), true);
-            $("input_short_url").value = "";
-            this.setMessage("", false);
-            this.setTwitter("");
-            var result = this.bg.gl.shortenLongUrl(url, {
+            this.clearShortenResult();
+            this.bg.gl.shortenLongUrl(url, {
                 onSuccess: function(req) {
                     this.setShortUrl(req.responseJSON.id);
-                    this.loadHistory();
+                    if (this.bg.gl.coudlGetHistory()) {
+                        this.loadHistory();
+                    }
                 }.bind(this),
                 onFailure: function(req) {
                     $("input_short_url").value = "http://goo.gl/...";
@@ -127,15 +133,13 @@ Popup.prototype = {
                     this.setVisibleForm($("shorten_progress"), false);
                 }.bind(this)
             });
-            if (!result) {
-                this.setDisplayMode(true);
-            }
         }
     },
     setShortUrl: function(shortUrl) {
         $("input_short_url").value = shortUrl;
         this.setMessage("Copied shorten URL to clipboard. Watching started.", false);
         this.setTwitter(shortUrl);
+        this.setUrlDetail(shortUrl);
         this.onClickShortUrl();
         document.execCommand("copy");
         this.bg.gl.startWatchCount(shortUrl);
@@ -176,6 +180,19 @@ Popup.prototype = {
             this.setVisible($("twitter"), true);
         } else {
             this.setVisible($("twitter"), false);
+        }
+    },
+    setUrlDetail: function(url) {
+        $("url_detail").innerHTML = "";
+        if (url) {
+            var array = url.split("/");
+            $("url_detail").innerHTML =
+                "<a href='http://goo.gl/info/"
+                + array[array.length - 1]
+                + "' target='_blank'>Detail</a>";
+            this.setVisible($("url_detail"), true);
+        } else {
+            this.setVisible($("url_detail"), false);
         }
     },
     onClickShortUrl: function() {

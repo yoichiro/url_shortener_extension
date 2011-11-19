@@ -4,7 +4,10 @@ var Gl = function() {
 
 Gl.prototype = {
     timers: null,
+    gotHistory: false,
+    apiKey: null,
     initialize: function() {
+        this.apiKey = "AIzaSyAJ6oQbZn48_6pXfsxTazU9IOf_oan-QgY";
         this.timers = new Array();
     },
     showOAuthCompletedNofitication: function() {
@@ -30,8 +33,14 @@ Gl.prototype = {
                 requestHeaders: [
                     "Authorization", "OAuth " + accessToken
                 ],
-                onSuccess: callbacks.onSuccess,
-                onFailure: callbacks.onFailure,
+                onSuccess: function(req) {
+                    this.gotHistory = true;
+                    callbacks.onSuccess(req);
+                }.bind(this),
+                onFailure: function(req) {
+                    this.gotHistory = false;
+                    callbacks.onFailure(req);
+                }.bind(this),
                 onComplete: callbacks.onComplete
             });
             return true;
@@ -40,26 +49,26 @@ Gl.prototype = {
         }
     },
     shortenLongUrl: function(longUrl, callbacks) {
-        var accessToken = this.getAccessToken();
-        if (accessToken) {
-            var url = "https://www.googleapis.com/urlshortener/v1/url";
-            new Ajax.Request(url, {
-                method: "post",
-                contentType: "application/json",
-                postBody: Object.toJSON({
-                    longUrl: longUrl
-                }),
-                requestHeaders: [
-                    "Authorization", "OAuth " + accessToken
-                ],
-                onSuccess: callbacks.onSuccess,
-                onFailure: callbacks.onFailure,
-                onComplete: callbacks.onComplete
-            });
-            return true;
+        var url = "https://www.googleapis.com/urlshortener/v1/url";
+        var params = {
+            method: "post",
+            contentType: "application/json",
+            postBody: Object.toJSON({
+                longUrl: longUrl
+            }),
+            onSuccess: callbacks.onSuccess,
+            onFailure: callbacks.onFailure,
+            onComplete: callbacks.onComplete
+        };
+        if (this.coudlGetHistory()) {
+            var accessToken = this.getAccessToken();
+            params["requestHeader"] = [
+                "Authorization", "OAuth " + accessToken
+            ];
         } else {
-            return false;
+            url += "?key=" + this.apiKey;
         }
+        new Ajax.Request(url, params);
     },
     startWatchCount: function(shortUrl) {
         for (var i = 0; i < this.timers.length; i++) {
@@ -75,7 +84,7 @@ Gl.prototype = {
         new Ajax.Request(url, {
             method: "get",
             parameters: {
-                key: "AIzaSyAJ6oQbZn48_6pXfsxTazU9IOf_oan-QgY",
+                key: this.apiKey,
                 shortUrl: shortUrl,
                 projection: "FULL"
             },
@@ -114,6 +123,9 @@ Gl.prototype = {
         }
         chrome.browserAction.setBadgeText({text: text});
         chrome.browserAction.setBadgeBackgroundColor({color: color});
+    },
+    coudlGetHistory: function() {
+        return this.gotHistory;
     }
 };
 
