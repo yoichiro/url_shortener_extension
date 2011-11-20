@@ -5,6 +5,7 @@ var Popup = function() {
 Popup.prototype = {
     bg: null,
     oauthWindow: null,
+    history: null,
     initialize: function() {
         this.bg = chrome.extension.getBackgroundPage();
         this.setupOAuthWindow();
@@ -57,7 +58,9 @@ Popup.prototype = {
         this.setLoadHistoryProgressVisible(true);
         var result = this.bg.gl.lookupUserHistory({
             onSuccess: function(req) {
-                this.showHistory(req.responseJSON);
+                this.history = req.responseJSON.items;
+                this.setPaginator();
+                this.showHistory(0);
             }.bind(this),
             onFailure: function(req) {
                 this.isInvalidCredential(req);
@@ -78,18 +81,37 @@ Popup.prototype = {
     onClickShortUrlLink: function(url) {
         this.setShortUrl(url);
     },
-    showHistory: function(response) {
+    showHistory: function(startIndex) {
         var tmpl = "<tr><td><div class='long_url'><a href='${longUrl}' target='_blank'>${longUrl}</a></div></td><td><div class='short_url'><a href='${shortUrl1}' onclick='popup.onClickShortUrlLink(\"${shortUrl1}\")' title='Start watching'>${shortUrl2}</a></div></td><td><div class='click_count'>${clickCount}</div></td></tr>";
         var table = $("history_table_table");
         table.innerHTML = "";
-        var items = response.items;
-        var count = Math.min(10, items.length);
-        for (var i = 0; i < count; i++) {
+        var items = this.history;
+        var count = Math.min(startIndex + 10, items.length);
+        for (var i = startIndex; i < count; i++) {
             var item = items[i];
             table.innerHTML += tmpl.replace(/\$\{longUrl\}/g, item.longUrl)
                 .replace(/\$\{shortUrl1\}/g, item.id)
                 .replace("${shortUrl2}", item.id.substring(7))
                 .replace("${clickCount}", item.analytics.allTime.shortUrlClicks);
+        }
+    },
+    setPaginator: function() {
+        $("paginator").innerHTML = "";
+        var len = this.history.length;
+        var cnt = 1;
+        for (var i = 0; i < len; i += 10) {
+            if (cnt == 1) {
+                $("paginator").innerHTML = "Page: ";
+            }
+            var link = document.createElement("a");
+            link.href = "#";
+            link.onclick = (function(n) {
+                return function() {
+                    this.showHistory(n);
+                }.bind(this);
+            }.bind(this))(i);
+            link.innerHTML = cnt++;
+            $("paginator").appendChild(link);
         }
     },
     setCurrentLongUrl: function() {
