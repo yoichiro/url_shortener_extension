@@ -6,9 +6,35 @@ Gl.prototype = {
     timers: null,
     gotHistory: false,
     apiKey: null,
+    oauthWindow: null,
     initialize: function() {
         this.apiKey = "AIzaSyAJ6oQbZn48_6pXfsxTazU9IOf_oan-QgY";
         this.timers = new Array();
+        this.setupOAuthWindow();
+    },
+    setupOAuthWindow: function() {
+        var host = location.host;
+        var url = "https://accounts.google.com/o/oauth2/auth?"
+            + "client_id="
+            + "1023119050412.apps.googleusercontent.com"
+            + "&redirect_uri="
+            + encodeURIComponent("http://www.eisbahn.jp/implicit/bridge.html")
+            + "&scope="
+            + encodeURIComponent("https://www.googleapis.com/auth/urlshortener")
+            + "&response_type=token"
+            + "&state="
+            + host;
+        this.oauthWindow = shindig.oauth.popup({
+            destination: url,
+            windowOptions: "width=640,height=480",
+            onOpen: function() {},
+            onClose: function() {
+                this.showOAuthCompletedNofitication();
+            }.bind(this)
+        });
+    },
+    getOAuthWindow: function() {
+        return this.oauthWindow;
     },
     showOAuthCompletedNofitication: function() {
         var notification = webkitNotifications.createNotification(

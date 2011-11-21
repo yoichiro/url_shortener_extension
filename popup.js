@@ -4,11 +4,9 @@ var Popup = function() {
 
 Popup.prototype = {
     bg: null,
-    oauthWindow: null,
     history: null,
     initialize: function() {
         this.bg = chrome.extension.getBackgroundPage();
-        this.setupOAuthWindow();
     },
     start: function() {
         this.assignEventHandlers();
@@ -16,32 +14,11 @@ Popup.prototype = {
         this.setCurrentLongUrl();
     },
     assignEventHandlers: function() {
-        $("login_link").onclick = this.oauthWindow.createOpenerOnClick();
+        $("login_link").onclick = this.bg.gl.getOAuthWindow().createOpenerOnClick();
         $("input_long_url").onclick = this.selectInputLongUrl.bind(this);
         $("shorten").onclick = this.onClickShorten.bind(this);
         $("input_short_url").onclick = this.onClickShortUrl.bind(this);
         $("clear_timer").onclick = this.onClickClearTimer.bind(this);
-    },
-    setupOAuthWindow: function() {
-        var host = location.host;
-        var url = "https://accounts.google.com/o/oauth2/auth?"
-            + "client_id="
-            + "1023119050412.apps.googleusercontent.com"
-            + "&redirect_uri="
-            + encodeURIComponent("http://www.eisbahn.jp/implicit/bridge.html")
-            + "&scope="
-            + encodeURIComponent("https://www.googleapis.com/auth/urlshortener")
-            + "&response_type=token"
-            + "&state="
-            + host;
-        this.oauthWindow = shindig.oauth.popup({
-            destination: url,
-            windowOptions: "width=640,height=480",
-            onOpen: function() {},
-            onClose: function() {
-                this.bg.gl.showOAuthCompletedNofitication();
-            }.bind(this)
-        });
     },
     isInvalidCredential: function(req) {
         if (req.status == 401) {
