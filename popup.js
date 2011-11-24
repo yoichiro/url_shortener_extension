@@ -56,7 +56,7 @@ Popup.prototype = {
         this.setVisible($("history_table"), !visible);
     },
     onClickShortUrlLink: function(url) {
-        this.setShortUrl(url);
+        this.setShortUrl(url, true);
     },
     showHistory: function(startIndex) {
         var tmpl = "<tr><td><div class='long_url'><a href='${longUrl}' target='_blank'>${longUrl}</a></div></td><td><div class='short_url'><a href='${shortUrl1}' onclick='popup.onClickShortUrlLink(\"${shortUrl1}\")' title='Start watching'>${shortUrl2}</a></div></td><td><div class='click_count'>${clickCount}</div></td></tr>";
@@ -114,8 +114,8 @@ Popup.prototype = {
             this.clearShortenResult();
             this.bg.gl.shortenLongUrl(url, {
                 onSuccess: function(req) {
-                    this.setShortUrl(req.responseJSON.id);
-                    if (this.bg.gl.coudlGetHistory()) {
+                    this.setShortUrl(req.responseJSON.id, false);
+                    if (this.bg.gl.wasAuthorized()) {
                         this.loadHistory();
                     }
                 }.bind(this),
@@ -134,14 +134,21 @@ Popup.prototype = {
             });
         }
     },
-    setShortUrl: function(shortUrl) {
+    setShortUrl: function(shortUrl, forceWatching) {
         $("input_short_url").value = shortUrl;
-        this.setMessage("Copied shorten URL to clipboard. Watching started.", false);
+        var startWatching = this.bg.gl.isStartWatching();
+        var msg = "Copied shorten URL to clipboard.";
+        if (forceWatching || startWatching) {
+            msg += " Watching started.";
+        }
+        this.setMessage(msg, false);
         this.setTwitter(shortUrl);
         this.setUrlDetail(shortUrl);
         this.onClickShortUrl();
         document.execCommand("copy");
-        this.bg.gl.startWatchCount(shortUrl);
+        if (forceWatching || startWatching) {
+            this.bg.gl.startWatchCount(shortUrl);
+        }
     },
     setVisible: function(elem, visible) {
         Element.setStyle(elem, {

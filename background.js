@@ -4,13 +4,23 @@ var Gl = function() {
 
 Gl.prototype = {
     timers: null,
-    gotHistory: false,
+    authorized: false,
     apiKey: null,
     oauthWindow: null,
+    oauthTimer: null,
+    expireTokenTime: null,
+    contextMenuIds: null,
     initialize: function() {
+        this.clearToken();
         this.apiKey = "AIzaSyAJ6oQbZn48_6pXfsxTazU9IOf_oan-QgY";
         this.timers = new Array();
         this.setupOAuthWindow();
+        this.contextMenuIds = new Array();
+        this.setupContextMenus(false);
+    },
+    clearToken: function() {
+        delete localStorage["access_token"];
+        delete localStorage["expires_in"];
     },
     setupOAuthWindow: function() {
         var host = location.host;
@@ -29,6 +39,9 @@ Gl.prototype = {
             windowOptions: "width=640,height=480",
             onOpen: function() {},
             onClose: function() {
+                this.authorized = true;
+                this.setupContextMenus();
+                this.startOAuthTimer();
                 this.showOAuthCompletedNofitication();
             }.bind(this)
         });
@@ -36,13 +49,123 @@ Gl.prototype = {
     getOAuthWindow: function() {
         return this.oauthWindow;
     },
+    startOAuthTimer: function() {
+        if (this.oauthTimer) {
+            clearTimeout(this.oauthTimer);
+        }
+        var expiresIn = Number(localStorage["expires_in"]);
+        this.expireTokenTime = (new Date()).getTime() + expiresIn * 1000;
+        this.onOAuthTimer();
+    },
+    onOAuthTimer: function() {
+        var remaining = this.expireTokenTime - (new Date()).getTime();
+        if (remaining > 0) {
+            this.oauthTimer = setTimeout(function() {
+                this.onOAuthTimer();
+            }.bind(this), 5000);
+        } else {
+            this.authorized = false;
+            this.clearToken();
+            this.setupContextMenus();
+        }
+    },
+    setupContextMenus: function() {
+        for (var i = 0; i < this.contextMenuIds.length; i++) {
+            chrome.contextMenus.remove(this.contextMenuIds[i]);
+        }
+        this.contextMenuIds = new Array();
+        if (this.isShowContextMenus()) {
+            if (this.authorized) {
+                this.contextMenuIds.push(
+                    chrome.contextMenus.create(
+                        this.createContextMenu(
+                            "Shorten URL (added to history)"))
+                );
+            } else {
+                this.contextMenuIds.push(
+                    chrome.contextMenus.create({
+                        type: "normal",
+                        title: "Login to Google (for recording to history)",
+                        contexts: ["page"],
+                        onclick: function(info, tab) {
+                            this.oauthWindow.createOpenerOnClick()();
+                        }.bind(this)
+                    })
+                );
+                this.contextMenuIds.push(
+                    chrome.contextMenus.create(
+                        this.createContextMenu(
+                            "Shorten URL (not added to history)"))
+                );
+            }
+        }
+    },
+    createContextMenu: function(title) {
+        return {
+            type: "normal",
+            title: title,
+            contexts: ["page"],
+            onclick: function(info, tab) {
+                this.shortenLongUrl(tab.url, {
+                    onSuccess: function(req) {
+                        this.showSucceedMessage(req);
+                    }.bind(this),
+                    onFailure: function(req) {
+                        this.showFailedMessage(req);
+                    }.bind(this),
+                    onComplete: function(req) {
+                    }
+                });
+            }.bind(this)
+        };
+    },
+    showSucceedMessage: function(req) {
+        var shortUrl = req.responseJSON.id;
+        $("buffer").value = shortUrl;
+        $("buffer").focus();
+        $("buffer").select();
+        document.execCommand("copy");
+        var startWatching = this.isStartWatching();
+        if (this.isShowNotificationAfterCopy()) {
+            var msg = "Copied shorten URL ("
+                + shortUrl
+                + ") to clipboard.";
+            if (startWatching) {
+                msg += " Watching started.";
+            }
+            this.showNotification(msg);
+        }
+        if (startWatching) {
+            this.startWatchCount(shortUrl);
+        }
+    },
+    showFailedMessage: function(req) {
+        this.showNotification(
+            "Shorten URL failed. ("
+                + req.status
+                + " "
+                + req.statusText
+                + ")"
+        );
+    },
     showOAuthCompletedNofitication: function() {
+        if (this.isShowNotificationAfterLogin()) {
+            this.showNotification(
+                "Authentication completed. "
+                    + "Shorten URL will be recorded to your history."
+            );
+        }
+    },
+    showNotification: function(message) {
         var notification = webkitNotifications.createNotification(
             "./url_shortener_extension_48.png",
             "URL Shortener extension",
-            "Authentication completed. Please push the extension button again."
+            message
         );
         notification.show();
+        setTimeout(function() {
+            notification.cancel();
+        }, 5000);
     },
     getAccessToken: function() {
         return localStorage["access_token"];
@@ -60,11 +183,11 @@ Gl.prototype = {
                     "Authorization", "OAuth " + accessToken
                 ],
                 onSuccess: function(req) {
-                    this.gotHistory = true;
+                    this.authorized = true;
                     callbacks.onSuccess(req);
                 }.bind(this),
                 onFailure: function(req) {
-                    this.gotHistory = false;
+                    this.authorized = false;
                     callbacks.onFailure(req);
                 }.bind(this),
                 onComplete: callbacks.onComplete
@@ -86,9 +209,9 @@ Gl.prototype = {
             onFailure: callbacks.onFailure,
             onComplete: callbacks.onComplete
         };
-        if (this.coudlGetHistory()) {
+        if (this.wasAuthorized()) {
             var accessToken = this.getAccessToken();
-            params["requestHeader"] = [
+            params["requestHeaders"] = [
                 "Authorization", "OAuth " + accessToken
             ];
         } else {
@@ -150,8 +273,20 @@ Gl.prototype = {
         chrome.browserAction.setBadgeText({text: text});
         chrome.browserAction.setBadgeBackgroundColor({color: color});
     },
-    coudlGetHistory: function() {
-        return this.gotHistory;
+    wasAuthorized: function() {
+        return this.authorized;
+    },
+    isShowNotificationAfterLogin: function() {
+        return !Boolean(localStorage["not_show_notification_after_login"]);
+    },
+    isShowNotificationAfterCopy: function() {
+        return !Boolean(localStorage["not_show_notification_after_copy"]);
+    },
+    isShowContextMenus: function() {
+        return !Boolean(localStorage["not_show_context_menus"]);
+    },
+    isStartWatching: function() {
+        return !Boolean(localStorage["not_start_watching"]);
     }
 };
 
