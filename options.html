@@ -1,0 +1,70 @@
+<html>
+
+<head>
+  <title>goo.gl URL Shortener extension options</title>
+  <link rel="stylesheet" type="text/css" href="./options.css" />
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/prototype/1.7.0.0/prototype.js"></script>
+  <script type="text/javascript" src="./options.js"></script>
+</head>
+
+<body onload="option.start();">
+
+<div class="title_pane">
+  <img src="./url_shortener_extension_128.png" />
+  <div class="title">goo.gl URL Shortener extension</div>
+  <br style="clear: both;" />
+</div>
+
+<div class="section_pane">
+  <div class="section_title">Notification</div>
+  <table>
+    <tr>
+      <td class="checkbox_col">
+        <input type="checkbox" id="not_show_notification_after_login" />
+      </td>
+      <td>
+        Don't show the message after logged in to Google.
+      </td>
+    </tr>
+    <tr>
+      <td class="checkbox_col">
+        <input type="checkbox" id="not_show_notification_after_copy" />
+      </td>
+      <td>
+        Don't show the message after copied the shortened URL to the clipboard using the context menu.
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div class="section_pane">
+  <div class="section_title">Context menu</div>
+  <table>
+    <tr>
+      <td class="checkbox_col">
+        <input type="checkbox" id="not_show_context_menus" />
+      </td>
+      <td>
+        Don't show context menus.
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div class="section_pane">
+  <div class="section_title">Watching</div>
+  <table>
+    <tr>
+      <td class="checkbox_col">
+        <input type="checkbox" id="not_start_watching" />
+      </td>
+      <td>
+        Don't start watching automatically when the URL is shortened.
+      </td>
+    </tr>
+  </table>
+</div>
+
+</body>
+
+</html>
