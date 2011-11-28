@@ -12,6 +12,7 @@ Popup.prototype = {
         this.assignEventHandlers();
         this.loadHistory();
         this.setCurrentLongUrl();
+        this.showRecommend();
     },
     assignEventHandlers: function() {
         $("login_link").onclick = this.bg.gl.getOAuthWindow().createOpenerOnClick();
@@ -19,6 +20,7 @@ Popup.prototype = {
         $("shorten").onclick = this.onClickShorten.bind(this);
         $("input_short_url").onclick = this.onClickShortUrl.bind(this);
         $("clear_timer").onclick = this.onClickClearTimer.bind(this);
+        $("recommend").onclick = this.onClickRecommend.bind(this);
     },
     isInvalidCredential: function(req) {
         if (req.status == 401) {
@@ -207,6 +209,22 @@ Popup.prototype = {
     },
     onClickClearTimer: function() {
         this.bg.gl.startWatchCount(null);
+    },
+    onClickRecommend: function() {
+        window.open(
+            "https://twitter.com/share?url="
+                + encodeURIComponent("http://goo.gl/QzrtB")
+                + "&text=Try \"goo.gl URL Shortener\" Chrome extension!",
+            "_blank",
+            "width=550,height=450");
+    },
+    showRecommend: function() {
+        var v = Math.floor(Math.random() * 3 + 1);
+        if (v != 2) {
+            Element.setStyle($("recommend"), {
+                display: "none"
+            });
+        }
     }
 };
 

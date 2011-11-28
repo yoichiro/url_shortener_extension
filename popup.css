@@ -179,3 +179,8 @@ a#clear_timer {
     position: absolute;
     right: 0;
 }
+
+a#recommend {
+    position: absolute;
+    left: 0;
+}
