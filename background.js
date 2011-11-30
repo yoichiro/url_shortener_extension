@@ -163,9 +163,11 @@ Gl.prototype = {
             message
         );
         notification.show();
-        setTimeout(function() {
-            notification.cancel();
-        }, 5000);
+        notification.ondisplay = function() {
+            setTimeout(function() {
+                notification.cancel();
+            }, 5000);
+        };
     },
     getAccessToken: function() {
         return localStorage["access_token"];
