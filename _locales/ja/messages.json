@@ -53,6 +53,9 @@
     "popupUrlDetail": {
         "message": "詳細"
     },
+    "popupRecommendText": {
+        "message": "\"goo.gl URL Shortener\" Chrome拡張機能をお試しください！"
+    },
     "ctxmenuShortenUrlAdded": {
         "message": "URLを短縮 (履歴に追加されます)"
     },

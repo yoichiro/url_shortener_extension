@@ -53,6 +53,9 @@
     "popupUrlDetail": {
         "message": "Detail"
     },
+    "popupRecommendText": {
+        "message": "Try \"goo.gl URL Shortener\" Chrome extension!"
+    },
     "ctxmenuShortenUrlAdded": {
         "message": "Shorten URL (added to history)"
     },

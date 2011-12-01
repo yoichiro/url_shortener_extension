@@ -225,7 +225,8 @@ Popup.prototype = {
         window.open(
             "https://twitter.com/share?url="
                 + encodeURIComponent("http://goo.gl/QzrtB")
-                + "&text=Try \"goo.gl URL Shortener\" Chrome extension!",
+                + "&text="
+                + encodeURIComponent(chrome.i18n.getMessage("popupRecommendText")),
             "_blank",
             "width=550,height=450");
     },
