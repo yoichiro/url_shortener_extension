@@ -1,6 +1,6 @@
 {
     "name": "goo.gl URL Shortener extension",
-    "description": "This extension provides you the UI to use Google URL Shortener quickly.",
+    "description": "__MSG_extDescription__",
     "version": "1.6.1",
     "browser_action": {
         "default_icon": "./url_shortener_extension_19.png",
@@ -19,5 +19,6 @@
         "128": "./url_shortener_extension_128.png"
     },
     "background_page": "./background.html",
-    "options_page": "options.html"
+    "options_page": "options.html",
+    "default_locale": "en"
 }

@@ -79,13 +79,13 @@ Gl.prototype = {
                 this.contextMenuIds.push(
                     chrome.contextMenus.create(
                         this.createContextMenu(
-                            "Shorten URL (added to history)"))
+                            chrome.i18n.getMessage("ctxmenuShortenUrlAdded")))
                 );
             } else {
                 this.contextMenuIds.push(
                     chrome.contextMenus.create({
                         type: "normal",
-                        title: "Login to Google (for recording to history)",
+                        title: chrome.i18n.getMessage("ctxmenuLogin"),
                         contexts: ["page"],
                         onclick: function(info, tab) {
                             this.oauthWindow.createOpenerOnClick()();
@@ -95,7 +95,7 @@ Gl.prototype = {
                 this.contextMenuIds.push(
                     chrome.contextMenus.create(
                         this.createContextMenu(
-                            "Shorten URL (not added to history)"))
+                            chrome.i18n.getMessage("ctxmenuShortenUrlNotAdded")))
                 );
             }
         }
@@ -127,11 +127,9 @@ Gl.prototype = {
         document.execCommand("copy");
         var startWatching = this.isStartWatching();
         if (this.isShowNotificationAfterCopy()) {
-            var msg = "Copied shorten URL ("
-                + shortUrl
-                + ") to clipboard.";
+            var msg = chrome.i18n.getMessage("notifyCopied", shortUrl);
             if (startWatching) {
-                msg += " Watching started.";
+                msg += chrome.i18n.getMessage("notifyStartWatching");
             }
             this.showNotification(msg);
         }
@@ -141,18 +139,14 @@ Gl.prototype = {
     },
     showFailedMessage: function(req) {
         this.showNotification(
-            "Shorten URL failed. ("
-                + req.status
-                + " "
-                + req.statusText
-                + ")"
+            chrome.i18n.getMessage("notifyShortenFailed",
+                                   req.status + " " + req.statusText)
         );
     },
     showOAuthCompletedNofitication: function() {
         if (this.isShowNotificationAfterLogin()) {
             this.showNotification(
-                "Authentication completed. "
-                    + "Shorten URL will be recorded to your history."
+                chrome.i18n.getMessage("notifyCompleteLogin")
             );
         }
     },

@@ -8,8 +8,18 @@ Option.prototype = {
         this.bg = chrome.extension.getBackgroundPage();
     },
     start: function() {
+        this.assignMessages();
         this.assignEventHandlers();
         this.restoreConfigurations();
+    },
+    assignMessages: function() {
+        $("optNotification").innerHTML = chrome.i18n.getMessage("optNotification");
+        $("optDontShowMsgLogin").innerHTML = chrome.i18n.getMessage("optDontShowMsgLogin");
+        $("optDontShowMsgCopyClipboard").innerHTML = chrome.i18n.getMessage("optDontShowMsgCopyClipboard");
+        $("optContextMenu").innerHTML = chrome.i18n.getMessage("optContextMenu");
+        $("optDontShowContextMenu").innerHTML = chrome.i18n.getMessage("optDontShowContextMenu");
+        $("optWatching").innerHTML = chrome.i18n.getMessage("optWatching");
+        $("optDontStartWatching").innerHTML = chrome.i18n.getMessage("optDontStartWatching");
     },
     restoreConfigurations: function() {
         $("not_show_notification_after_login").checked =

@@ -1,0 +1,87 @@
+{
+    "extDescription": {
+        "message": "This extension provides you the UI to use Google URL Shortener quickly."
+    },
+    "optNotification": {
+        "message": "Notification"
+    },
+    "optDontShowMsgLogin": {
+        "message": "Don't show the message after logged in to Google."
+    },
+    "optDontShowMsgCopyClipboard": {
+        "message": "Don't show the message after copied the shortened URL to the clipboard using the context menu."
+    },
+    "optContextMenu": {
+        "message": "Context menu"
+    },
+    "optDontShowContextMenu": {
+        "message": "Don't show context menus."
+    },
+    "optWatching": {
+        "message": "Watching a clicked count"
+    },
+    "optDontStartWatching": {
+        "message": "Don't start watching automatically when the URL is shortened."
+    },
+    "popupShorten": {
+        "message": "Shorten"
+    },
+    "popupHistory": {
+        "message": "History"
+    },
+    "popupLoginDesc": {
+        "message": "If you want to check your history, please login and authorize to Google."
+    },
+    "popupLogin": {
+        "message": "Login to Google"
+    },
+    "popupRecommend": {
+        "message": "Recommend this!"
+    },
+    "popupStopWatching": {
+        "message": "Stop watching"
+    },
+    "popupPage": {
+        "message": "Page: "
+    },
+    "popupCompleteShorten": {
+        "message": "Copied shorten URL to clipboard."
+    },
+    "popupStartWatching": {
+        "message": " Watching started."
+    },
+    "popupUrlDetail": {
+        "message": "Detail"
+    },
+    "ctxmenuShortenUrlAdded": {
+        "message": "Shorten URL (added to history)"
+    },
+    "ctxmenuShortenUrlNotAdded": {
+        "message": "Shorten URL (not added to history)"
+    },
+    "ctxmenuLogin": {
+        "message": "Login to Google (for recording to history)"
+    },
+    "notifyCopied": {
+        "message": "Copied shorten URL ($SHORT_URL$) to clipboard",
+        "placeholders": {
+            "short_url": {
+                "content": "$1"
+            }
+        }
+    },
+    "notifyStartWatching": {
+        "message": " Watching started."
+    },
+    "notifyShortenFailed": {
+        "message": "Shorten URL failed. ($REQ_STATUS$)",
+        "placeholders": {
+            "req_status": {
+                "content": "$1"
+            }
+        }
+    },
+    "notifyCompleteLogin": {
+        "message": "Authentication completed. Shorten URL will be recorded to your history."
+    }
+}

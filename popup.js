@@ -9,10 +9,19 @@ Popup.prototype = {
         this.bg = chrome.extension.getBackgroundPage();
     },
     start: function() {
+        this.assignMessages();
         this.assignEventHandlers();
         this.loadHistory();
         this.setCurrentLongUrl();
         this.showRecommend();
+    },
+    assignMessages: function() {
+        $("popupShorten").innerHTML = chrome.i18n.getMessage("popupShorten");
+        $("popupHistory").innerHTML = chrome.i18n.getMessage("popupHistory");
+        $("popupLogin").innerHTML = chrome.i18n.getMessage("popupLogin");
+        $("popupLoginDesc").innerHTML = chrome.i18n.getMessage("popupLoginDesc");
+        $("popupRecommend").innerHTML = chrome.i18n.getMessage("popupRecommend");
+        $("popupStopWatching").innerHTML = chrome.i18n.getMessage("popupStopWatching");
     },
     assignEventHandlers: function() {
         $("login_link").onclick = this.bg.gl.getOAuthWindow().createOpenerOnClick();
@@ -80,7 +89,7 @@ Popup.prototype = {
         var cnt = 1;
         for (var i = 0; i < len; i += 10) {
             if (cnt == 1) {
-                $("paginator").innerHTML = "Page: ";
+                $("paginator").innerHTML = chrome.i18n.getMessage("popupPage");;
             }
             var link = document.createElement("a");
             link.href = "#";
@@ -139,9 +148,9 @@ Popup.prototype = {
     setShortUrl: function(shortUrl, forceWatching) {
         $("input_short_url").value = shortUrl;
         var startWatching = this.bg.gl.isStartWatching();
-        var msg = "Copied shorten URL to clipboard.";
+        var msg = chrome.i18n.getMessage("popupCompleteShorten");
         if (forceWatching || startWatching) {
-            msg += " Watching started.";
+            msg += chrome.i18n.getMessage("popupStartWatching");
         }
         this.setMessage(msg, false);
         this.setTwitter(shortUrl);
@@ -197,7 +206,9 @@ Popup.prototype = {
             $("url_detail").innerHTML =
                 "<a href='http://goo.gl/info/"
                 + array[array.length - 1]
-                + "' target='_blank'>Detail</a>";
+                + "' target='_blank'>"
+                + chrome.i18n.getMessage("popupUrlDetail")
+                + "</a>";
             this.setVisible($("url_detail"), true);
         } else {
             this.setVisible($("url_detail"), false);

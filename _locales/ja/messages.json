@@ -1,0 +1,87 @@
+{
+    "extDescription": {
+        "message": "この拡張機能は、迅速にGoogle URL Shortenerを利用するためのUIを提供します。"
+    },
+    "optNotification": {
+        "message": "通知メッセージ"
+    },
+    "optDontShowMsgLogin": {
+        "message": "Googleにログインした後にメッセージを表示しない。"
+    },
+    "optDontShowMsgCopyClipboard": {
+        "message": "コンテキストメニューを使って短縮URLをクリップボードにコピーした後にメッセージを表示しない。"
+    },
+    "optContextMenu": {
+        "message": "コンテキストメニュー"
+    },
+    "optDontShowContextMenu": {
+        "message": "コンテキストメニューを表示しない。"
+    },
+    "optWatching": {
+        "message": "クリック数監視"
+    },
+    "optDontStartWatching": {
+        "message": "URLが短縮された際に自動的に監視を開始する。"
+    },
+    "popupShorten": {
+        "message": "短縮"
+    },
+    "popupHistory": {
+        "message": "History"
+    },
+    "popupLoginDesc": {
+        "message": "もしあなたの履歴をチェックしたいなら、Googleにログインし認可を行ってください。"
+    },
+    "popupLogin": {
+        "message": "Googleにログイン"
+    },
+    "popupRecommend": {
+        "message": "これを勧める!"
+    },
+    "popupStopWatching": {
+        "message": "監視を止める"
+    },
+    "popupPage": {
+        "message": "ページ: "
+    },
+    "popupCompleteShorten": {
+        "message": "短縮URLをクリップボードにコピーしました。"
+    },
+    "popupStartWatching": {
+        "message": "監視を開始しました。"
+    },
+    "popupUrlDetail": {
+        "message": "詳細"
+    },
+    "ctxmenuShortenUrlAdded": {
+        "message": "URLを短縮 (履歴に追加されます)"
+    },
+    "ctxmenuShortenUrlNotAdded": {
+        "message": "URLを短縮 (履歴に追加されません)"
+    },
+    "ctxmenuLogin": {
+        "message": "Googleにログイン (履歴に記録するため)"
+    },
+    "notifyCopied": {
+        "message": "短縮URL ($SHORT_URL$) をクリップボードにコピーしました。",
+        "placeholders": {
+            "short_url": {
+                "content": "$1"
+            }
+        }
+    },
+    "notifyStartWatching": {
+        "message": "監視を開始しました。"
+    },
+    "notifyShortenFailed": {
+        "message": "URLの短縮に失敗しました。($REQ_STATUS$)",
+        "placeholders": {
+            "req_status": {
+                "content": "$1"
+            }
+        }
+    },
+    "notifyCompleteLogin": {
+        "message": "認可が完了しました。短縮URLはあなたの履歴に記録されます。"
+    }
+}
