@@ -21,7 +21,7 @@
         "message": "Suivi du compte de clicks"
     },
     "optDontStartWatching": {
-        "message": "Ne pas suivre le compte de clicks automatiqument lors d'une réduction d'URL."
+        "message": "Ne pas suivre le compte de clicks automatiquement lors d'une réduction d'URL."
     },
     "popupShorten": {
         "message": "Réduire"
