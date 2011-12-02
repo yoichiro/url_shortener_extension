@@ -48,6 +48,9 @@
         "message": "短縮URLをクリップボードにコピーしました。"
     },
     "popupStartWatching": {
+        "message": "監視の開始"
+    },
+    "popupStartedWatching": {
         "message": "監視を開始しました。"
     },
     "popupUrlDetail": {

@@ -48,6 +48,9 @@
         "message": "L'URL réduit a été copié au presse-papiers."
     },
     "popupStartWatching": {
+        "message": "Commencer à surveiller"
+    },
+    "popupStartedWatching": {
         "message": " Le suivi commence."
     },
     "popupUrlDetail": {

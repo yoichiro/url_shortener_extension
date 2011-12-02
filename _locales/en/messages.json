@@ -48,6 +48,9 @@
         "message": "Copied shorten URL to clipboard."
     },
     "popupStartWatching": {
+        "message": "Start watching"
+    },
+    "popupStartedWatching": {
         "message": " Watching started."
     },
     "popupUrlDetail": {

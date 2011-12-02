@@ -70,7 +70,9 @@ Popup.prototype = {
         this.setShortUrl(url, true);
     },
     showHistory: function(startIndex) {
-        var tmpl = "<tr><td><div class='long_url'><a href='${longUrl}' target='_blank'>${longUrl}</a></div></td><td><div class='short_url'><a href='${shortUrl1}' onclick='popup.onClickShortUrlLink(\"${shortUrl1}\")' title='Start watching'>${shortUrl2}</a></div></td><td><div class='click_count'>${clickCount}</div></td></tr>";
+        var tmpl = "<tr><td><div class='long_url'><a href='${longUrl}' target='_blank'>${longUrl}</a></div></td><td><div class='short_url'><a href='${shortUrl1}' onclick='popup.onClickShortUrlLink(\"${shortUrl1}\")' title='"
+            + chrome.i18n.getMessage("popupStartWatching")
+            + "'>${shortUrl2}</a></div></td><td><div class='click_count'>${clickCount}</div></td></tr>";
         var table = $("history_table_table");
         table.innerHTML = "";
         var items = this.history;
@@ -150,7 +152,7 @@ Popup.prototype = {
         var startWatching = this.bg.gl.isStartWatching();
         var msg = chrome.i18n.getMessage("popupCompleteShorten");
         if (forceWatching || startWatching) {
-            msg += chrome.i18n.getMessage("popupStartWatching");
+            msg += chrome.i18n.getMessage("popupStartedWatching");
         }
         this.setMessage(msg, false);
         this.setTwitter(shortUrl);
