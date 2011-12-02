@@ -1,0 +1,90 @@
+﻿{
+    "extDescription": {
+        "message": "Cette extension offre une interface pratique pour utilser Google URL Shortener rapidement."
+    },
+    "optNotification": {
+        "message": "Notification"
+    },
+    "optDontShowMsgLogin": {
+        "message": "Ne pas afficher de notification après la connexion à Google."
+    },
+    "optDontShowMsgCopyClipboard": {
+        "message": "Ne pas afficher de notification après avoir copié un lien réduit à l'aide du menu contextuel."
+    },
+    "optContextMenu": {
+        "message": "Menu contextuel"
+    },
+    "optDontShowContextMenu": {
+        "message": "Ne pas ajouter au menu contextuel."
+    },
+    "optWatching": {
+        "message": "Suivi du compte de clicks"
+    },
+    "optDontStartWatching": {
+        "message": "Ne pas suivre le compte de clicks automatiquement lors d'une réduction d'URL."
+    },
+    "popupShorten": {
+        "message": "Réduire"
+    },
+    "popupHistory": {
+        "message": "Historique"
+    },
+    "popupLoginDesc": {
+        "message": "Pour voir votre historique, veuillez vous connecter à Google et autoriser l'accès."
+    },
+    "popupLogin": {
+        "message": "Connexion à Google"
+    },
+    "popupRecommend": {
+        "message": "Passez le mot!"
+    },
+    "popupStopWatching": {
+        "message": "Cesser le suivi"
+    },
+    "popupPage": {
+        "message": "Page: "
+    },
+    "popupCompleteShorten": {
+        "message": "L'URL réduit a été copié au presse-papiers."
+    },
+    "popupStartWatching": {
+        "message": " Le suivi commence."
+    },
+    "popupUrlDetail": {
+        "message": "Détails"
+    },
+    "popupRecommendText": {
+        "message": "Essayez l'extension \"goo.gl URL Shortener\" pour Chrome!"
+    },
+    "ctxmenuShortenUrlAdded": {
+        "message": "Réduire l'URL (ajouter à l'historique)"
+    },
+    "ctxmenuShortenUrlNotAdded": {
+        "message": "Réduire l'URL (sans ajouter à l'historique)"
+    },
+    "ctxmenuLogin": {
+        "message": "Connexion à Google (pour enregistrer votre historique)"
+    },
+    "notifyCopied": {
+        "message": "L'URL réduit ($SHORT_URL$) a été copié au presse-papiers.",
+        "placeholders": {
+            "short_url": {
+                "content": "$1"
+            }
+        }
+    },
+    "notifyStartWatching": {
+        "message": " Le suivi commence."
+    },
+    "notifyShortenFailed": {
+        "message": "La réduction d'URL a échoué. ($REQ_STATUS$)",
+        "placeholders": {
+            "req_status": {
+                "content": "$1"
+            }
+        }
+    },
+    "notifyCompleteLogin": {
+        "message": "Connexion complétée. Les URLs réduits seront maintenant enregistrés à votre historique."
+    }
+}
