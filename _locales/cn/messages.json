@@ -1,0 +1,93 @@
+{
+    "extDescription": {
+        "message": "该扩展程序提供的界面可以更方便的使用Google URL Shortener。"
+    },
+    "optNotification": {
+        "message": "消息设置"
+    },
+    "optDontShowMsgLogin": {
+        "message": "登录Google后不显示消息。"
+    },
+    "optDontShowMsgCopyClipboard": {
+        "message": "使用鼠标右键菜单复制短缩网址后不显示消息。"
+    },
+    "optContextMenu": {
+        "message": "鼠标右键菜单设置"
+    },
+    "optDontShowContextMenu": {
+        "message": "不表示鼠标右键菜单。"
+    },
+    "optWatching": {
+        "message": "监视点击数"
+    },
+    "optDontStartWatching": {
+        "message": "生成短缩网址同时自动开始监视。"
+    },
+    "popupShorten": {
+        "message": "短縮"
+    },
+    "popupHistory": {
+        "message": "历史记录"
+    },
+    "popupLoginDesc": {
+        "message": "如果您想确认历史记录，请登录Google进行认可。"
+    },
+    "popupLogin": {
+        "message": "登录Google"
+    },
+    "popupRecommend": {
+        "message": "推荐!"
+    },
+    "popupStopWatching": {
+        "message": "停止监视"
+    },
+    "popupPage": {
+        "message": "页: "
+    },
+    "popupCompleteShorten": {
+        "message": "短缩网址已复制到剪贴板。"
+    },
+    "popupStartWatching": {
+        "message": "开始监视"
+    },
+    "popupStartedWatching": {
+        "message": "已开始监视"
+    },
+    "popupUrlDetail": {
+        "message": "詳細"
+    },
+    "popupRecommendText": {
+        "message": "\"goo.gl URL Shortener\" Chrome扩展程序！"
+    },
+    "ctxmenuShortenUrlAdded": {
+        "message": "生成短缩网址 (保留历史记录)"
+    },
+    "ctxmenuShortenUrlNotAdded": {
+        "message": "生成短缩网址 (不保留历史记录)"
+    },
+    "ctxmenuLogin": {
+        "message": "登录Google (可以保留历史记录)"
+    },
+    "notifyCopied": {
+        "message": "短缩网址 ($SHORT_URL$) 已成功复制到剪贴板。",
+        "placeholders": {
+            "short_url": {
+                "content": "$1"
+            }
+        }
+    },
+    "notifyStartWatching": {
+        "message": "已开始监视"
+    },
+    "notifyShortenFailed": {
+        "message": "短缩网址生成失败。($REQ_STATUS$)",
+        "placeholders": {
+            "req_status": {
+                "content": "$1"
+            }
+        }
+    },
+    "notifyCompleteLogin": {
+        "message": "认可处理结束。短缩网址将保留到您的历史记录里。"
+    }
+}
