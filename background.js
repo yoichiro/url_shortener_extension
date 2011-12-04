@@ -225,14 +225,7 @@ Gl.prototype = {
             return;
         }
         this.setBadge(null, -2);
-        var url = "https://www.googleapis.com/urlshortener/v1/url";
-        new Ajax.Request(url, {
-            method: "get",
-            parameters: {
-                key: this.apiKey,
-                shortUrl: shortUrl,
-                projection: "FULL"
-            },
+        this.loadUrlInformation(shortUrl, {
             onSuccess: function(req) {
                 this.setBadge(shortUrl,
                               req.responseJSON.analytics.allTime.shortUrlClicks);
@@ -250,6 +243,33 @@ Gl.prototype = {
                 this.timers.push(timer);
             }.bind(this)
         });
+    },
+    loadUrlInformation: function(shortUrl, callbacks) {
+        var url = "https://www.googleapis.com/urlshortener/v1/url";
+        var params = {
+            method: "get",
+            onSuccess: callbacks.onSuccess,
+            onFailure: callbacks.onFailure,
+            onException: callbacks.onException,
+            onComplete: callbacks.onComplete
+        };
+        if (this.wasAuthorized()) {
+            var accessToken = this.getAccessToken();
+            params["requestHeaders"] = [
+                "Authorization", "OAuth " + accessToken
+            ];
+            params["parameters"] = {
+                shortUrl: shortUrl,
+                projection: "FULL"
+            };
+        } else {
+            params["parameters"] = {
+                shortUrl: shortUrl,
+                projection: "FULL",
+                key: this.apiKey
+            };
+        }
+        new Ajax.Request(url, params);
     },
     setBadge: function(shortUrl, value) {
         var text = value;

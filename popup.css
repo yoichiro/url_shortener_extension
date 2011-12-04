@@ -185,3 +185,47 @@ a#recommend {
     position: absolute;
     left: 0;
 }
+
+div#detail_pane {
+    position: absolute;
+    border: 1px solid gray;
+    top: 90px;
+    left: 130px;
+    width: 295px;
+    height: 220px;
+    background-color: white;
+    display: none;
+}
+
+div#detail_pane img {
+    position: relative;
+    left: 130px;
+    top: 90px;
+}
+
+div#detail_url_info {
+    font-size: 12px;
+    overflow: hidden;
+}
+
+div.detail_date {
+    margin-left: 5px;
+    margin-top: 5px;
+    margin-right: 5px;
+    border-bottom: 1px solid skyblue;
+}
+
+div.detail_section {
+    margin-left: 8px;
+    margin-top: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+div.detail_section td {
+    font-size: 12px;
+}
+
+div.detail_section td.click_count {
+    text-align: right;
+}

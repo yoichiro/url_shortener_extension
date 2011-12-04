@@ -5,8 +5,10 @@ var Popup = function() {
 Popup.prototype = {
     bg: null,
     history: null,
+    detailTimer: null,
     initialize: function() {
         this.bg = chrome.extension.getBackgroundPage();
+        this.detailTimer = new Array();
     },
     start: function() {
         this.assignMessages();
@@ -70,19 +72,139 @@ Popup.prototype = {
         this.setShortUrl(url, true);
     },
     showHistory: function(startIndex) {
-        var tmpl = "<tr><td><div class='long_url'><a href='${longUrl}' target='_blank'>${longUrl}</a></div></td><td><div class='short_url'><a href='${shortUrl1}' onclick='popup.onClickShortUrlLink(\"${shortUrl1}\")' title='"
-            + chrome.i18n.getMessage("popupStartWatching")
-            + "'>${shortUrl2}</a></div></td><td><div class='click_count'>${clickCount}</div></td></tr>";
         var table = $("history_table_table");
         table.innerHTML = "";
         var items = this.history;
         var count = Math.min(startIndex + 10, items.length);
         for (var i = startIndex; i < count; i++) {
             var item = items[i];
-            table.innerHTML += tmpl.replace(/\$\{longUrl\}/g, item.longUrl)
-                .replace(/\$\{shortUrl1\}/g, item.id)
-                .replace("${shortUrl2}", item.id.substring(7))
-                .replace("${clickCount}", item.analytics.allTime.shortUrlClicks);
+            var tr = document.createElement("tr");
+
+            var longUrlTd = document.createElement("td");
+            var longUrlDiv = document.createElement("div");
+            longUrlDiv.addClassName("long_url");
+            var longUrlA = document.createElement("a");
+            longUrlA.setAttribute("href", item.longUrl);
+            longUrlA.setAttribute("target", "_blank");
+            var longUrlText = document.createTextNode(item.longUrl);
+            longUrlA.appendChild(longUrlText);
+            longUrlDiv.appendChild(longUrlA);
+            longUrlTd.appendChild(longUrlDiv);
+            tr.appendChild(longUrlTd);
+
+            var shortUrlTd = document.createElement("td");
+            var shortUrlDiv = document.createElement("div");
+            shortUrlDiv.addClassName("short_url");
+            var shortUrlA = document.createElement("a");
+            shortUrlA.setAttribute("href", item.id);
+            shortUrlA.setAttribute(
+                "title",
+                chrome.i18n.getMessage("popupStartWatching")
+            );
+            shortUrlA.onclick = function(url) {
+                return function() {
+                    this.onClickShortUrlLink(url);
+                }.bind(this);
+            }.bind(this)(item.id);
+            shortUrlA.onmouseover = function(item) {
+                return function() {
+                    this.startDetailTimer(item);
+                }.bind(this);
+            }.bind(this)(item);
+            shortUrlA.onmouseout = this.stopDetailTimer.bind(this);
+            var shortUrlText = document.createTextNode(item.id.substring(7));
+            shortUrlA.appendChild(shortUrlText);
+            shortUrlDiv.appendChild(shortUrlA);
+            shortUrlTd.appendChild(shortUrlDiv);
+            tr.appendChild(shortUrlTd);
+
+            var countTd = document.createElement("td");
+            var countDiv = document.createElement("div");
+            countDiv.addClassName("click_count");
+            var countText = document.createTextNode(
+                item.analytics.allTime.shortUrlClicks);
+            countDiv.appendChild(countText);
+            countTd.appendChild(countDiv);
+            tr.appendChild(countTd);
+
+            table.appendChild(tr);
+        }
+    },
+    startDetailTimer: function(item) {
+        var timer = setTimeout(function(item) {
+            return function() {
+                this.showDetailPane(item);
+            }.bind(this);
+        }.bind(this)(item), 1000);
+        this.detailTimer.push(timer);
+    },
+    stopDetailTimer: function() {
+        this.detailTimer.each(function(timer) {
+            clearTimeout(timer);
+        });
+        this.detailTimer = new Array();
+        this.setVisible($("detail_pane"), false);
+    },
+    showDetailPane: function(item) {
+        this.setVisible($("detail_pane"), true);
+        Element.setStyle($("detail_pane"), {
+            height: "220px"
+        });
+        this.setVisible($("detail_pane_progress"), true);
+        this.setVisible($("detail_url_info"), false);
+        this.bg.gl.loadUrlInformation(item.id, {
+            onSuccess: function(req) {
+                var item = req.responseJSON;
+                this.setDetailInformation(item);
+            }.bind(this),
+            onFailure: function(req) {
+                this.stopDetailTimer();
+            }.bind(this),
+            onException: function(req) {
+                this.stopDetailTimer();
+            }.bind(this),
+            onComplete: function(req) {
+                this.setVisible($("detail_pane_progress"), false);
+                this.setVisible($("detail_url_info"), true);
+                Element.setStyle($("detail_pane"), {
+                    height: "auto"
+                });
+            }.bind(this)
+        });
+    },
+    setDetailInformation: function(item) {
+        var created = new Date(item.created);
+        $("detail_date_str").innerHTML = created.toLocaleString();
+        var table = $("detail_section_table");
+        table.innerHTML = "";
+        var allTime = item.analytics.allTime;
+        this.setDetailInformationRow("browsers", allTime, table);
+        this.setDetailInformationRow("countries", allTime, table);
+        this.setDetailInformationRow("platforms", allTime, table);
+        this.setDetailInformationRow("referrers", allTime, table);
+    },
+    setDetailInformationRow: function(name, allTime, table) {
+        var items = allTime[name];
+        if (items) {
+            for (var i = 0; i < Math.min(items.length, 3); i++) {
+                var tr = document.createElement("tr");
+                var item = items[i];
+                var td1 = document.createElement("td");
+                if (i == 0) {
+                    td1.appendChild(document.createTextNode(name));
+                } else {
+                    td1.appendChild(document.createElement("br"));
+                }
+                tr.appendChild(td1);
+                var td2 = document.createElement("td");
+                td2.appendChild(document.createTextNode(item.id));
+                tr.appendChild(td2);
+                var td3 = document.createElement("td");
+                td3.addClassName("click_count");
+                td3.appendChild(document.createTextNode(item.count));
+                tr.appendChild(td3);
+                table.appendChild(tr);
+            }
         }
     },
     setPaginator: function() {
