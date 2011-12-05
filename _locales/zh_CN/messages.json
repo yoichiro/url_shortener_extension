@@ -23,6 +23,15 @@
     "optDontStartWatching": {
         "message": "生成短缩网址同时自动开始监视。"
     },
+    "optShorten": {
+        "message": "短縮"
+    },
+    "optShortenDirectlyAtNotLogin": {
+        "message": "当您没有登录，缩短网址时自动按扩展的按钮。"
+    },
+    "optShortenDirectlyAtLogin": {
+        "message": "当你登录，你缩短网址时自动按下按钮的延伸。"
+    },
     "popupShorten": {
         "message": "短縮"
     },

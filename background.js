@@ -303,6 +303,12 @@ Gl.prototype = {
     },
     isStartWatching: function() {
         return !Boolean(localStorage["not_start_watching"]);
+    },
+    isShortenDirectlyAtNotLogin: function() {
+        return Boolean(localStorage["shorten_directly_at_not_login"]);
+    },
+    isShortenDirectlyAtLogin: function() {
+        return Boolean(localStorage["shorten_directly_at_login"]);
     }
 };
 

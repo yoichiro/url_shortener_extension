@@ -23,6 +23,15 @@
     "optDontStartWatching": {
         "message": "URLが短縮された際に自動的に監視を開始する。"
     },
+    "optShorten": {
+        "message": "短縮"
+    },
+    "optShortenDirectlyAtNotLogin": {
+        "message": "ログインしていないときに、拡張機能のボタンを押した際に自動的にURLを短縮する。"
+    },
+    "optShortenDirectlyAtLogin": {
+        "message": "ログインしているときに、拡張機能のボタンを押した際に自動的にURLを短縮する。"
+    },
     "popupShorten": {
         "message": "短縮"
     },

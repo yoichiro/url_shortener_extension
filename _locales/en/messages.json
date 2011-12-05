@@ -23,6 +23,15 @@
     "optDontStartWatching": {
         "message": "Don't start watching automatically when the URL is shortened."
     },
+    "optShorten": {
+        "message": "Shorten"
+    },
+    "optShortenDirectlyAtNotLogin": {
+        "message": "Shorten the URL directly at clicking the extension button in NOT logged in."
+    },
+    "optShortenDirectlyAtLogin": {
+        "message": "Shorten the URL directly at clicking the extension button in logged in."
+    },
     "popupShorten": {
         "message": "Shorten"
     },

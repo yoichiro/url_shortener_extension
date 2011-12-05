@@ -20,6 +20,9 @@ Option.prototype = {
         $("optDontShowContextMenu").innerHTML = chrome.i18n.getMessage("optDontShowContextMenu");
         $("optWatching").innerHTML = chrome.i18n.getMessage("optWatching");
         $("optDontStartWatching").innerHTML = chrome.i18n.getMessage("optDontStartWatching");
+        $("optShorten").innerHTML = chrome.i18n.getMessage("optShorten");
+        $("optShortenDirectlyAtNotLogin").innerHTML = chrome.i18n.getMessage("optShortenDirectlyAtNotLogin");
+        $("optShortenDirectlyAtLogin").innerHTML = chrome.i18n.getMessage("optShortenDirectlyAtLogin");
     },
     restoreConfigurations: function() {
         $("not_show_notification_after_login").checked =
@@ -30,6 +33,10 @@ Option.prototype = {
             !this.bg.gl.isShowContextMenus();
         $("not_start_watching").checked =
             !this.bg.gl.isStartWatching();
+        $("shorten_directly_at_not_login").checked =
+            this.bg.gl.isShortenDirectlyAtNotLogin();
+        $("shorten_directly_at_login").checked =
+            this.bg.gl.isShortenDirectlyAtLogin();
     },
     assignEventHandlers: function() {
         $("not_show_notification_after_login").onclick =
@@ -40,6 +47,10 @@ Option.prototype = {
             this.onClickNotShowContextMenus.bind(this);
         $("not_start_watching").onclick =
             this.onClickNotStartWatching.bind(this);
+        $("shorten_directly_at_login").onclick =
+            this.onClickShortenDirectlyAtLogin.bind(this);
+        $("shorten_directly_at_not_login").onclick =
+            this.onClickShortenDirectlyAtNotLogin.bind(this);
     },
     onClickNotShowNotificationAfterLogin: function() {
         this.changeCheckboxConfiguration("not_show_notification_after_login");
@@ -53,6 +64,12 @@ Option.prototype = {
     },
     onClickNotStartWatching: function() {
         this.changeCheckboxConfiguration("not_start_watching");
+    },
+    onClickShortenDirectlyAtNotLogin: function() {
+        this.changeCheckboxConfiguration("shorten_directly_at_not_login");
+    },
+    onClickShortenDirectlyAtLogin: function() {
+        this.changeCheckboxConfiguration("shorten_directly_at_login");
     },
     changeCheckboxConfiguration: function(name) {
         localStorage[name] = $(name).checked ? "true" : "";

@@ -14,8 +14,8 @@ Popup.prototype = {
         this.assignMessages();
         this.assignEventHandlers();
         this.loadHistory();
-        this.setCurrentLongUrl();
         this.showRecommend();
+        this.setCurrentLongUrl();
     },
     assignMessages: function() {
         $("popupShorten").innerHTML = chrome.i18n.getMessage("popupShorten");
@@ -245,6 +245,15 @@ Popup.prototype = {
     setCurrentLongUrl: function() {
         chrome.tabs.getSelected(null, function(tab) {
             $("input_long_url").value = tab.url;
+            if (this.bg.gl.wasAuthorized()) {
+                if (this.bg.gl.isShortenDirectlyAtLogin()) {
+                    this.onClickShorten();
+                }
+            } else {
+                if (this.bg.gl.isShortenDirectlyAtNotLogin()) {
+                    this.onClickShorten();
+                }
+            }
         }.bind(this));
     },
     selectInputLongUrl: function() {

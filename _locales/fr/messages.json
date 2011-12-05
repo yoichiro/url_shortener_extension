@@ -23,6 +23,15 @@
     "optDontStartWatching": {
         "message": "Ne pas suivre le compte de clicks automatiquement lors d'une réduction d'URL."
     },
+    "optShorten": {
+        "message": "Raccourcir"
+    },
+    "optShortenDirectlyAtNotLogin": {
+        "message": "Lorsque vous n'êtes pas connecté, raccourcir l'URL automatiquement lorsque vous appuyez sur le bouton de l'extension."
+    },
+    "optShortenDirectlyAtLogin": {
+        "message": "Lorsque vous êtes connecté, vous raccourcissez l'URL automatiquement lorsque vous appuyez sur le bouton de l'extension."
+    },
     "popupShorten": {
         "message": "Réduire"
     },
