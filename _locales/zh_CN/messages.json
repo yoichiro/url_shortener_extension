@@ -59,6 +59,33 @@
     "popupRecommendText": {
         "message": "\"goo.gl URL Shortener\" Chrome扩展程序！"
     },
+    "popupJustNow": {
+        "message": "只是现在"
+    },
+    "popupHoursAgo": {
+        "message": "$VALUE$小时前",
+        "placeholders": {
+            "value" : {
+                "content": "$1"
+            }
+        }
+    },
+    "popupDayAgo": {
+        "message": "$VALUE$天前",
+        "placeholders": {
+            "value" : {
+                "content": "$1"
+            }
+        }
+    },
+    "popupDaysAgo": {
+        "message": "$VALUE$天前",
+        "placeholders": {
+            "value" : {
+                "content": "$1"
+            }
+        }
+    },
     "ctxmenuShortenUrlAdded": {
         "message": "生成短缩网址 (保留历史记录)"
     },

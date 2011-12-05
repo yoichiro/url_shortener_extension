@@ -59,6 +59,33 @@
     "popupRecommendText": {
         "message": "\"goo.gl URL Shortener\" Chrome拡張機能をお試しください！"
     },
+    "popupJustNow": {
+        "message": "たった今"
+    },
+    "popupHoursAgo": {
+        "message": "$VALUE$時間前",
+        "placeholders": {
+            "value" : {
+                "content": "$1"
+            }
+        }
+    },
+    "popupDayAgo": {
+        "message": "$VALUE$日前",
+        "placeholders": {
+            "value" : {
+                "content": "$1"
+            }
+        }
+    },
+    "popupDaysAgo": {
+        "message": "$VALUE$日前",
+        "placeholders": {
+            "value" : {
+                "content": "$1"
+            }
+        }
+    },
     "ctxmenuShortenUrlAdded": {
         "message": "URLを短縮 (履歴に追加されます)"
     },

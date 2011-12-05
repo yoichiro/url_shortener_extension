@@ -59,6 +59,33 @@
     "popupRecommendText": {
         "message": "Try \"goo.gl URL Shortener\" Chrome extension!"
     },
+    "popupJustNow": {
+        "message": "Just now"
+    },
+    "popupHoursAgo": {
+        "message": "$VALUE$ hours ago",
+        "placeholders": {
+            "value" : {
+                "content": "$1"
+            }
+        }
+    },
+    "popupDayAgo": {
+        "message": "$VALUE$ day ago",
+        "placeholders": {
+            "value" : {
+                "content": "$1"
+            }
+        }
+    },
+    "popupDaysAgo": {
+        "message": "$VALUE$ days ago",
+        "placeholders": {
+            "value" : {
+                "content": "$1"
+            }
+        }
+    },
     "ctxmenuShortenUrlAdded": {
         "message": "Shorten URL (added to history)"
     },

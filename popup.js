@@ -173,8 +173,24 @@ Popup.prototype = {
         });
     },
     setDetailInformation: function(item) {
-        var created = new Date(item.created);
-        $("detail_date_str").innerHTML = created.toLocaleString();
+        var now = (new Date()).getTime();
+        var created = (new Date(item.created)).getTime();
+        var delta = now - created;
+        var strDelta;
+        if (delta < 1000 * 60 * 60) {
+            strDelta = chrome.i18n.getMessage("popupJustNow");
+        } else if (delta < 1000 * 60 * 60 * 24) {
+            strDelta = chrome.i18n.getMessage(
+                "popupHoursAgo", "" + Math.floor(delta / (1000 * 60 * 60)));
+        } else {
+            delta = Math.floor(delta / (1000 * 60 * 60 * 24));
+            if (delta == 1) {
+                strDelta = chrome.i18n.getMessage("popupDayAgo", "" + delta);
+            } else {
+                strDelta = chrome.i18n.getMessage("popupDaysAgo", "" + delta);
+            }
+        }
+        $("detail_date_str").innerHTML = strDelta;
         var table = $("detail_section_table");
         table.innerHTML = "";
         var allTime = item.analytics.allTime;
@@ -213,7 +229,7 @@ Popup.prototype = {
         var cnt = 1;
         for (var i = 0; i < len; i += 10) {
             if (cnt == 1) {
-                $("paginator").innerHTML = chrome.i18n.getMessage("popupPage");;
+                $("paginator").innerHTML = chrome.i18n.getMessage("popupPage");
             }
             var link = document.createElement("a");
             link.href = "#";
