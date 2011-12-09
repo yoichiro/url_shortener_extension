@@ -32,6 +32,9 @@
     "optShortenDirectlyAtLogin": {
         "message": "ログインしているときに、拡張機能のボタンを押した際に自動的にURLを短縮する。"
     },
+    "optTweetAtShortenByContextMenu": {
+        "message": "コンテキストメニューから短縮した時に、自動的にTwitter投稿ウィンドウを表示する。"
+    },
     "popupShorten": {
         "message": "短縮"
     },

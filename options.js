@@ -23,6 +23,7 @@ Option.prototype = {
         $("optShorten").innerHTML = chrome.i18n.getMessage("optShorten");
         $("optShortenDirectlyAtNotLogin").innerHTML = chrome.i18n.getMessage("optShortenDirectlyAtNotLogin");
         $("optShortenDirectlyAtLogin").innerHTML = chrome.i18n.getMessage("optShortenDirectlyAtLogin");
+        $("optTweetAtShortenByContextMenu").innerHTML = chrome.i18n.getMessage("optTweetAtShortenByContextMenu");
     },
     restoreConfigurations: function() {
         $("not_show_notification_after_login").checked =
@@ -37,6 +38,8 @@ Option.prototype = {
             this.bg.gl.isShortenDirectlyAtNotLogin();
         $("shorten_directly_at_login").checked =
             this.bg.gl.isShortenDirectlyAtLogin();
+        $("tweet_at_shorten_by_context_menu").checked =
+            this.bg.gl.isTweetAtShortenByContextMenu();
     },
     assignEventHandlers: function() {
         $("not_show_notification_after_login").onclick =
@@ -51,6 +54,8 @@ Option.prototype = {
             this.onClickShortenDirectlyAtLogin.bind(this);
         $("shorten_directly_at_not_login").onclick =
             this.onClickShortenDirectlyAtNotLogin.bind(this);
+        $("tweet_at_shorten_by_context_menu").onclick =
+            this.onClickTweetAtShortenByContextMenu.bind(this);
     },
     onClickNotShowNotificationAfterLogin: function() {
         this.changeCheckboxConfiguration("not_show_notification_after_login");
@@ -70,6 +75,9 @@ Option.prototype = {
     },
     onClickShortenDirectlyAtLogin: function() {
         this.changeCheckboxConfiguration("shorten_directly_at_login");
+    },
+    onClickTweetAtShortenByContextMenu: function() {
+        this.changeCheckboxConfiguration("tweet_at_shorten_by_context_menu");
     },
     changeCheckboxConfiguration: function(name) {
         localStorage[name] = $(name).checked ? "true" : "";

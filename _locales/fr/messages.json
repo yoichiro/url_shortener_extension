@@ -32,6 +32,9 @@
     "optShortenDirectlyAtLogin": {
         "message": "Lorsque vous êtes connecté, vous raccourcissez l'URL automatiquement lorsque vous appuyez sur le bouton de l'extension."
     },
+    "optTweetAtShortenByContextMenu": {
+        "message": "Lorsque vous raccourcissez URL par le menu contextuel, afficher la fenêtre de poster sur Twitter automatiquement."
+    },
     "popupShorten": {
         "message": "Réduire"
     },

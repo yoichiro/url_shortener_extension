@@ -109,6 +109,9 @@ Gl.prototype = {
                 this.shortenLongUrl(tab.url, {
                     onSuccess: function(req) {
                         this.showSucceedMessage(req);
+                        if (this.isTweetAtShortenByContextMenu()) {
+                            this.showTweetWindow(req);
+                        }
                     }.bind(this),
                     onFailure: function(req) {
                         this.showFailedMessage(req);
@@ -118,6 +121,14 @@ Gl.prototype = {
                 });
             }.bind(this)
         };
+    },
+    showTweetWindow: function(req) {
+        var shortUrl = req.responseJSON.id;
+        window.open(
+            "https://twitter.com/share?url="
+                + encodeURIComponent("http://goo.gl/QzrtB"),
+            "_blank",
+            "width=550,height=450");
     },
     showSucceedMessage: function(req) {
         var shortUrl = req.responseJSON.id;
@@ -309,6 +320,9 @@ Gl.prototype = {
     },
     isShortenDirectlyAtLogin: function() {
         return Boolean(localStorage["shorten_directly_at_login"]);
+    },
+    isTweetAtShortenByContextMenu: function() {
+        return Boolean(localStorage["tweet_at_shorten_by_context_menu"]);
     }
 };
 
