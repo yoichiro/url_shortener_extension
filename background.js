@@ -244,9 +244,6 @@ Gl.prototype = {
             onFailure: function(req) {
                 this.setBadge(null, -1);
             }.bind(this),
-            onException: function(req, exception) {
-                this.setBadge(null, -1);
-            }.bind(this),
             onComplete: function(req) {
                 var timer = setTimeout(function() {
                     this.startWatchCount(shortUrl);
@@ -261,7 +258,6 @@ Gl.prototype = {
             method: "get",
             onSuccess: callbacks.onSuccess,
             onFailure: callbacks.onFailure,
-            onException: callbacks.onException,
             onComplete: callbacks.onComplete
         };
         if (this.wasAuthorized()) {

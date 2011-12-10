@@ -78,6 +78,7 @@ td div.click_count {
     width: 40px;
     text-align: right;
     font-weight: bold;
+    cursor: pointer;
 }
 
 div#history_table_progress {
@@ -228,5 +229,42 @@ div.detail_section td {
 }
 
 div.detail_section td.click_count {
+    text-align: right;
+}
+
+div#click_counts_pane {
+    position: absolute;
+    border: 1px solid gray;
+    top: 130px;
+    left: 400px;
+    width: 130px;
+    height: 115px;
+    background-color: white;
+    display: none;
+}
+
+div#click_counts_pane img {
+    position: relative;
+    left: 50px;
+    top: 40px;
+}
+
+div#click_counts_info {
+    font-size: 12px;
+    overflow: hidden;
+}
+
+div.click_counts_section {
+    margin-left: 8px;
+    margin-top: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+}
+
+div.click_counts_section td {
+    font-size: 12px;
+}
+
+div.click_counts_section td.click_count {
     text-align: right;
 }

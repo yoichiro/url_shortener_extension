@@ -6,9 +6,11 @@ Popup.prototype = {
     bg: null,
     history: null,
     detailTimer: null,
+    clickCountsTimer: null,
     initialize: function() {
         this.bg = chrome.extension.getBackgroundPage();
         this.detailTimer = new Array();
+        this.clickCountsTimer = new Array();
     },
     start: function() {
         this.assignMessages();
@@ -123,6 +125,12 @@ Popup.prototype = {
             countDiv.addClassName("click_count");
             var countText = document.createTextNode(
                 item.analytics.allTime.shortUrlClicks);
+            countDiv.onmouseover = function(item) {
+                return function() {
+                    this.startClickCountsTimer(item);
+                }.bind(this);
+            }.bind(this)(item);
+            countDiv.onmouseout = this.stopClickCountsTimer.bind(this);
             countDiv.appendChild(countText);
             countTd.appendChild(countDiv);
             tr.appendChild(countTd);
@@ -145,6 +153,21 @@ Popup.prototype = {
         this.detailTimer = new Array();
         this.setVisible($("detail_pane"), false);
     },
+    startClickCountsTimer: function(item) {
+        var timer = setTimeout(function(item) {
+            return function() {
+                this.showClickCountsPane(item);
+            }.bind(this);
+        }.bind(this)(item), 1000);
+        this.clickCountsTimer.push(timer);
+    },
+    stopClickCountsTimer: function() {
+        this.clickCountsTimer.each(function(timer) {
+            clearTimeout(timer);
+        });
+        this.clickCountsTimer = new Array();
+        this.setVisible($("click_counts_pane"), false);
+    },
     showDetailPane: function(item) {
         this.setVisible($("detail_pane"), true);
         Element.setStyle($("detail_pane"), {
@@ -158,9 +181,6 @@ Popup.prototype = {
                 this.setDetailInformation(item);
             }.bind(this),
             onFailure: function(req) {
-                this.stopDetailTimer();
-            }.bind(this),
-            onException: function(req) {
                 this.stopDetailTimer();
             }.bind(this),
             onComplete: function(req) {
@@ -222,6 +242,44 @@ Popup.prototype = {
                 table.appendChild(tr);
             }
         }
+    },
+    showClickCountsPane: function(item) {
+        this.setVisible($("click_counts_pane"), true);
+        this.setVisible($("click_counts_pane_progress"), true);
+        this.setVisible($("click_counts_info"), false);
+        this.bg.gl.loadUrlInformation(item.id, {
+            onSuccess: function(req) {
+                var item = req.responseJSON;
+                this.setClickCountsInformation(item);
+            }.bind(this),
+            onFailure: function(req) {
+                this.stopClickCountsTimer();
+            }.bind(this),
+            onComplete: function(req) {
+                this.setVisible($("click_counts_pane_progress"), false);
+                this.setVisible($("click_counts_info"), true);
+            }.bind(this)
+        });
+    },
+    setClickCountsInformation: function(item) {
+        var table = $("click_counts_section_table");
+        table.innerHTML = "";
+        this.setClickCountsInformationRow("twoHours", item, table);
+        this.setClickCountsInformationRow("day", item, table);
+        this.setClickCountsInformationRow("week", item, table);
+        this.setClickCountsInformationRow("month", item, table);
+        this.setClickCountsInformationRow("allTime", item, table);
+    },
+    setClickCountsInformationRow: function(name, item, table) {
+        var tr = document.createElement("tr");
+        var td1 = document.createElement("td");
+        td1.appendChild(document.createTextNode(name));
+        tr.appendChild(td1);
+        var td2 = document.createElement("td");
+        td2.appendChild(document.createTextNode(item.analytics[name].shortUrlClicks));
+        td2.addClassName("click_count");
+        tr.appendChild(td2);
+        table.appendChild(tr);
     },
     setPaginator: function() {
         $("paginator").innerHTML = "";
