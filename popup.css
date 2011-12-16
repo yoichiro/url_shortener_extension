@@ -149,6 +149,15 @@ div#twitter {
     display: none;
 }
 
+div#mail {
+    float: right;
+    width: 19px;
+    height: 20px;
+    padding-top: 4px;
+    margin-right: 3px;
+    display: none;
+}
+
 div#url_detail {
     float: right;
     font-size: 13px;

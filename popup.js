@@ -322,6 +322,7 @@ Popup.prototype = {
         $("input_short_url").value = "";
         this.setMessage("", false);
         this.setTwitter("");
+        this.setGMail("");
         this.setUrlDetail("");
     },
     onClickShorten: function() {
@@ -361,6 +362,7 @@ Popup.prototype = {
         }
         this.setMessage(msg, false);
         this.setTwitter(shortUrl);
+        this.setGMail(shortUrl);
         this.setUrlDetail(shortUrl);
         this.onClickShortUrl();
         document.execCommand("copy");
@@ -404,6 +406,24 @@ Popup.prototype = {
             this.setVisible($("twitter"), true);
         } else {
             this.setVisible($("twitter"), false);
+        }
+    },
+    setGMail: function(url) {
+        $("mail").innerHTML = "";
+        if (url) {
+            var link = "https://mail.google.com/mail/?ui=2&view=cm&fs=1&tf=1&"
+                + "body="
+                + encodeURIComponent(url);
+            var a = document.createElement("a");
+            a.setAttribute("href", link);
+            a.setAttribute("target", "_blank");
+            var img = document.createElement("img");
+            img.src = "./mail.png";
+            a.appendChild(img);
+            $("mail").appendChild(a);
+            this.setVisible($("mail"), true);
+        } else {
+            this.setVisible($("mail"), false);
         }
     },
     setUrlDetail: function(url) {
