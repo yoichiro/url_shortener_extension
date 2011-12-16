@@ -1,0 +1,132 @@
+{
+    "extDescription": {
+        "message": "Esta extensao fornece uma interface de usuario para usar o Google URL Shortener rapidamente."
+    },
+    "optNotification": {
+        "message": "mensagem de notificacao"
+    },
+    "optDontShowMsgLogin": {
+        "message": "Nao mostrar mensagens depois de fazer login no Google."
+    },
+    "optDontShowMsgCopyClipboard": {
+        "message": "Nao mostrar mensagens depois de copiar URL curta para a area de transferencia usando o menu de contexto."
+    },
+    "optContextMenu": {
+        "message": "menu de Contexto"
+    },
+    "optDontShowContextMenu": {
+        "message": "Nao exibir o menu de contexto."
+    },
+    "optWatching": {
+        "message": "Cliques monitoramento"
+    },
+    "optDontStartWatching": {
+        "message": "Automaticamente quando voce iniciar o monitoramento de um curto URL."
+    },
+    "optShorten": {
+        "message": "encurtamento"
+    },
+    "optShortenDirectlyAtNotLogin": {
+        "message": "Quando voce nao esta logado, encurtar a URL automaticamente quando voce pressiona o botao da extensao."
+    },
+    "optShortenDirectlyAtLogin": {
+        "message": "Quando voce esta logado, voce encurtar a URL automaticamente quando voce pressiona o botao da extensao."
+    },
+    "optTweetAtShortenByContextMenu": {
+        "message": "Quando voce encurtar o menu de contexto para exibir a janela de mensagem para o Twitter automaticamente."
+    },
+    "popupShorten": {
+        "message": "encurtamento"
+    },
+    "popupHistory": {
+        "message": "historia"
+    },
+    "popupLoginDesc": {
+        "message": "Se voce quiser verificar se a sua historia, faca o login autorizacao para o Google."
+    },
+    "popupLogin": {
+        "message": "Acesse o Google"
+    },
+    "popupRecommend": {
+        "message": "Recomendar esta!"
+    },
+    "popupStopWatching": {
+        "message": "Para parar de monitorar"
+    },
+    "popupPage": {
+        "message": "pagina: "
+    },
+    "popupCompleteShorten": {
+        "message": "Encurtar o URL copiado para o clipboard."
+    },
+    "popupStartWatching": {
+        "message": "Iniciar o monitoramento"
+    },
+    "popupStartedWatching": {
+        "message": "Monitoramento comecou."
+    },
+    "popupUrlDetail": {
+        "message": "detalhe"
+    },
+    "popupRecommendText": {
+        "message": "\"goo.gl URL Shortener\" Por favor, tente Chrome extensoes!"
+    },
+    "popupJustNow": {
+        "message": "agora"
+    },
+    "popupHoursAgo": {
+        "message": "$VALUE$ horas antes",
+        "placeholders": {
+            "value" : {
+                "content": "$1"
+            }
+        }
+    },
+    "popupDayAgo": {
+        "message": "$VALUE$ dia atras",
+        "placeholders": {
+            "value" : {
+                "content": "$1"
+            }
+        }
+    },
+    "popupDaysAgo": {
+        "message": "$VALUE$ dias atras",
+        "placeholders": {
+            "value" : {
+                "content": "$1"
+            }
+        }
+    },
+    "ctxmenuShortenUrlAdded": {
+        "message": "Encurtar uma URL (serao adicionados a historia)"
+    },
+    "ctxmenuShortenUrlNotAdded": {
+        "message": "Encurtar uma URL (nao acrescentou a historia)"
+    },
+    "ctxmenuLogin": {
+        "message": "Efetue login no Google (a ser gravada na historia)"
+    },
+    "notifyCopied": {
+        "message": "Encurtar o URL ($SHORT_URL$) copiado para o clipboard.",
+        "placeholders": {
+            "short_url": {
+                "content": "$1"
+            }
+        }
+    },
+    "notifyStartWatching": {
+        "message": "Monitoramento comecou."
+    },
+    "notifyShortenFailed": {
+        "message": "Nao conseguiu encurtar a URL. ($REQ_STATUS$)",
+        "placeholders": {
+            "req_status": {
+                "content": "$1"
+            }
+        }
+    },
+    "notifyCompleteLogin": {
+        "message": "Autorizacao e concluida. URL encurtar e registrada em seu historico."
+    }
+}
