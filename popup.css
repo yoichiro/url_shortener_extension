@@ -158,6 +158,17 @@ div#mail {
     display: none;
 }
 
+div#qrcode {
+    float: right;
+    width: 20px;
+    margin-right: 3px;
+    display: none;
+}
+
+div#qrcode img {
+    cursor: pointer;
+}
+
 div#url_detail {
     float: right;
     font-size: 13px;
@@ -276,4 +287,15 @@ div.click_counts_section td {
 
 div.click_counts_section td.click_count {
     text-align: right;
+}
+
+div#qrcode_pane {
+    position: absolute;
+    border: 1px solid gray;
+    top: 76px;
+    left: 350px;
+    width: 150px;
+    height: 150px;
+    background-color: white;
+    display: none;
 }

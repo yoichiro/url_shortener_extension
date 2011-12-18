@@ -4,11 +4,15 @@ var Popup = function() {
 
 Popup.prototype = {
     bg: null,
+    shareTools: null,
+    recommend: null,
     history: null,
     detailTimer: null,
     clickCountsTimer: null,
     initialize: function() {
         this.bg = chrome.extension.getBackgroundPage();
+        this.shareTools = new ShareTools();
+        this.recommend = new Recommend();
         this.detailTimer = new Array();
         this.clickCountsTimer = new Array();
     },
@@ -16,7 +20,7 @@ Popup.prototype = {
         this.assignMessages();
         this.assignEventHandlers();
         this.loadHistory();
-        this.showRecommend();
+        this.recommend.showRecommend();
         this.setCurrentLongUrl();
     },
     assignMessages: function() {
@@ -24,8 +28,8 @@ Popup.prototype = {
         $("popupHistory").innerHTML = chrome.i18n.getMessage("popupHistory");
         $("popupLogin").innerHTML = chrome.i18n.getMessage("popupLogin");
         $("popupLoginDesc").innerHTML = chrome.i18n.getMessage("popupLoginDesc");
-        $("popupRecommend").innerHTML = chrome.i18n.getMessage("popupRecommend");
         $("popupStopWatching").innerHTML = chrome.i18n.getMessage("popupStopWatching");
+        this.recommend.assignMessages();
     },
     assignEventHandlers: function() {
         $("login_link").onclick = this.bg.gl.getOAuthWindow().createOpenerOnClick();
@@ -33,7 +37,7 @@ Popup.prototype = {
         $("shorten").onclick = this.onClickShorten.bind(this);
         $("input_short_url").onclick = this.onClickShortUrl.bind(this);
         $("clear_timer").onclick = this.onClickClearTimer.bind(this);
-        $("recommend").onclick = this.onClickRecommend.bind(this);
+        this.recommend.assignEventHandlers();
     },
     isInvalidCredential: function(req) {
         if (req.status == 401) {
@@ -43,8 +47,8 @@ Popup.prototype = {
         return false;
     },
     setDisplayMode: function(needLogin) {
-        this.setVisible($("login_pane"), needLogin);
-        this.setVisible($("history_table"), !needLogin);
+        Utils.setVisible($("login_pane"), needLogin);
+        Utils.setVisible($("history_table"), !needLogin);
     },
     loadHistory: function() {
         this.setLoadHistoryProgressVisible(true);
@@ -67,8 +71,8 @@ Popup.prototype = {
         }
     },
     setLoadHistoryProgressVisible: function(visible) {
-        this.setVisible($("history_table_progress"), visible);
-        this.setVisible($("history_table"), !visible);
+        Utils.setVisible($("history_table_progress"), visible);
+        Utils.setVisible($("history_table"), !visible);
     },
     onClickShortUrlLink: function(url) {
         this.setShortUrl(url, true);
@@ -151,7 +155,7 @@ Popup.prototype = {
             clearTimeout(timer);
         });
         this.detailTimer = new Array();
-        this.setVisible($("detail_pane"), false);
+        Utils.setVisible($("detail_pane"), false);
     },
     startClickCountsTimer: function(item) {
         var timer = setTimeout(function(item) {
@@ -166,15 +170,15 @@ Popup.prototype = {
             clearTimeout(timer);
         });
         this.clickCountsTimer = new Array();
-        this.setVisible($("click_counts_pane"), false);
+        Utils.setVisible($("click_counts_pane"), false);
     },
     showDetailPane: function(item) {
-        this.setVisible($("detail_pane"), true);
+        Utils.setVisible($("detail_pane"), true);
         Element.setStyle($("detail_pane"), {
             height: "220px"
         });
-        this.setVisible($("detail_pane_progress"), true);
-        this.setVisible($("detail_url_info"), false);
+        Utils.setVisible($("detail_pane_progress"), true);
+        Utils.setVisible($("detail_url_info"), false);
         this.bg.gl.loadUrlInformation(item.id, {
             onSuccess: function(req) {
                 var item = req.responseJSON;
@@ -184,8 +188,8 @@ Popup.prototype = {
                 this.stopDetailTimer();
             }.bind(this),
             onComplete: function(req) {
-                this.setVisible($("detail_pane_progress"), false);
-                this.setVisible($("detail_url_info"), true);
+                Utils.setVisible($("detail_pane_progress"), false);
+                Utils.setVisible($("detail_url_info"), true);
                 Element.setStyle($("detail_pane"), {
                     height: "auto"
                 });
@@ -244,9 +248,9 @@ Popup.prototype = {
         }
     },
     showClickCountsPane: function(item) {
-        this.setVisible($("click_counts_pane"), true);
-        this.setVisible($("click_counts_pane_progress"), true);
-        this.setVisible($("click_counts_info"), false);
+        Utils.setVisible($("click_counts_pane"), true);
+        Utils.setVisible($("click_counts_pane_progress"), true);
+        Utils.setVisible($("click_counts_info"), false);
         this.bg.gl.loadUrlInformation(item.id, {
             onSuccess: function(req) {
                 var item = req.responseJSON;
@@ -256,8 +260,8 @@ Popup.prototype = {
                 this.stopClickCountsTimer();
             }.bind(this),
             onComplete: function(req) {
-                this.setVisible($("click_counts_pane_progress"), false);
-                this.setVisible($("click_counts_info"), true);
+                Utils.setVisible($("click_counts_pane_progress"), false);
+                Utils.setVisible($("click_counts_info"), true);
             }.bind(this)
         });
     },
@@ -321,9 +325,7 @@ Popup.prototype = {
     clearShortenResult: function() {
         $("input_short_url").value = "";
         this.setMessage("", false);
-        this.setTwitter("");
-        this.setGMail("");
-        this.setUrlDetail("");
+        this.shareTools.clearAll();
     },
     onClickShorten: function() {
         var url = $("input_long_url").value;
@@ -361,19 +363,12 @@ Popup.prototype = {
             msg += chrome.i18n.getMessage("popupStartedWatching");
         }
         this.setMessage(msg, false);
-        this.setTwitter(shortUrl);
-        this.setGMail(shortUrl);
-        this.setUrlDetail(shortUrl);
+        this.shareTools.showTools(shortUrl);
         this.onClickShortUrl();
         document.execCommand("copy");
         if (forceWatching || startWatching) {
             this.bg.gl.startWatchCount(shortUrl);
         }
-    },
-    setVisible: function(elem, visible) {
-        Element.setStyle(elem, {
-            display: visible ? "block" : "none"
-        });
     },
     setVisibleForm: function(elem, visible) {
         Element.setStyle(elem, {
@@ -389,81 +384,12 @@ Popup.prototype = {
             this.setMessage("", false);
         }.bind(this), 5000);
     },
-    setTwitter: function(url) {
-        $("twitter").innerHTML = "";
-        if (url) {
-            var a = document.createElement("a");
-            a.setAttribute("href", "https://twitter.com/share");
-            a.setAttribute("class", "twitter-share-button");
-            a.setAttribute("data-count", "none");
-            a.setAttribute("data-url", url);
-            a.innerHTML = "Tweet";
-            var script = document.createElement("script");
-            script.setAttribute("type", "text/javascript");
-            script.setAttribute("src", "http://platform.twitter.com/widgets.js");
-            a.appendChild(script);
-            $("twitter").appendChild(a);
-            this.setVisible($("twitter"), true);
-        } else {
-            this.setVisible($("twitter"), false);
-        }
-    },
-    setGMail: function(url) {
-        $("mail").innerHTML = "";
-        if (url) {
-            var link = "https://mail.google.com/mail/?ui=2&view=cm&fs=1&tf=1&"
-                + "body="
-                + encodeURIComponent(url);
-            var a = document.createElement("a");
-            a.setAttribute("href", link);
-            a.setAttribute("target", "_blank");
-            var img = document.createElement("img");
-            img.src = "./mail.png";
-            a.appendChild(img);
-            $("mail").appendChild(a);
-            this.setVisible($("mail"), true);
-        } else {
-            this.setVisible($("mail"), false);
-        }
-    },
-    setUrlDetail: function(url) {
-        $("url_detail").innerHTML = "";
-        if (url) {
-            var array = url.split("/");
-            $("url_detail").innerHTML =
-                "<a href='http://goo.gl/info/"
-                + array[array.length - 1]
-                + "' target='_blank'>"
-                + chrome.i18n.getMessage("popupUrlDetail")
-                + "</a>";
-            this.setVisible($("url_detail"), true);
-        } else {
-            this.setVisible($("url_detail"), false);
-        }
-    },
     onClickShortUrl: function() {
         $("input_short_url").focus();
         $("input_short_url").select();
     },
     onClickClearTimer: function() {
         this.bg.gl.startWatchCount(null);
-    },
-    onClickRecommend: function() {
-        window.open(
-            "https://twitter.com/share?url="
-                + encodeURIComponent("http://goo.gl/QzrtB")
-                + "&text="
-                + encodeURIComponent(chrome.i18n.getMessage("popupRecommendText")),
-            "_blank",
-            "width=550,height=450");
-    },
-    showRecommend: function() {
-        var v = Math.floor(Math.random() * 3 + 1);
-        if (v != 2) {
-            Element.setStyle($("recommend"), {
-                display: "none"
-            });
-        }
     }
 };
 

@@ -3,6 +3,9 @@
 <head>
 <link rel="stylesheet" type="text/css" href="./popup.css" />
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/prototype/1.7.0.0/prototype.js"></script>
+<script type="text/javascript" src="./utils.js"></script>
+<script type="text/javascript" src="./recommend.js"></script>
+<script type="text/javascript" src="./share_tools.js"></script>
 <script type="text/javascript" src="./popup.js"></script>
 </head>
 
@@ -24,6 +27,7 @@
   <div class="message_pane">
     <div id="twitter"></div>
     <div id="mail"></div>
+    <div id="qrcode"></div>
     <div id="url_detail"></div>
     <div id="message"></div>
     <br style="clear: both;" />
@@ -52,27 +56,30 @@
       <span id="popupLoginDesc"></span>
     </div>
   </div>
-  <div id="detail_pane">
-    <img id="detail_pane_progress" src="./progress.gif" />
-    <div id="detail_url_info">
-      <div class="detail_date">
-        <span id="detail_date_str"></span>
-      </div>
-      <div class="detail_section">
-        <table id="detail_section_table">
-        </table>
-      </div>
+</div>
+
+<div id="detail_pane">
+  <img id="detail_pane_progress" src="./progress.gif" />
+  <div id="detail_url_info">
+    <div class="detail_date">
+      <span id="detail_date_str"></span>
+    </div>
+    <div class="detail_section">
+      <table id="detail_section_table">
+      </table>
     </div>
   </div>
-  <div id="click_counts_pane">
-    <img id="click_counts_pane_progress" src="./progress.gif" />
-    <div id="click_counts_info">
-      <div class="click_counts_section">
-        <table id="click_counts_section_table">
-        </table>
-      </div>
+</div>
+<div id="click_counts_pane">
+  <img id="click_counts_pane_progress" src="./progress.gif" />
+  <div id="click_counts_info">
+    <div class="click_counts_section">
+      <table id="click_counts_section_table">
+      </table>
     </div>
   </div>
+</div>
+<div id="qrcode_pane">
 </div>
 
 <div class="footer">
