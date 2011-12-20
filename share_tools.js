@@ -1,19 +1,27 @@
-var ShareTools = function() {
-    this.initialize();
+var ShareTools = function(p) {
+    this.initialize(p);
 };
 
 ShareTools.prototype = {
-    initialize: function() {
+    popup: null,
+    bg: null,
+    readItLaterProgress: null,
+    initialize: function(p) {
+        this.popup = p;
+        this.bg = chrome.extension.getBackgroundPage();
+        this.readItLaterProgress = false;
     },
     clearAll: function() {
         this.setTwitter("");
         this.setGMail("");
+        this.setReadItLater("");
         this.setQRCode("");
         this.setUrlDetail("");
     },
     showTools: function(shortUrl) {
         this.setTwitter(shortUrl);
         this.setGMail(shortUrl);
+        this.setReadItLater(shortUrl);
         this.setQRCode(shortUrl);
         this.setUrlDetail(shortUrl);
     },
@@ -95,5 +103,59 @@ ShareTools.prototype = {
     },
     hideQRCode: function(url) {
         Utils.setVisible($("qrcode_pane"), false);
+    },
+    setReadItLater: function(url) {
+        $("readitlater").innerHTML = "";
+        if (url) {
+            var img = document.createElement("img");
+            img.src = "./readitlater.png";
+            img.id = "read_it_later_icon";
+            $("readitlater").appendChild(img);
+            img.onclick = function(url) {
+                return function(e) {
+                    this.addReadItLater(url);
+                }.bind(this);
+            }.bind(this)(url);
+            Utils.setVisible($("readitlater"), true);
+        } else {
+            Utils.setVisible($("readitlater"), false);
+        }
+    },
+    addReadItLater: function(shortUrl) {
+        if (this.readItLaterProgress) {
+            return;
+        }
+        this.readItLaterProgress = true;
+        this.showReadItLaterProgress(true);
+        var url = "https://readitlaterlist.com/v2/add";
+        new Ajax.Request(url, {
+            method: "post",
+            parameters: {
+                username: this.bg.gl.getReadItLaterUsername(),
+                password: this.bg.gl.getReadItLaterPassword(),
+                apikey: this.bg.gl.getReadItLaterApiKey(),
+                url: shortUrl
+            },
+            onSuccess: function(req) {
+                this.popup.setMessage(
+                    chrome.i18n.getMessage("popupRegisteredReadItLater", shortUrl),
+                    false);
+            }.bind(this),
+            onFailure: function(req) {
+                this.popup.setMessage(
+                    req.status + "(" + req.statusText + ")", true);
+            }.bind(this),
+            onComplete: function() {
+                this.showReadItLaterProgress(false);
+                this.readItLaterProgress = false;
+            }.bind(this)
+        });
+    },
+    showReadItLaterProgress: function(progress) {
+        if (progress) {
+            $("read_it_later_icon").src = "./progress.gif";
+        } else {
+            $("read_it_later_icon").src = "./readitlater.png";
+        }
     }
 };

@@ -35,6 +35,21 @@
     "optTweetAtShortenByContextMenu": {
         "message": "When you shorten URL by the context menu, display the window to  post to Twitter automatically."
     },
+    "optReadItLater": {
+        "message": "Read It Later"
+    },
+    "optReadItLaterUsername": {
+        "message": "User name"
+    },
+    "optReadItLaterPassword": {
+        "message": "Password"
+    },
+    "optReadItLaterSave": {
+        "message": "Save and test authentication"
+    },
+    "optReadItLaterSucceed": {
+        "message": "Succeeded."
+    },
     "popupShorten": {
         "message": "Shorten"
     },
@@ -92,6 +107,14 @@
     },
     "popupDaysAgo": {
         "message": "$VALUE$ days ago",
+        "placeholders": {
+            "value" : {
+                "content": "$1"
+            }
+        }
+    },
+    "popupRegisteredReadItLater": {
+        "message": "The URL($VALUE$) has been registered to Read It Later.",
         "placeholders": {
             "value" : {
                 "content": "$1"

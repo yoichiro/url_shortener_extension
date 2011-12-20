@@ -5,14 +5,16 @@ var Gl = function() {
 Gl.prototype = {
     timers: null,
     authorized: false,
-    apiKey: null,
+    shortenerApiKey: null,
     oauthWindow: null,
     oauthTimer: null,
     expireTokenTime: null,
     contextMenuIds: null,
+    readItLaterApiKey: null,
     initialize: function() {
         this.clearToken();
-        this.apiKey = "AIzaSyAJ6oQbZn48_6pXfsxTazU9IOf_oan-QgY";
+        this.shortenerApiKey = "AIzaSyAJ6oQbZn48_6pXfsxTazU9IOf_oan-QgY";
+        this.readItLaterApiKey = "c77dFl55T3c8eq4bOuAi94cn90g8Id84";
         this.timers = new Array();
         this.setupOAuthWindow();
         this.contextMenuIds = new Array();
@@ -222,7 +224,7 @@ Gl.prototype = {
                 "Authorization", "OAuth " + accessToken
             ];
         } else {
-            url += "?key=" + this.apiKey;
+            url += "?key=" + this.shortenerApiKey;
         }
         new Ajax.Request(url, params);
     },
@@ -273,7 +275,7 @@ Gl.prototype = {
             params["parameters"] = {
                 shortUrl: shortUrl,
                 projection: "FULL",
-                key: this.apiKey
+                key: this.shortenerApiKey
             };
         }
         new Ajax.Request(url, params);
@@ -299,6 +301,9 @@ Gl.prototype = {
     wasAuthorized: function() {
         return this.authorized;
     },
+    getReadItLaterApiKey: function() {
+        return this.readItLaterApiKey;
+    },
     isShowNotificationAfterLogin: function() {
         return !Boolean(localStorage["not_show_notification_after_login"]);
     },
@@ -319,6 +324,12 @@ Gl.prototype = {
     },
     isTweetAtShortenByContextMenu: function() {
         return Boolean(localStorage["tweet_at_shorten_by_context_menu"]);
+    },
+    getReadItLaterUsername: function() {
+        return localStorage["read_it_later_username"];
+    },
+    getReadItLaterPassword: function() {
+        return localStorage["read_it_later_password"];
     }
 };
 

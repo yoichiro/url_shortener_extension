@@ -6,10 +6,10 @@
         "message": "Notification"
     },
     "optDontShowMsgLogin": {
-        "message": "Ne pas afficher de notification après la connexion à Google."
+        "message": "Ne pas afficher de notification apres la connexion a Google."
     },
     "optDontShowMsgCopyClipboard": {
-        "message": "Ne pas afficher de notification après avoir copié un lien réduit à l'aide du menu contextuel."
+        "message": "Ne pas afficher de notification apres avoir copie un lien reduit a l'aide du menu contextuel."
     },
     "optContextMenu": {
         "message": "Menu contextuel"
@@ -21,31 +21,46 @@
         "message": "Suivi du compte de clicks"
     },
     "optDontStartWatching": {
-        "message": "Ne pas suivre le compte de clicks automatiquement lors d'une réduction d'URL."
+        "message": "Ne pas suivre le compte de clicks automatiquement lors d'une reduction d'URL."
     },
     "optShorten": {
         "message": "Raccourcir"
     },
     "optShortenDirectlyAtNotLogin": {
-        "message": "Lorsque vous n'êtes pas connecté, raccourcir l'URL automatiquement lorsque vous appuyez sur le bouton de l'extension."
+        "message": "Lorsque vous n'etes pas connecte, raccourcir l'URL automatiquement lorsque vous appuyez sur le bouton de l'extension."
     },
     "optShortenDirectlyAtLogin": {
-        "message": "Lorsque vous êtes connecté, vous raccourcissez l'URL automatiquement lorsque vous appuyez sur le bouton de l'extension."
+        "message": "Lorsque vous etes connecte, vous raccourcissez l'URL automatiquement lorsque vous appuyez sur le bouton de l'extension."
     },
     "optTweetAtShortenByContextMenu": {
-        "message": "Lorsque vous raccourcissez URL par le menu contextuel, afficher la fenêtre de poster sur Twitter automatiquement."
+        "message": "Lorsque vous raccourcissez URL par le menu contextuel, afficher la fenetre de poster sur Twitter automatiquement."
+    },
+    "optReadItLater": {
+        "message": "Read It Later"
+    },
+    "optReadItLaterUsername": {
+        "message": "nom d'utilisateur"
+    },
+    "optReadItLaterPassword": {
+        "message": "Mot de passe"
+    },
+    "optReadItLaterSave": {
+        "message": "Enregistrer et test de certification"
+    },
+    "optReadItLaterSucceed": {
+        "message": "Reussi."
     },
     "popupShorten": {
-        "message": "Réduire"
+        "message": "Reduire"
     },
     "popupHistory": {
         "message": "Historique"
     },
     "popupLoginDesc": {
-        "message": "Pour voir votre historique, veuillez vous connecter à Google et autoriser l'accès."
+        "message": "Pour voir votre historique, veuillez vous connecter a Google et autoriser l'acces."
     },
     "popupLogin": {
-        "message": "Connexion à Google"
+        "message": "Connexion a Google"
     },
     "popupRecommend": {
         "message": "Passez le mot!"
@@ -57,16 +72,16 @@
         "message": "Page: "
     },
     "popupCompleteShorten": {
-        "message": "L'URL réduit a été copié au presse-papiers."
+        "message": "L'URL reduit a ete copie au presse-papiers."
     },
     "popupStartWatching": {
-        "message": "Commencer à surveiller"
+        "message": "Commencer a surveiller"
     },
     "popupStartedWatching": {
         "message": " Le suivi commence."
     },
     "popupUrlDetail": {
-        "message": "Détails"
+        "message": "Details"
     },
     "popupRecommendText": {
         "message": "Essayez l'extension \"goo.gl URL Shortener\" pour Chrome!"
@@ -98,17 +113,25 @@
             }
         }
     },
+    "popupRegisteredReadItLater": {
+        "message": "L'URL ($VALUE$) a ete enregistre a Read It Later.",
+        "placeholders": {
+            "value" : {
+                "content": "$1"
+            }
+        }
+    },
     "ctxmenuShortenUrlAdded": {
-        "message": "Réduire l'URL (ajouter à l'historique)"
+        "message": "Reduire l'URL (ajouter a l'historique)"
     },
     "ctxmenuShortenUrlNotAdded": {
-        "message": "Réduire l'URL (sans ajouter à l'historique)"
+        "message": "Reduire l'URL (sans ajouter a l'historique)"
     },
     "ctxmenuLogin": {
-        "message": "Connexion à Google (pour enregistrer votre historique)"
+        "message": "Connexion a Google (pour enregistrer votre historique)"
     },
     "notifyCopied": {
-        "message": "L'URL réduit ($SHORT_URL$) a été copié au presse-papiers.",
+        "message": "L'URL reduit ($SHORT_URL$) a ete copie au presse-papiers.",
         "placeholders": {
             "short_url": {
                 "content": "$1"
@@ -119,7 +142,7 @@
         "message": " Le suivi commence."
     },
     "notifyShortenFailed": {
-        "message": "La réduction d'URL a échoué. ($REQ_STATUS$)",
+        "message": "La reduction d'URL a echoue. ($REQ_STATUS$)",
         "placeholders": {
             "req_status": {
                 "content": "$1"
@@ -127,6 +150,6 @@
         }
     },
     "notifyCompleteLogin": {
-        "message": "Connexion complétée. Les URLs réduits seront maintenant enregistrés à votre historique."
+        "message": "Connexion completee. Les URLs reduits seront maintenant enregistres a votre historique."
     }
 }

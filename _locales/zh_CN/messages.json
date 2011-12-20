@@ -35,6 +35,21 @@
     "optTweetAtShortenByContextMenu": {
         "message": "当你缩短URL的上下文菜单，显示的窗口，自动发布到Twitter。"
     },
+    "optReadItLater": {
+        "message": "Read It Later"
+    },
+    "optReadItLaterUsername": {
+        "message": "用户名"
+    },
+    "optReadItLaterPassword": {
+        "message": "密码"
+    },
+    "optReadItLaterSave": {
+        "message": "保存并测试认证"
+    },
+    "optReadItLaterSucceed": {
+        "message": "成功。"
+    },
     "popupShorten": {
         "message": "短縮"
     },
@@ -92,6 +107,14 @@
     },
     "popupDaysAgo": {
         "message": "$VALUE$天前",
+        "placeholders": {
+            "value" : {
+                "content": "$1"
+            }
+        }
+    },
+    "popupRegisteredReadItLater": {
+        "message": "该URL($VALUE$)已注册的Read It Later。",
         "placeholders": {
             "value" : {
                 "content": "$1"

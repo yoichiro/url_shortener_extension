@@ -35,6 +35,21 @@
     "optTweetAtShortenByContextMenu": {
         "message": "Quando voce encurtar o menu de contexto para exibir a janela de mensagem para o Twitter automaticamente."
     },
+    "optReadItLater": {
+        "message": "Read It Later"
+    },
+    "optReadItLaterUsername": {
+        "message": "Nome de Usuário"
+    },
+    "optReadItLaterPassword": {
+        "message": "senha"
+    },
+    "optReadItLaterSave": {
+        "message": "Salve e teste de certificação"
+    },
+    "optReadItLaterSucceed": {
+        "message": "Sucedido."
+    },
     "popupShorten": {
         "message": "encurtamento"
     },
@@ -92,6 +107,14 @@
     },
     "popupDaysAgo": {
         "message": "$VALUE$ dias atras",
+        "placeholders": {
+            "value" : {
+                "content": "$1"
+            }
+        }
+    },
+    "popupRegisteredReadItLater": {
+        "message": "O URL ($VALUE$) foi registrado para Read It Later.",
         "placeholders": {
             "value" : {
                 "content": "$1"

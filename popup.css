@@ -169,6 +169,20 @@ div#qrcode img {
     cursor: pointer;
 }
 
+div#readitlater {
+    float: right;
+    width: 16px;
+    margin-right: 3px;
+    margin-top: 3px;
+    display: none;
+}
+
+div#readitlater img {
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+}
+
 div#url_detail {
     float: right;
     font-size: 13px;

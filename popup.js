@@ -11,7 +11,7 @@ Popup.prototype = {
     clickCountsTimer: null,
     initialize: function() {
         this.bg = chrome.extension.getBackgroundPage();
-        this.shareTools = new ShareTools();
+        this.shareTools = new ShareTools(this);
         this.recommend = new Recommend();
         this.detailTimer = new Array();
         this.clickCountsTimer = new Array();

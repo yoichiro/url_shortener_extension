@@ -24,6 +24,10 @@ Option.prototype = {
         $("optShortenDirectlyAtNotLogin").innerHTML = chrome.i18n.getMessage("optShortenDirectlyAtNotLogin");
         $("optShortenDirectlyAtLogin").innerHTML = chrome.i18n.getMessage("optShortenDirectlyAtLogin");
         $("optTweetAtShortenByContextMenu").innerHTML = chrome.i18n.getMessage("optTweetAtShortenByContextMenu");
+        $("optReadItLater").innerHTML = chrome.i18n.getMessage("optReadItLater");
+        $("optReadItLaterUsername").innerHTML = chrome.i18n.getMessage("optReadItLaterUsername");
+        $("optReadItLaterPassword").innerHTML = chrome.i18n.getMessage("optReadItLaterPassword");
+        $("read_it_later_auth").innerHTML = chrome.i18n.getMessage("optReadItLaterSave");
     },
     restoreConfigurations: function() {
         $("not_show_notification_after_login").checked =
@@ -40,6 +44,18 @@ Option.prototype = {
             this.bg.gl.isShortenDirectlyAtLogin();
         $("tweet_at_shorten_by_context_menu").checked =
             this.bg.gl.isTweetAtShortenByContextMenu();
+        var readItLaterUsername = this.bg.gl.getReadItLaterUsername();
+        if (readItLaterUsername) {
+            $("read_it_later_username").value = readItLaterUsername;
+        } else {
+            $("read_it_later_username").value = "";
+        }
+        var readItLaterPassword = this.bg.gl.getReadItLaterPassword();
+        if (readItLaterPassword) {
+            $("read_it_later_password").value = readItLaterPassword;
+        } else {
+            $("read_it_later_password").value = "";
+        }
     },
     assignEventHandlers: function() {
         $("not_show_notification_after_login").onclick =
@@ -56,6 +72,8 @@ Option.prototype = {
             this.onClickShortenDirectlyAtNotLogin.bind(this);
         $("tweet_at_shorten_by_context_menu").onclick =
             this.onClickTweetAtShortenByContextMenu.bind(this);
+        $("read_it_later_auth").onclick =
+            this.onClickReadItLaterAuth.bind(this);
     },
     onClickNotShowNotificationAfterLogin: function() {
         this.changeCheckboxConfiguration("not_show_notification_after_login");
@@ -81,6 +99,32 @@ Option.prototype = {
     },
     changeCheckboxConfiguration: function(name) {
         localStorage[name] = $(name).checked ? "true" : "";
+    },
+    onClickReadItLaterAuth: function() {
+        $("read_it_later_auth").disabled = true;
+        $("read_it_later_result").innerHTML = "";
+        var username = $("read_it_later_username").value;
+        var password = $("read_it_later_password").value;
+        localStorage["read_it_later_username"] = username;
+        localStorage["read_it_later_password"] = password;
+        var url = "https://readitlaterlist.com/v2/auth";
+        new Ajax.Request(url, {
+            method: "get",
+            parameters: {
+                username: encodeURIComponent(username),
+                password: encodeURIComponent(password),
+                apikey: this.bg.gl.getReadItLaterApiKey()
+            },
+            onSuccess: function(req) {
+                $("read_it_later_result").innerHTML = chrome.i18n.getMessage("optReadItLaterSucceed");
+            },
+            onFailure: function(req) {
+                $("read_it_later_result").innerHTML = req.status + "(" + req.statusText + ")";
+            },
+            onComplete: function() {
+                $("read_it_later_auth").disabled = false;
+            }
+        });
     }
 };
 

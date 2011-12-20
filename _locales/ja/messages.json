@@ -35,6 +35,21 @@
     "optTweetAtShortenByContextMenu": {
         "message": "コンテキストメニューから短縮した時に、自動的にTwitter投稿ウィンドウを表示する。"
     },
+    "optReadItLater": {
+        "message": "Read It Later"
+    },
+    "optReadItLaterUsername": {
+        "message": "ユーザ名"
+    },
+    "optReadItLaterPassword": {
+        "message": "パスワード"
+    },
+    "optReadItLaterSave": {
+        "message": "保存とテスト認証"
+    },
+    "optReadItLaterSucceed": {
+        "message": "成功しました。"
+    },
     "popupShorten": {
         "message": "短縮"
     },
@@ -92,6 +107,14 @@
     },
     "popupDaysAgo": {
         "message": "$VALUE$日前",
+        "placeholders": {
+            "value" : {
+                "content": "$1"
+            }
+        }
+    },
+    "popupRegisteredReadItLater": {
+        "message": "URL($VALUE$)をRead It Laterに登録しました。",
         "placeholders": {
             "value" : {
                 "content": "$1"
