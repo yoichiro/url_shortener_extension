@@ -17,6 +17,7 @@ Popup.prototype = {
         this.clickCountsTimer = new Array();
     },
     start: function() {
+        this.shareTools.start();
         this.assignMessages();
         this.assignEventHandlers();
         this.loadHistory();

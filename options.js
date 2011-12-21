@@ -116,9 +116,11 @@ Option.prototype = {
                 apikey: this.bg.gl.getReadItLaterApiKey()
             },
             onSuccess: function(req) {
+                localStorage["is_authenticated_read_it_later"] = "1";
                 $("read_it_later_result").innerHTML = chrome.i18n.getMessage("optReadItLaterSucceed");
             },
             onFailure: function(req) {
+                localStorage["is_authenticated_read_it_later"] = "0";
                 $("read_it_later_result").innerHTML = req.status + "(" + req.statusText + ")";
             },
             onComplete: function() {

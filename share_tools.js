@@ -11,17 +11,21 @@ ShareTools.prototype = {
         this.bg = chrome.extension.getBackgroundPage();
         this.readItLaterProgress = false;
     },
+    start: function() {
+        this.assignEventHandlers();
+    },
+    assignEventHandlers: function() {
+        $("read_it_later").onclick = this.onClickReadItLater.bind(this);
+    },
     clearAll: function() {
         this.setTwitter("");
         this.setGMail("");
-        this.setReadItLater("");
         this.setQRCode("");
         this.setUrlDetail("");
     },
     showTools: function(shortUrl) {
         this.setTwitter(shortUrl);
         this.setGMail(shortUrl);
-        this.setReadItLater(shortUrl);
         this.setQRCode(shortUrl);
         this.setUrlDetail(shortUrl);
     },
@@ -104,29 +108,13 @@ ShareTools.prototype = {
     hideQRCode: function(url) {
         Utils.setVisible($("qrcode_pane"), false);
     },
-    setReadItLater: function(url) {
-        $("readitlater").innerHTML = "";
-        if (url) {
-            var img = document.createElement("img");
-            img.src = "./readitlater.png";
-            img.id = "read_it_later_icon";
-            $("readitlater").appendChild(img);
-            img.onclick = function(url) {
-                return function(e) {
-                    this.addReadItLater(url);
-                }.bind(this);
-            }.bind(this)(url);
-            Utils.setVisible($("readitlater"), true);
-        } else {
-            Utils.setVisible($("readitlater"), false);
-        }
-    },
-    addReadItLater: function(shortUrl) {
+    onClickReadItLater: function() {
         if (this.readItLaterProgress) {
             return;
         }
         this.readItLaterProgress = true;
         this.showReadItLaterProgress(true);
+        var longUrl = $("input_long_url").value;
         var url = "https://readitlaterlist.com/v2/add";
         new Ajax.Request(url, {
             method: "post",
@@ -134,11 +122,12 @@ ShareTools.prototype = {
                 username: this.bg.gl.getReadItLaterUsername(),
                 password: this.bg.gl.getReadItLaterPassword(),
                 apikey: this.bg.gl.getReadItLaterApiKey(),
-                url: shortUrl
+                url: longUrl
             },
             onSuccess: function(req) {
                 this.popup.setMessage(
-                    chrome.i18n.getMessage("popupRegisteredReadItLater", shortUrl),
+                    chrome.i18n.getMessage(
+                        "popupRegisteredReadItLater", longUrl),
                     false);
             }.bind(this),
             onFailure: function(req) {
