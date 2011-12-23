@@ -50,6 +50,12 @@
     "optReadItLaterSucceed": {
         "message": "Sucedido."
     },
+    "optReadItLaterGrant": {
+        "message": "Usando o Read It Later"
+    },
+    "optReadItLaterRemoveGrant": {
+        "message": "Acabar com o uso"
+    },
     "popupShorten": {
         "message": "encurtamento"
     },
@@ -114,12 +120,7 @@
         }
     },
     "popupRegisteredReadItLater": {
-        "message": "O URL ($VALUE$) foi registrado para Read It Later.",
-        "placeholders": {
-            "value" : {
-                "content": "$1"
-            }
-        }
+        "message": "O URL foi registrado para Read It Later."
     },
     "ctxmenuShortenUrlAdded": {
         "message": "Encurtar uma URL (serao adicionados a historia)"

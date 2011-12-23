@@ -114,6 +114,9 @@ button#shorten {
 
 img#shorten_progress {
     display: none;
+    margin-top: 2px;
+    width: 24px;
+    height: 24px;
 }
 
 input#input_short_url {
@@ -137,7 +140,6 @@ div#message {
     color: red;
     font-size: 12px;
     float: right;
-    width: 400px;
     margin-top: 5px;
     margin-right: 5px;
     text-align: right;
@@ -171,9 +173,8 @@ div#qrcode img {
 
 div#read_it_later {
     float: left;
-    width: 16px;
-    margin-right: 3px;
     margin-top: 3px;
+    margin-right: 3px;
 }
 
 div#read_it_later img {

@@ -4,6 +4,7 @@
   <title>goo.gl URL Shortener extension options</title>
   <link rel="stylesheet" type="text/css" href="./options.css" />
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/prototype/1.7.0.0/prototype.js"></script>
+  <script type="text/javascript" src="./utils.js"></script>
   <script type="text/javascript" src="./options.js"></script>
 </head>
 
@@ -100,12 +101,18 @@
   <table>
     <tr>
       <td>
-        <span id="optReadItLaterUsername"></span>:
-        <input type="text" id="read_it_later_username" size="25" />
-        <span id="optReadItLaterPassword"></span>:
-        <input type="password" id="read_it_later_password" size="25" />
-        <button id="read_it_later_auth"></button>
-        <span id="read_it_later_result"></span>
+        <div id="readItLaterGranted">
+          <span id="optReadItLaterUsername"></span>:
+          <input type="text" id="read_it_later_username" size="25" />
+          <span id="optReadItLaterPassword"></span>:
+          <input type="password" id="read_it_later_password" size="25" />
+          <button id="read_it_later_auth"></button>
+          <span id="read_it_later_result"></span>
+          <button id="read_it_later_remove_grant"></button>
+        </div>
+        <div id="readItLaterNotGrant">
+          <button id="read_it_later_grant"></button>
+        </div>
       </td>
     </tr>
   </table>

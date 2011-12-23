@@ -13,6 +13,7 @@ ShareTools.prototype = {
     },
     start: function() {
         this.assignEventHandlers();
+        this.checkReadItLaterPermission();
     },
     assignEventHandlers: function() {
         $("read_it_later").onclick = this.onClickReadItLater.bind(this);
@@ -108,6 +109,15 @@ ShareTools.prototype = {
     hideQRCode: function(url) {
         Utils.setVisible($("qrcode_pane"), false);
     },
+    checkReadItLaterPermission: function() {
+        chrome.permissions.contains({
+            origins: [
+                "https://readitlaterlist.com/"
+            ]
+        }, function(result) {
+            Utils.setVisible($("read_it_later"), result);
+        }.bind(this));
+    },
     onClickReadItLater: function() {
         if (this.readItLaterProgress) {
             return;
@@ -127,7 +137,7 @@ ShareTools.prototype = {
             onSuccess: function(req) {
                 this.popup.setMessage(
                     chrome.i18n.getMessage(
-                        "popupRegisteredReadItLater", longUrl),
+                        "popupRegisteredReadItLater"),
                     false);
             }.bind(this),
             onFailure: function(req) {

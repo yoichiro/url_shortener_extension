@@ -50,6 +50,12 @@
     "optReadItLaterSucceed": {
         "message": "成功。"
     },
+    "optReadItLaterGrant": {
+        "message": "使用Read It Later"
+    },
+    "optReadItLaterRemoveGrant": {
+        "message": "结束的用法"
+    },
     "popupShorten": {
         "message": "短縮"
     },
@@ -114,12 +120,7 @@
         }
     },
     "popupRegisteredReadItLater": {
-        "message": "该URL($VALUE$)已注册的Read It Later。",
-        "placeholders": {
-            "value" : {
-                "content": "$1"
-            }
-        }
+        "message": "该URL已注册的Read It Later。"
     },
     "ctxmenuShortenUrlAdded": {
         "message": "生成短缩网址 (保留历史记录)"

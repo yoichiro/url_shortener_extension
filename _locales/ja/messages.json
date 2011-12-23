@@ -50,6 +50,12 @@
     "optReadItLaterSucceed": {
         "message": "成功しました。"
     },
+    "optReadItLaterGrant": {
+        "message": "Read It Laterを使う"
+    },
+    "optReadItLaterRemoveGrant": {
+        "message": "利用を止める"
+    },
     "popupShorten": {
         "message": "短縮"
     },
@@ -114,12 +120,7 @@
         }
     },
     "popupRegisteredReadItLater": {
-        "message": "URL($VALUE$)をRead It Laterに登録しました。",
-        "placeholders": {
-            "value" : {
-                "content": "$1"
-            }
-        }
+        "message": "URLをRead It Laterに登録しました。"
     },
     "ctxmenuShortenUrlAdded": {
         "message": "URLを短縮 (履歴に追加されます)"

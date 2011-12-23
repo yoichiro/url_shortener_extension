@@ -11,6 +11,7 @@ Option.prototype = {
         this.assignMessages();
         this.assignEventHandlers();
         this.restoreConfigurations();
+        this.checkReadItLaterGrant();
     },
     assignMessages: function() {
         $("optNotification").innerHTML = chrome.i18n.getMessage("optNotification");
@@ -28,6 +29,8 @@ Option.prototype = {
         $("optReadItLaterUsername").innerHTML = chrome.i18n.getMessage("optReadItLaterUsername");
         $("optReadItLaterPassword").innerHTML = chrome.i18n.getMessage("optReadItLaterPassword");
         $("read_it_later_auth").innerHTML = chrome.i18n.getMessage("optReadItLaterSave");
+        $("read_it_later_grant").innerHTML = chrome.i18n.getMessage("optReadItLaterGrant");
+        $("read_it_later_remove_grant").innerHTML = chrome.i18n.getMessage("optReadItLaterRemoveGrant");
     },
     restoreConfigurations: function() {
         $("not_show_notification_after_login").checked =
@@ -73,7 +76,11 @@ Option.prototype = {
         $("tweet_at_shorten_by_context_menu").onclick =
             this.onClickTweetAtShortenByContextMenu.bind(this);
         $("read_it_later_auth").onclick =
-            this.onClickReadItLaterAuth.bind(this);
+            this.checkReadItLaterAuth.bind(this);
+        $("read_it_later_grant").onclick =
+            this.onClickReadItLaterGrant.bind(this);
+        $("read_it_later_remove_grant").onclick =
+            this.onClickReadItLaterRemoveGrant.bind(this);
     },
     onClickNotShowNotificationAfterLogin: function() {
         this.changeCheckboxConfiguration("not_show_notification_after_login");
@@ -100,7 +107,26 @@ Option.prototype = {
     changeCheckboxConfiguration: function(name) {
         localStorage[name] = $(name).checked ? "true" : "";
     },
-    onClickReadItLaterAuth: function() {
+    checkReadItLaterGrant: function() {
+        chrome.permissions.contains({
+            origins: [
+                "https://readitlaterlist.com/"
+            ]
+        }, function(result) {
+            Utils.setVisible($("readItLaterGranted"), result);
+            Utils.setVisible($("readItLaterNotGrant"), !result);
+        }.bind(this));
+    },
+    onClickReadItLaterGrant: function() {
+        chrome.permissions.request({
+            origins: [
+                "https://readitlaterlist.com/"
+            ]
+        }, function(granted) {
+            this.checkReadItLaterGrant();
+        }.bind(this));
+    },
+    checkReadItLaterAuth: function() {
         $("read_it_later_auth").disabled = true;
         $("read_it_later_result").innerHTML = "";
         var username = $("read_it_later_username").value;
@@ -127,6 +153,15 @@ Option.prototype = {
                 $("read_it_later_auth").disabled = false;
             }
         });
+    },
+    onClickReadItLaterRemoveGrant: function() {
+        chrome.permissions.remove({
+            origins: [
+                "https://readitlaterlist.com/"
+            ]
+        }, function(removed) {
+            this.checkReadItLaterGrant();
+        }.bind(this));
     }
 };
 
