@@ -100,6 +100,33 @@ Gl.prototype = {
                             chrome.i18n.getMessage("ctxmenuShortenUrlNotAdded")))
                 );
             }
+            this.checkReadItLaterGrant(function(result) {
+                if (result) {
+                    this.contextMenuIds.push(
+                        chrome.contextMenus.create({
+                            type: "normal",
+                            title: chrome.i18n.getMessage("ctxmenuReadItLater"),
+                            contexts: ["page"],
+                            onclick: function(info, tab) {
+                                this.registerToReadItLater(tab.url, {
+                                    onSuccess: function(req) {
+                                        if (this.isShowNotificationAfterRegisterReadItLater()) {
+                                            this.showNotification(
+                                                chrome.i18n.getMessage("notifyRegisteredReadItLater")
+                                            );
+                                        }
+                                    }.bind(this),
+                                    onFailure: function(req) {
+                                        this.showFailedMessage(req, "notifyRegisterReadItLaterFailed");
+                                    }.bind(this),
+                                    onComplete: function(req) {
+                                    }
+                                });
+                            }.bind(this)
+                        })
+                    );
+                }
+            }.bind(this));
         }
     },
     createContextMenu: function(title) {
@@ -116,7 +143,7 @@ Gl.prototype = {
                         }
                     }.bind(this),
                     onFailure: function(req) {
-                        this.showFailedMessage(req);
+                        this.showFailedMessage(req, "notifyShortenFailed");
                     }.bind(this),
                     onComplete: function(req) {
                     }
@@ -150,9 +177,9 @@ Gl.prototype = {
             this.startWatchCount(shortUrl);
         }
     },
-    showFailedMessage: function(req) {
+    showFailedMessage: function(req, messageId) {
         this.showNotification(
-            chrome.i18n.getMessage("notifyShortenFailed",
+            chrome.i18n.getMessage(messageId,
                                    req.status + " " + req.statusText)
         );
     },
@@ -310,6 +337,9 @@ Gl.prototype = {
     isShowNotificationAfterCopy: function() {
         return !Boolean(localStorage["not_show_notification_after_copy"]);
     },
+    isShowNotificationAfterRegisterReadItLater: function() {
+        return !Boolean(localStorage["not_show_notification_after_register_read_it_later"]);
+    },
     isShowContextMenus: function() {
         return !Boolean(localStorage["not_show_context_menus"]);
     },
@@ -330,6 +360,30 @@ Gl.prototype = {
     },
     getReadItLaterPassword: function() {
         return localStorage["read_it_later_password"];
+    },
+    checkReadItLaterGrant: function(callback) {
+        chrome.permissions.contains({
+            origins: [
+                "https://readitlaterlist.com/"
+            ]
+        }, function(result) {
+            callback(result);
+        });
+    },
+    registerToReadItLater: function(longUrl, callbacks) {
+        var url = "https://readitlaterlist.com/v2/add";
+        new Ajax.Request(url, {
+            method: "post",
+            parameters: {
+                username: this.getReadItLaterUsername(),
+                password: this.getReadItLaterPassword(),
+                apikey: this.getReadItLaterApiKey(),
+                url: longUrl
+            },
+            onSuccess: callbacks.onSuccess,
+            onFailure: callbacks.onFailure,
+            onComplete: callbacks.onComplete
+        });
     }
 };
 

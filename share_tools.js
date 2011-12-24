@@ -110,11 +110,7 @@ ShareTools.prototype = {
         Utils.setVisible($("qrcode_pane"), false);
     },
     checkReadItLaterPermission: function() {
-        chrome.permissions.contains({
-            origins: [
-                "https://readitlaterlist.com/"
-            ]
-        }, function(result) {
+        this.bg.gl.checkReadItLaterGrant(function(result) {
             Utils.setVisible($("read_it_later"), result);
         }.bind(this));
     },
@@ -125,15 +121,7 @@ ShareTools.prototype = {
         this.readItLaterProgress = true;
         this.showReadItLaterProgress(true);
         var longUrl = $("input_long_url").value;
-        var url = "https://readitlaterlist.com/v2/add";
-        new Ajax.Request(url, {
-            method: "post",
-            parameters: {
-                username: this.bg.gl.getReadItLaterUsername(),
-                password: this.bg.gl.getReadItLaterPassword(),
-                apikey: this.bg.gl.getReadItLaterApiKey(),
-                url: longUrl
-            },
+        this.bg.gl.registerToReadItLater(longUrl, {
             onSuccess: function(req) {
                 this.popup.setMessage(
                     chrome.i18n.getMessage(

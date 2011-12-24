@@ -11,6 +11,9 @@
     "optDontShowMsgCopyClipboard": {
         "message": "Ne pas afficher de notification apres avoir copie un lien reduit a l'aide du menu contextuel."
     },
+    "optDontShowMsgRegisterReadItLater": {
+        "message": "Ne pas afficher les messages après l'enregistrement d'une URL à Read It Later utilisant le menu contextuel."
+    },
     "optContextMenu": {
         "message": "Menu contextuel"
     },
@@ -131,6 +134,9 @@
     "ctxmenuLogin": {
         "message": "Connexion a Google (pour enregistrer votre historique)"
     },
+    "ctxmenuReadItLater": {
+        "message": "Inscrivez-vous à Read It Later"
+    },
     "notifyCopied": {
         "message": "L'URL reduit ($SHORT_URL$) a ete copie au presse-papiers.",
         "placeholders": {
@@ -152,5 +158,16 @@
     },
     "notifyCompleteLogin": {
         "message": "Connexion completee. Les URLs reduits seront maintenant enregistres a votre historique."
+    },
+    "notifyRegisterReadItLaterFailed": {
+        "message": "Impossible de s'inscrire auprès de Read It Later. ($REQ_STATUS$)",
+        "placeholders": {
+            "req_status": {
+                "content": "$1"
+            }
+        }
+    },
+    "notifyRegisteredReadItLater": {
+        "message": "Enregistré à Read It Later."
     }
 }

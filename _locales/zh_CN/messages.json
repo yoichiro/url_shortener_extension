@@ -11,6 +11,9 @@
     "optDontShowMsgCopyClipboard": {
         "message": "使用鼠标右键菜单复制短缩网址后不显示消息。"
     },
+    "optDontShowMsgRegisterReadItLater": {
+        "message": "注册后，一个网址为Read It Later使用上下文菜单不显示消息。"
+    },
     "optContextMenu": {
         "message": "鼠标右键菜单设置"
     },
@@ -131,6 +134,9 @@
     "ctxmenuLogin": {
         "message": "登录Google (可以保留历史记录)"
     },
+    "ctxmenuReadItLater": {
+        "message": "注册Read It Later"
+    },
     "notifyCopied": {
         "message": "短缩网址 ($SHORT_URL$) 已成功复制到剪贴板。",
         "placeholders": {
@@ -152,5 +158,16 @@
     },
     "notifyCompleteLogin": {
         "message": "认可处理结束。短缩网址将保留到您的历史记录里。"
+    },
+    "notifyRegisterReadItLaterFailed": {
+        "message": "无法登记Read It Later。($REQ_STATUS$)",
+        "placeholders": {
+            "req_status": {
+                "content": "$1"
+            }
+        }
+    },
+    "notifyRegisteredReadItLater": {
+        "message": "注册为Read It Later。"
     }
 }

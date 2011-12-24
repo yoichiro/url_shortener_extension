@@ -11,6 +11,9 @@
     "optDontShowMsgCopyClipboard": {
         "message": "Nao mostrar mensagens depois de copiar URL curta para a area de transferencia usando o menu de contexto."
     },
+    "optDontShowMsgRegisterReadItLater": {
+        "message": "Não mostrar mensagens depois de registrar um URL para Read It Later usando o menu de contexto."
+    },
     "optContextMenu": {
         "message": "menu de Contexto"
     },
@@ -131,6 +134,9 @@
     "ctxmenuLogin": {
         "message": "Efetue login no Google (a ser gravada na historia)"
     },
+    "ctxmenuReadItLater": {
+        "message": "Registre-se para Read It Later"
+    },
     "notifyCopied": {
         "message": "Encurtar o URL ($SHORT_URL$) copiado para o clipboard.",
         "placeholders": {
@@ -152,5 +158,16 @@
     },
     "notifyCompleteLogin": {
         "message": "Autorizacao e concluida. URL encurtar e registrada em seu historico."
+    },
+    "notifyRegisterReadItLaterFailed": {
+        "message": "Falha ao registrar com Read It Later. ($REQ_STATUS$)",
+        "placeholders": {
+            "req_status": {
+                "content": "$1"
+            }
+        }
+    },
+    "notifyRegisteredReadItLater": {
+        "message": "Registrados para Read It Later."
     }
 }

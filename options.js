@@ -31,12 +31,15 @@ Option.prototype = {
         $("read_it_later_auth").innerHTML = chrome.i18n.getMessage("optReadItLaterSave");
         $("read_it_later_grant").innerHTML = chrome.i18n.getMessage("optReadItLaterGrant");
         $("read_it_later_remove_grant").innerHTML = chrome.i18n.getMessage("optReadItLaterRemoveGrant");
+        $("optDontShowMsgRegisterReadItLater").innerHTML = chrome.i18n.getMessage("optDontShowMsgRegisterReadItLater");
     },
     restoreConfigurations: function() {
         $("not_show_notification_after_login").checked =
             !this.bg.gl.isShowNotificationAfterLogin();
         $("not_show_notification_after_copy").checked =
             !this.bg.gl.isShowNotificationAfterCopy();
+        $("not_show_notification_after_register_read_it_later").checked =
+            !this.bg.gl.isShowNotificationAfterRegisterReadItLater();
         $("not_show_context_menus").checked =
             !this.bg.gl.isShowContextMenus();
         $("not_start_watching").checked =
@@ -65,6 +68,8 @@ Option.prototype = {
             this.onClickNotShowNotificationAfterLogin.bind(this);
         $("not_show_notification_after_copy").onclick =
             this.onClickNotShowNotificationAfterCopy.bind(this);
+        $("not_show_notification_after_register_read_it_later").onclick =
+            this.onClickNotShowNotificationAfterRegisterReadItLater.bind(this);
         $("not_show_context_menus").onclick =
             this.onClickNotShowContextMenus.bind(this);
         $("not_start_watching").onclick =
@@ -88,6 +93,9 @@ Option.prototype = {
     onClickNotShowNotificationAfterCopy: function() {
         this.changeCheckboxConfiguration("not_show_notification_after_copy");
     },
+    onClickNotShowNotificationAfterRegisterReadItLater: function() {
+        this.changeCheckboxConfiguration("not_show_notification_after_register_read_it_later");
+    },
     onClickNotShowContextMenus: function() {
         this.changeCheckboxConfiguration("not_show_context_menus");
         this.bg.gl.setupContextMenus();
@@ -108,14 +116,11 @@ Option.prototype = {
         localStorage[name] = $(name).checked ? "true" : "";
     },
     checkReadItLaterGrant: function() {
-        chrome.permissions.contains({
-            origins: [
-                "https://readitlaterlist.com/"
-            ]
-        }, function(result) {
+        this.bg.gl.checkReadItLaterGrant(function(result) {
             Utils.setVisible($("readItLaterGranted"), result);
             Utils.setVisible($("readItLaterNotGrant"), !result);
         }.bind(this));
+        this.bg.gl.setupContextMenus();
     },
     onClickReadItLaterGrant: function() {
         chrome.permissions.request({
