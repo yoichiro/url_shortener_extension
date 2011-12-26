@@ -59,6 +59,15 @@
     "optReadItLaterRemoveGrant": {
         "message": "Acabar com o uso"
     },
+    "optBackgroundImageUrl": {
+        "message": "URL imagem de fundo"
+    },
+    "optBackgroundImageUrlSave": {
+        "message": "aplicação"
+    },
+    "optBackgroundImageUrlSaveSucceed": {
+        "message": "Sucedido."
+    },
     "popupShorten": {
         "message": "encurtamento"
     },

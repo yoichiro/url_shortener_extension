@@ -17,6 +17,7 @@ Popup.prototype = {
         this.clickCountsTimer = new Array();
     },
     start: function() {
+        this.setBackgroundImage();
         this.shareTools.start();
         this.assignMessages();
         this.assignEventHandlers();
@@ -39,6 +40,14 @@ Popup.prototype = {
         $("input_short_url").onclick = this.onClickShortUrl.bind(this);
         $("clear_timer").onclick = this.onClickClearTimer.bind(this);
         this.recommend.assignEventHandlers();
+    },
+    setBackgroundImage: function() {
+        var url = this.bg.gl.getBackgroundImageUrl();
+        if (url) {
+            Element.setStyle(document.body, {
+                backgroundImage: "url(" + url + ")"
+            });
+        }
     },
     isInvalidCredential: function(req) {
         if (req.status == 401) {

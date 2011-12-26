@@ -361,6 +361,14 @@ Gl.prototype = {
     getReadItLaterPassword: function() {
         return localStorage["read_it_later_password"];
     },
+    getBackgroundImageUrl: function() {
+        var url = localStorage["background_image_url"];
+        if (url) {
+            return url;
+        } else {
+            return "";
+        }
+    },
     checkReadItLaterGrant: function(callback) {
         chrome.permissions.contains({
             origins: [

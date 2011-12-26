@@ -32,6 +32,8 @@ Option.prototype = {
         $("read_it_later_grant").innerHTML = chrome.i18n.getMessage("optReadItLaterGrant");
         $("read_it_later_remove_grant").innerHTML = chrome.i18n.getMessage("optReadItLaterRemoveGrant");
         $("optDontShowMsgRegisterReadItLater").innerHTML = chrome.i18n.getMessage("optDontShowMsgRegisterReadItLater");
+        $("optBackgroundImageUrl").innerHTML = chrome.i18n.getMessage("optBackgroundImageUrl");
+        $("background_image_url_save").innerHTML = chrome.i18n.getMessage("optBackgroundImageUrlSave");
     },
     restoreConfigurations: function() {
         $("not_show_notification_after_login").checked =
@@ -62,6 +64,7 @@ Option.prototype = {
         } else {
             $("read_it_later_password").value = "";
         }
+        $("background_image_url").value = this.bg.gl.getBackgroundImageUrl();
     },
     assignEventHandlers: function() {
         $("not_show_notification_after_login").onclick =
@@ -86,6 +89,8 @@ Option.prototype = {
             this.onClickReadItLaterGrant.bind(this);
         $("read_it_later_remove_grant").onclick =
             this.onClickReadItLaterRemoveGrant.bind(this);
+        $("background_image_url_save").onclick =
+            this.onClickBackgroundImageUrlSave.bind(this);
     },
     onClickNotShowNotificationAfterLogin: function() {
         this.changeCheckboxConfiguration("not_show_notification_after_login");
@@ -156,6 +161,9 @@ Option.prototype = {
             },
             onComplete: function() {
                 $("read_it_later_auth").disabled = false;
+                setTimeout(function() {
+                    $("read_it_later_result").innerHTML = "";
+                }, 5000);
             }
         });
     },
@@ -167,6 +175,13 @@ Option.prototype = {
         }, function(removed) {
             this.checkReadItLaterGrant();
         }.bind(this));
+    },
+    onClickBackgroundImageUrlSave: function() {
+        localStorage["background_image_url"] = $("background_image_url").value;
+        $("background_image_url_result").innerHTML = chrome.i18n.getMessage("optBackgroundImageUrlSaveSucceed");
+        setTimeout(function() {
+            $("background_image_url_result").innerHTML = "";
+        }, 5000);
     }
 };
 

@@ -10,6 +10,8 @@
 
 <body onload="option.start();">
 
+<script type="text/javascript" src="./analytics.js"></script>
+
 <div class="title_pane">
   <img src="./url_shortener_extension_128.png" />
   <div class="title">goo.gl URL Shortener extension</div>
@@ -121,6 +123,20 @@
         <div id="readItLaterNotGrant">
           <button id="read_it_later_grant"></button>
         </div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div class="section_pane">
+  <div class="section_title">Design</div>
+  <table>
+    <tr>
+      <td>
+        <span id="optBackgroundImageUrl"></span>:
+        <input type="text" id="background_image_url" size="50" />
+        <button id="background_image_url_save"></button>
+        <span id="background_image_url_result"></span>
       </td>
     </tr>
   </table>

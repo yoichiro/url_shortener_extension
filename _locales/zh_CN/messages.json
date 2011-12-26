@@ -59,6 +59,15 @@
     "optReadItLaterRemoveGrant": {
         "message": "结束的用法"
     },
+    "optBackgroundImageUrl": {
+        "message": "背景图片网址"
+    },
+    "optBackgroundImageUrlSave": {
+        "message": "应用"
+    },
+    "optBackgroundImageUrlSaveSucceed": {
+        "message": "成功。"
+    },
     "popupShorten": {
         "message": "短縮"
     },
