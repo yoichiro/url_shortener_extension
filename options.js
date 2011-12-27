@@ -19,12 +19,10 @@ Option.prototype = {
         $("optDontShowMsgCopyClipboard").innerHTML = chrome.i18n.getMessage("optDontShowMsgCopyClipboard");
         $("optContextMenu").innerHTML = chrome.i18n.getMessage("optContextMenu");
         $("optDontShowContextMenu").innerHTML = chrome.i18n.getMessage("optDontShowContextMenu");
-        $("optWatching").innerHTML = chrome.i18n.getMessage("optWatching");
         $("optDontStartWatching").innerHTML = chrome.i18n.getMessage("optDontStartWatching");
         $("optShorten").innerHTML = chrome.i18n.getMessage("optShorten");
         $("optShortenDirectlyAtNotLogin").innerHTML = chrome.i18n.getMessage("optShortenDirectlyAtNotLogin");
         $("optShortenDirectlyAtLogin").innerHTML = chrome.i18n.getMessage("optShortenDirectlyAtLogin");
-        $("optTweetAtShortenByContextMenu").innerHTML = chrome.i18n.getMessage("optTweetAtShortenByContextMenu");
         $("optReadItLater").innerHTML = chrome.i18n.getMessage("optReadItLater");
         $("optReadItLaterUsername").innerHTML = chrome.i18n.getMessage("optReadItLaterUsername");
         $("optReadItLaterPassword").innerHTML = chrome.i18n.getMessage("optReadItLaterPassword");
@@ -34,6 +32,9 @@ Option.prototype = {
         $("optDontShowMsgRegisterReadItLater").innerHTML = chrome.i18n.getMessage("optDontShowMsgRegisterReadItLater");
         $("optBackgroundImageUrl").innerHTML = chrome.i18n.getMessage("optBackgroundImageUrl");
         $("background_image_url_save").innerHTML = chrome.i18n.getMessage("optBackgroundImageUrlSave");
+        $("optTwitter").innerHTML = chrome.i18n.getMessage("optTwitter");
+        $("optTweetAtShortenByContextMenu").innerHTML = chrome.i18n.getMessage("optTweetAtShortenByContextMenu");
+        $("optTwitterSetTitle").innerHTML = chrome.i18n.getMessage("optTwitterSetTitle");
     },
     restoreConfigurations: function() {
         $("not_show_notification_after_login").checked =
@@ -65,6 +66,7 @@ Option.prototype = {
             $("read_it_later_password").value = "";
         }
         $("background_image_url").value = this.bg.gl.getBackgroundImageUrl();
+        $("twitter_set_title").checked = this.bg.gl.isTwitterSetTitle();
     },
     assignEventHandlers: function() {
         $("not_show_notification_after_login").onclick =
@@ -91,6 +93,8 @@ Option.prototype = {
             this.onClickReadItLaterRemoveGrant.bind(this);
         $("background_image_url_save").onclick =
             this.onClickBackgroundImageUrlSave.bind(this);
+        $("twitter_set_title").onclick =
+            this.onClickTwitterSetTitle.bind(this);
     },
     onClickNotShowNotificationAfterLogin: function() {
         this.changeCheckboxConfiguration("not_show_notification_after_login");
@@ -116,6 +120,9 @@ Option.prototype = {
     },
     onClickTweetAtShortenByContextMenu: function() {
         this.changeCheckboxConfiguration("tweet_at_shorten_by_context_menu");
+    },
+    onClickTwitterSetTitle: function() {
+        this.changeCheckboxConfiguration("twitter_set_title");
     },
     changeCheckboxConfiguration: function(name) {
         localStorage[name] = $(name).checked ? "true" : "";

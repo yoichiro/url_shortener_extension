@@ -9,6 +9,7 @@ Popup.prototype = {
     history: null,
     detailTimer: null,
     clickCountsTimer: null,
+    currentTabTitle: null,
     initialize: function() {
         this.bg = chrome.extension.getBackgroundPage();
         this.shareTools = new ShareTools(this);
@@ -317,6 +318,7 @@ Popup.prototype = {
     setCurrentLongUrl: function() {
         chrome.tabs.getSelected(null, function(tab) {
             $("input_long_url").value = tab.url;
+            this.currentTabTitle = tab.title;
             if (this.bg.gl.wasAuthorized()) {
                 if (this.bg.gl.isShortenDirectlyAtLogin()) {
                     this.onClickShorten();
@@ -327,6 +329,9 @@ Popup.prototype = {
                 }
             }
         }.bind(this));
+    },
+    getCurrentTabTitle: function() {
+        return this.currentTabTitle;
     },
     selectInputLongUrl: function() {
         $("input_long_url").focus();

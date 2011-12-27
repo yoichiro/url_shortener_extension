@@ -355,6 +355,9 @@ Gl.prototype = {
     isTweetAtShortenByContextMenu: function() {
         return Boolean(localStorage["tweet_at_shorten_by_context_menu"]);
     },
+    isTwitterSetTitle: function() {
+        return Boolean(localStorage["twitter_set_title"]);
+    },
     getReadItLaterUsername: function() {
         return localStorage["read_it_later_username"];
     },

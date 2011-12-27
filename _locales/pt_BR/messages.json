@@ -20,9 +20,6 @@
     "optDontShowContextMenu": {
         "message": "Nao exibir o menu de contexto."
     },
-    "optWatching": {
-        "message": "Cliques monitoramento"
-    },
     "optDontStartWatching": {
         "message": "Automaticamente quando voce iniciar o monitoramento de um curto URL."
     },
@@ -34,9 +31,6 @@
     },
     "optShortenDirectlyAtLogin": {
         "message": "Quando voce esta logado, voce encurtar a URL automaticamente quando voce pressiona o botao da extensao."
-    },
-    "optTweetAtShortenByContextMenu": {
-        "message": "Quando voce encurtar o menu de contexto para exibir a janela de mensagem para o Twitter automaticamente."
     },
     "optReadItLater": {
         "message": "Read It Later"
@@ -67,6 +61,15 @@
     },
     "optBackgroundImageUrlSaveSucceed": {
         "message": "Sucedido."
+    },
+    "optTwitter": {
+        "message": "Twitter"
+    },
+    "optTweetAtShortenByContextMenu": {
+        "message": "Quando voce encurtar o menu de contexto para exibir a janela de mensagem para o Twitter automaticamente."
+    },
+    "optTwitterSetTitle": {
+        "message": "Definir o título da guia da corrente quando twittar."
     },
     "popupShorten": {
         "message": "encurtamento"

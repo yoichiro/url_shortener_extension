@@ -20,9 +20,6 @@
     "optDontShowContextMenu": {
         "message": "Ne pas ajouter au menu contextuel."
     },
-    "optWatching": {
-        "message": "Suivi du compte de clicks"
-    },
     "optDontStartWatching": {
         "message": "Ne pas suivre le compte de clicks automatiquement lors d'une reduction d'URL."
     },
@@ -34,9 +31,6 @@
     },
     "optShortenDirectlyAtLogin": {
         "message": "Lorsque vous etes connecte, vous raccourcissez l'URL automatiquement lorsque vous appuyez sur le bouton de l'extension."
-    },
-    "optTweetAtShortenByContextMenu": {
-        "message": "Lorsque vous raccourcissez URL par le menu contextuel, afficher la fenetre de poster sur Twitter automatiquement."
     },
     "optReadItLater": {
         "message": "Read It Later"
@@ -67,6 +61,15 @@
     },
     "optBackgroundImageUrlSaveSucceed": {
         "message": "Reussi."
+    },
+    "optTwitter": {
+        "message": "Twitter"
+    },
+    "optTweetAtShortenByContextMenu": {
+        "message": "Lorsque vous raccourcissez URL par le menu contextuel, afficher la fenetre de poster sur Twitter automatiquement."
+    },
+    "optTwitterSetTitle": {
+        "message": "Réglez le titre de l'onglet courant lorsque Tweet."
     },
     "popupShorten": {
         "message": "Reduire"

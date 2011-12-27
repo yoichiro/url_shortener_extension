@@ -20,9 +20,6 @@
     "optDontShowContextMenu": {
         "message": "Don't show context menus."
     },
-    "optWatching": {
-        "message": "Watching a clicked count"
-    },
     "optDontStartWatching": {
         "message": "Don't start watching automatically when the URL is shortened."
     },
@@ -34,9 +31,6 @@
     },
     "optShortenDirectlyAtLogin": {
         "message": "Shorten the URL directly at clicking the extension button in logged in."
-    },
-    "optTweetAtShortenByContextMenu": {
-        "message": "When you shorten URL by the context menu, display the window to  post to Twitter automatically."
     },
     "optReadItLater": {
         "message": "Read It Later"
@@ -67,6 +61,15 @@
     },
     "optBackgroundImageUrlSaveSucceed": {
         "message": "Succeeded."
+    },
+    "optTwitter": {
+        "message": "Twitter"
+    },
+    "optTweetAtShortenByContextMenu": {
+        "message": "When you shorten URL by the context menu, display the window to  post to Twitter automatically."
+    },
+    "optTwitterSetTitle": {
+        "message": "Set the title of the current tab when tweet."
     },
     "popupShorten": {
         "message": "Shorten"

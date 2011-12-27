@@ -38,6 +38,9 @@ ShareTools.prototype = {
             a.setAttribute("class", "twitter-share-button");
             a.setAttribute("data-count", "none");
             a.setAttribute("data-url", url);
+            if (this.bg.gl.isTwitterSetTitle()) {
+                a.setAttribute("data-text", this.popup.getCurrentTabTitle());
+            }
             a.innerHTML = "Tweet";
             var script = document.createElement("script");
             script.setAttribute("type", "text/javascript");

@@ -20,9 +20,6 @@
     "optDontShowContextMenu": {
         "message": "コンテキストメニューを表示しない。"
     },
-    "optWatching": {
-        "message": "クリック数監視"
-    },
     "optDontStartWatching": {
         "message": "URLが短縮された際に自動的に監視を開始する。"
     },
@@ -34,9 +31,6 @@
     },
     "optShortenDirectlyAtLogin": {
         "message": "ログインしているときに、拡張機能のボタンを押した際に自動的にURLを短縮する。"
-    },
-    "optTweetAtShortenByContextMenu": {
-        "message": "コンテキストメニューから短縮した時に、自動的にTwitter投稿ウィンドウを表示する。"
     },
     "optReadItLater": {
         "message": "Read It Later"
@@ -67,6 +61,15 @@
     },
     "optBackgroundImageUrlSaveSucceed": {
         "message": "成功しました。"
+    },
+    "optTwitter": {
+        "message": "Twitter"
+    },
+    "optTweetAtShortenByContextMenu": {
+        "message": "コンテキストメニューから短縮した時に、自動的にTwitter投稿ウィンドウを表示する。"
+    },
+    "optTwitterSetTitle": {
+        "message": "つぶやく際にカレントタブのタイトルをセットする。"
     },
     "popupShorten": {
         "message": "短縮"
