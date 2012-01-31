@@ -32,6 +32,7 @@ Popup.prototype = {
         $("popupLogin").innerHTML = chrome.i18n.getMessage("popupLogin");
         $("popupLoginDesc").innerHTML = chrome.i18n.getMessage("popupLoginDesc");
         $("popupStopWatching").innerHTML = chrome.i18n.getMessage("popupStopWatching");
+        $("btn_option").title = chrome.i18n.getMessage("popupOption");
         this.recommend.assignMessages();
     },
     assignEventHandlers: function() {
@@ -40,7 +41,16 @@ Popup.prototype = {
         $("shorten").onclick = this.onClickShorten.bind(this);
         $("input_short_url").onclick = this.onClickShortUrl.bind(this);
         $("clear_timer").onclick = this.onClickClearTimer.bind(this);
+        $("btn_option").onclick = this.onClickOption.bind(this);
         this.recommend.assignEventHandlers();
+    },
+    onClickOption: function() {
+        var url = chrome.extension.getURL("options.html");
+        chrome.tabs.create({
+            url: url
+        }, function(tab) {
+            window.close();
+        }.bind(this));
     },
     setBackgroundImage: function() {
         var url = this.bg.gl.getBackgroundImageUrl();
@@ -351,8 +361,14 @@ Popup.prototype = {
             this.bg.gl.shortenLongUrl(url, {
                 onSuccess: function(req) {
                     this.setShortUrl(req.responseJSON.id, false);
-                    if (this.bg.gl.wasAuthorized()) {
-                        this.loadHistory();
+                    if (this.bg.gl.isTweetAtShortenByPopup()) {
+                        this.bg.gl.showTweetWindow(req.responseJSON.id,
+                                                   this.bg.gl.isTwitterSetTitle(),
+                                                   this.getCurrentTabTitle());
+                    } else {
+                        if (this.bg.gl.wasAuthorized()) {
+                            this.loadHistory();
+                        }
                     }
                 }.bind(this),
                 onFailure: function(req) {

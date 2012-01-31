@@ -68,6 +68,9 @@
     "optTweetAtShortenByContextMenu": {
         "message": "Lorsque vous raccourcissez URL par le menu contextuel, afficher la fenetre de poster sur Twitter automatiquement."
     },
+    "optTweetAtShortenByPopup": {
+        "message": "Lorsque vous réduisez la fenêtre pop-up affiche automatiquement une fenêtre de messages Twitter."
+    },
     "optTwitterSetTitle": {
         "message": "Réglez le titre de l'onglet courant lorsque Tweet."
     },
@@ -136,6 +139,9 @@
     },
     "popupRegisteredReadItLater": {
         "message": "L'URL a ete enregistre a Read It Later."
+    },
+    "popupOption": {
+        "message": "Option"
     },
     "ctxmenuShortenUrlAdded": {
         "message": "Reduire l'URL (ajouter a l'historique)"

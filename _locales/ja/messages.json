@@ -68,6 +68,9 @@
     "optTweetAtShortenByContextMenu": {
         "message": "コンテキストメニューから短縮した時に、自動的にTwitter投稿ウィンドウを表示する。"
     },
+    "optTweetAtShortenByPopup": {
+        "message": "ポップアップウィンドウから短縮した時に、自動的にTwitter投稿ウィンドウを表示する。"
+    },
     "optTwitterSetTitle": {
         "message": "つぶやく際にカレントタブのタイトルをセットする。"
     },
@@ -136,6 +139,9 @@
     },
     "popupRegisteredReadItLater": {
         "message": "URLをRead It Laterに登録しました。"
+    },
+    "popupOption": {
+        "message": "オプション"
     },
     "ctxmenuShortenUrlAdded": {
         "message": "URLを短縮 (履歴に追加されます)"

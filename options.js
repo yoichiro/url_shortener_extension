@@ -35,6 +35,7 @@ Option.prototype = {
         $("optTwitter").innerHTML = chrome.i18n.getMessage("optTwitter");
         $("optTweetAtShortenByContextMenu").innerHTML = chrome.i18n.getMessage("optTweetAtShortenByContextMenu");
         $("optTwitterSetTitle").innerHTML = chrome.i18n.getMessage("optTwitterSetTitle");
+        $("optTweetAtShortenByPopup").innerHTML = chrome.i18n.getMessage("optTweetAtShortenByPopup");
     },
     restoreConfigurations: function() {
         $("not_show_notification_after_login").checked =
@@ -67,6 +68,8 @@ Option.prototype = {
         }
         $("background_image_url").value = this.bg.gl.getBackgroundImageUrl();
         $("twitter_set_title").checked = this.bg.gl.isTwitterSetTitle();
+        $("tweet_at_shorten_by_popup").checked =
+            this.bg.gl.isTweetAtShortenByPopup();
     },
     assignEventHandlers: function() {
         $("not_show_notification_after_login").onclick =
@@ -95,6 +98,8 @@ Option.prototype = {
             this.onClickBackgroundImageUrlSave.bind(this);
         $("twitter_set_title").onclick =
             this.onClickTwitterSetTitle.bind(this);
+        $("tweet_at_shorten_by_popup").onclick =
+            this.onClickTweetAtShortenByPopup.bind(this);
     },
     onClickNotShowNotificationAfterLogin: function() {
         this.changeCheckboxConfiguration("not_show_notification_after_login");
@@ -123,6 +128,9 @@ Option.prototype = {
     },
     onClickTwitterSetTitle: function() {
         this.changeCheckboxConfiguration("twitter_set_title");
+    },
+    onClickTweetAtShortenByPopup: function() {
+        this.changeCheckboxConfiguration("tweet_at_shorten_by_popup");
     },
     changeCheckboxConfiguration: function(name) {
         localStorage[name] = $(name).checked ? "true" : "";

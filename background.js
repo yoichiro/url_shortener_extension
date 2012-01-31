@@ -139,7 +139,7 @@ Gl.prototype = {
                     onSuccess: function(req) {
                         this.showSucceedMessage(req);
                         if (this.isTweetAtShortenByContextMenu()) {
-                            this.showTweetWindow(req);
+                            this.showTweetWindow(req.responseJSON.id);
                         }
                     }.bind(this),
                     onFailure: function(req) {
@@ -151,13 +151,24 @@ Gl.prototype = {
             }.bind(this)
         };
     },
-    showTweetWindow: function(req) {
-        var shortUrl = req.responseJSON.id;
-        window.open(
-            "https://twitter.com/share?url="
-                + encodeURIComponent("http://goo.gl/QzrtB"),
-            "_blank",
-            "width=550,height=450");
+    showTweetWindow: function(shortUrl) {
+        if (this.isTwitterSetTitle()) {
+            chrome.tabs.getSelected(null, function(tab) {
+                window.open(
+                    "https://twitter.com/share?url="
+                        + encodeURIComponent("http://goo.gl/QzrtB")
+                        + "&text="
+                        + encodeURIComponent(tab.title),
+                    "_blank",
+                    "width=550,height=450");
+            }.bind(this));
+        } else {
+            window.open(
+                "https://twitter.com/share?url="
+                    + encodeURIComponent("http://goo.gl/QzrtB"),
+                "_blank",
+                "width=550,height=450");
+        }
     },
     showSucceedMessage: function(req) {
         var shortUrl = req.responseJSON.id;
@@ -357,6 +368,9 @@ Gl.prototype = {
     },
     isTwitterSetTitle: function() {
         return Boolean(localStorage["twitter_set_title"]);
+    },
+    isTweetAtShortenByPopup: function() {
+        return Boolean(localStorage["tweet_at_shorten_by_popup"]);
     },
     getReadItLaterUsername: function() {
         return localStorage["read_it_later_username"];

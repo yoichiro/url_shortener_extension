@@ -66,7 +66,10 @@
         "message": "Twitter"
     },
     "optTweetAtShortenByContextMenu": {
-        "message": "When you shorten URL by the context menu, display the window to  post to Twitter automatically."
+        "message": "When you shorten URL by the context menu, display the window to post to Twitter automatically."
+    },
+    "optTweetAtShortenByPopup": {
+        "message": "When you shorten URL by the pop-up window, display the window to post to Twitter automatically."
     },
     "optTwitterSetTitle": {
         "message": "Set the title of the current tab when tweet."
@@ -136,6 +139,9 @@
     },
     "popupRegisteredReadItLater": {
         "message": "The URL has been registered to Read It Later."
+    },
+    "popupOption": {
+        "message": "Option"
     },
     "ctxmenuShortenUrlAdded": {
         "message": "Shorten URL (added to history)"
