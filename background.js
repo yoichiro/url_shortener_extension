@@ -135,7 +135,7 @@ Gl.prototype = {
             title: title,
             contexts: ["page"],
             onclick: function(info, tab) {
-                this.shortenLongUrl(tab.url, {
+                this.shortenLongUrl(tab.url, tab.title, {
                     onSuccess: function(req) {
                         this.showSucceedMessage(req);
                         if (this.isTweetAtShortenByContextMenu()) {
@@ -231,6 +231,7 @@ Gl.prototype = {
                 ],
                 onSuccess: function(req) {
                     this.authorized = true;
+                    this.appendTitleToUserHistory(req);
                     callbacks.onSuccess(req);
                 }.bind(this),
                 onFailure: function(req) {
@@ -244,7 +245,23 @@ Gl.prototype = {
             return false;
         }
     },
-    shortenLongUrl: function(longUrl, callbacks) {
+    appendTitleToUserHistory: function(req) {
+        var titleHistory = this.getTitleHistory();
+        var newTitleHistory = {};
+        var items = req.responseJSON.items;
+        items.each(function(item) {
+            var longUrl = item.longUrl;
+            var title = titleHistory[longUrl];
+            if (title) {
+                item["title"] = title;
+                newTitleHistory[longUrl] = title;
+            } else {
+                item["title"] = longUrl;
+            }
+        });
+        localStorage["title_history"] = Object.toJSON(newTitleHistory);
+    },
+    shortenLongUrl: function(longUrl, title, callbacks) {
         var url = "https://www.googleapis.com/urlshortener/v1/url";
         var params = {
             method: "post",
@@ -252,7 +269,10 @@ Gl.prototype = {
             postBody: Object.toJSON({
                 longUrl: longUrl
             }),
-            onSuccess: callbacks.onSuccess,
+            onSuccess: function(req) {
+                this.storeTitleHistory(longUrl, title);
+                callbacks.onSuccess(req);
+            }.bind(this),
             onFailure: callbacks.onFailure,
             onComplete: callbacks.onComplete
         };
@@ -265,6 +285,20 @@ Gl.prototype = {
             url += "?key=" + this.shortenerApiKey;
         }
         new Ajax.Request(url, params);
+    },
+    storeTitleHistory: function(longUrl, title) {
+        var titleHistory = this.getTitleHistory();
+        titleHistory[longUrl] = title;
+        localStorage["title_history"] = Object.toJSON(titleHistory);
+    },
+    getTitleHistory: function() {
+        var titleHistory = localStorage["title_history"];
+        if (titleHistory) {
+            titleHistory = titleHistory.evalJSON();
+        } else {
+            titleHistory = {};
+        }
+        return titleHistory;
     },
     startWatchCount: function(shortUrl) {
         for (var i = 0; i < this.timers.length; i++) {

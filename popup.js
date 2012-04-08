@@ -112,8 +112,9 @@ Popup.prototype = {
             longUrlDiv.addClassName("long_url");
             var longUrlA = document.createElement("a");
             longUrlA.setAttribute("href", item.longUrl);
+            longUrlA.setAttribute("title", item.longUrl);
             longUrlA.setAttribute("target", "_blank");
-            var longUrlText = document.createTextNode(item.longUrl);
+            var longUrlText = document.createTextNode(item.title);
             longUrlA.appendChild(longUrlText);
             longUrlDiv.appendChild(longUrlA);
             longUrlTd.appendChild(longUrlDiv);
@@ -358,8 +359,9 @@ Popup.prototype = {
             this.setVisibleForm($("shorten"), false);
             this.setVisibleForm($("shorten_progress"), true);
             this.clearShortenResult();
-            this.bg.gl.shortenLongUrl(url, {
+            this.bg.gl.shortenLongUrl(url, this.getCurrentTabTitle(), {
                 onSuccess: function(req) {
+                    console.log("aaa");
                     this.setShortUrl(req.responseJSON.id, false);
                     if (this.bg.gl.isTweetAtShortenByPopup()) {
                         this.bg.gl.showTweetWindow(req.responseJSON.id,

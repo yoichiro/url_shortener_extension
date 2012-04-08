@@ -1,0 +1,191 @@
+{
+    "extDescription": {
+        "message": "Это расширение предоставляет интерфейс для использования Shortener URL Google быстро."
+    },
+    "optNotification": {
+        "message": "Уведомление"
+    },
+    "optDontShowMsgLogin": {
+        "message": "Не отображать сообщение после входа в Google."
+    },
+    "optDontShowMsgCopyClipboard": {
+        "message": "Не показывать сообщение после того, как сокращенный URL, скопированный в буфер обмена с помощью контекстного меню."
+    },
+    "optDontShowMsgRegisterReadItLater": {
+        "message": "Не отображает сообщение Вам после регистрации вашего URL читать это позже с помощью контекстного меню."
+    },
+    "optContextMenu": {
+        "message": "Контекстное меню"
+    },
+    "optDontShowContextMenu": {
+        "message": "Не отображается контекстное меню."
+    },
+    "optDontStartWatching": {
+        "message": "Для начала мониторинга автоматически, когда URL сокращается."
+    },
+    "optShorten": {
+        "message": "сокращение"
+    },
+    "optShortenDirectlyAtNotLogin": {
+        "message": "Если вы не вошли в систему, чтобы сократить URL автоматически при нажатии на кнопку расширения."
+    },
+    "optShortenDirectlyAtLogin": {
+        "message": "Когда вы вошли в систему, чтобы сократить URL автоматически при нажатии на кнопку расширения."
+    },
+    "optReadItLater": {
+        "message": "Read It Later"
+    },
+    "optReadItLaterUsername": {
+        "message": "имя пользователя"
+    },
+    "optReadItLaterPassword": {
+        "message": "пароль"
+    },
+    "optReadItLaterSave": {
+        "message": "Сохранить и сертификационные испытания"
+    },
+    "optReadItLaterSucceed": {
+        "message": "Был успешным."
+    },
+    "optReadItLaterGrant": {
+        "message": "Используйте Read It Later"
+    },
+    "optReadItLaterRemoveGrant": {
+        "message": "Остановить использование"
+    },
+    "optBackgroundImageUrl": {
+        "message": "URL фонового изображения"
+    },
+    "optBackgroundImageUrlSave": {
+        "message": "применение"
+    },
+    "optBackgroundImageUrlSaveSucceed": {
+        "message": "Был успешным."
+    },
+    "optTwitter": {
+        "message": "Twitter"
+    },
+    "optTweetAtShortenByContextMenu": {
+        "message": "В то время было сокращено из контекстного меню, чтобы открыть окно автоматически сообщения Twitter."
+    },
+    "optTweetAtShortenByPopup": {
+        "message": "В то время, был сокращен с всплывающее окно, чтобы открыть окно автоматически сообщения Twitter."
+    },
+    "optTwitterSetTitle": {
+        "message": "Чтобы задать название текущей закладки, когда бормотание."
+    },
+    "popupShorten": {
+        "message": "сокращение"
+    },
+    "popupHistory": {
+        "message": "история"
+    },
+    "popupLoginDesc": {
+        "message": "Если вы хотите проверить свою историю, перейдите разрешения Войти Google."
+    },
+    "popupLogin": {
+        "message": "Войти в Google"
+    },
+    "popupRecommend": {
+        "message": "Рекомендовать!"
+    },
+    "popupStopWatching": {
+        "message": "Чтобы остановить мониторинг"
+    },
+    "popupPage": {
+        "message": "страница: "
+    },
+    "popupCompleteShorten": {
+        "message": "Скопировать в буфер обмена сокращения URL."
+    },
+    "popupStartWatching": {
+        "message": "Начала мониторинга"
+    },
+    "popupStartedWatching": {
+        "message": "Мониторинг начался."
+    },
+    "popupUrlDetail": {
+        "message": "деталь"
+    },
+    "popupRecommendText": {
+        "message": "\"goo.gl URL Shortener\" Chrome Пожалуйста, попробуйте расширение!"
+    },
+    "popupJustNow": {
+        "message": "сейчас"
+    },
+    "popupHoursAgo": {
+        "message": "$VALUE$ часа назад",
+        "placeholders": {
+            "value" : {
+                "content": "$1"
+            }
+        }
+    },
+    "popupDayAgo": {
+        "message": "$VALUE$ дня назад",
+        "placeholders": {
+            "value" : {
+                "content": "$1"
+            }
+        }
+    },
+    "popupDaysAgo": {
+        "message": "$VALUE$ дня назад",
+        "placeholders": {
+            "value" : {
+                "content": "$1"
+            }
+        }
+    },
+    "popupRegisteredReadItLater": {
+        "message": "Был зарегистрирован в Read It Later URL-адрес."
+    },
+    "popupOption": {
+        "message": "вариант"
+    },
+    "ctxmenuShortenUrlAdded": {
+        "message": "сокращения URL (Будет добавлен в истории)"
+    },
+    "ctxmenuShortenUrlNotAdded": {
+        "message": "сократить URL (Не будет добавлена ​​в истории)"
+    },
+    "ctxmenuLogin": {
+        "message": "Войти в Google (Чтобы быть записан в историю)"
+    },
+    "ctxmenuReadItLater": {
+        "message": "На учете в Read It Later"
+    },
+    "notifyCopied": {
+        "message": "Скопировать в буфер обмена сокращения URL ($SHORT_URL$).",
+        "placeholders": {
+            "short_url": {
+                "content": "$1"
+            }
+        }
+    },
+    "notifyStartWatching": {
+        "message": "Мониторинг начался."
+    },
+    "notifyShortenFailed": {
+        "message": "Не удалось сократить URL.($REQ_STATUS$)",
+        "placeholders": {
+            "req_status": {
+                "content": "$1"
+            }
+        }
+    },
+    "notifyCompleteLogin": {
+        "message": "Утверждение была завершена. Сокращение URL записан в историю вам."
+    },
+    "notifyRegisterReadItLaterFailed": {
+        "message": "Не удалось зарегистрировать на Read It Later.($REQ_STATUS$)",
+        "placeholders": {
+            "req_status": {
+                "content": "$1"
+            }
+        }
+    },
+    "notifyRegisteredReadItLater": {
+        "message": "Был зарегистрирован в Read It Later."
+    }
+}
