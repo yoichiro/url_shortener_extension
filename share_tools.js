@@ -20,12 +20,14 @@ ShareTools.prototype = {
     },
     clearAll: function() {
         this.setTwitter("");
+        this.setFacebook("");
         this.setGMail("");
         this.setQRCode("");
         this.setUrlDetail("");
     },
     showTools: function(shortUrl) {
         this.setTwitter(shortUrl);
+        this.setFacebook(shortUrl);
         this.setGMail(shortUrl);
         this.setQRCode(shortUrl);
         this.setUrlDetail(shortUrl);
@@ -50,6 +52,23 @@ ShareTools.prototype = {
             Utils.setVisible($("twitter"), true);
         } else {
             Utils.setVisible($("twitter"), false);
+        }
+    },
+    setFacebook: function(url) {
+        var self = this;
+        $("facebook").innerHTML = "";
+        if (url) {
+            var img = document.createElement("img");
+            img.src = "./facebook_16.png";
+            img.onclick = function(url) {
+                return function(evt) {
+                    this.bg.gl.showFacebookWindow(url);
+                }.bind(self);
+            }.bind(this)(url);
+            $("facebook").appendChild(img);
+            Utils.setVisible($("facebook"), true);
+        } else {
+            Utils.setVisible($("facebook"), false);
         }
     },
     setGMail: function(url) {

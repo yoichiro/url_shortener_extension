@@ -170,6 +170,14 @@ Gl.prototype = {
                 "width=550,height=450");
         }
     },
+    showFacebookWindow: function(shortUrl) {
+        var link = "http://www.facebook.com/sharer/sharer.php?u="
+            + encodeURIComponent(shortUrl);
+        window.open(
+            link,
+            "_blank",
+            "width=670,height=360");
+    },
     showSucceedMessage: function(req) {
         var shortUrl = req.responseJSON.id;
         $("buffer").value = shortUrl;
