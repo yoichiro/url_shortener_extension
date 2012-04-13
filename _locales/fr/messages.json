@@ -6,13 +6,13 @@
         "message": "Notification"
     },
     "optDontShowMsgLogin": {
-        "message": "Ne pas afficher de notification apres la connexion a Google."
+        "message": "Ne pas afficher de notification après la connexion à Google."
     },
     "optDontShowMsgCopyClipboard": {
-        "message": "Ne pas afficher de notification apres avoir copie un lien reduit a l'aide du menu contextuel."
+        "message": "Ne pas afficher de notification après avoir copié un lien reduit à l'aide du menu contextuel."
     },
     "optDontShowMsgRegisterReadItLater": {
-        "message": "Ne pas afficher les messages après l'enregistrement d'une URL à Read It Later utilisant le menu contextuel."
+        "message": "Ne pas afficher de notification après l'enregistrement d'une URL sur Read It Later utilisant le menu contextuel."
     },
     "optContextMenu": {
         "message": "Menu contextuel"
@@ -27,16 +27,16 @@
         "message": "Raccourcir"
     },
     "optShortenDirectlyAtNotLogin": {
-        "message": "Lorsque vous n'etes pas connecte, raccourcir l'URL automatiquement lorsque vous appuyez sur le bouton de l'extension."
+        "message": "Lorsque vous n'êtes pas connecté, raccourcir l'URL automatiquement lorsque vous appuyez sur le bouton de l'extension."
     },
     "optShortenDirectlyAtLogin": {
-        "message": "Lorsque vous etes connecte, vous raccourcissez l'URL automatiquement lorsque vous appuyez sur le bouton de l'extension."
+        "message": "Lorsque vous etes connecté, raccourcir l'URL automatiquement lorsque vous appuyez sur le bouton de l'extension."
     },
     "optReadItLater": {
         "message": "Read It Later"
     },
     "optReadItLaterUsername": {
-        "message": "nom d'utilisateur"
+        "message": "Nom d'utilisateur"
     },
     "optReadItLaterPassword": {
         "message": "Mot de passe"
@@ -45,7 +45,7 @@
         "message": "Enregistrer et test de certification"
     },
     "optReadItLaterSucceed": {
-        "message": "Reussi."
+        "message": "Réussi."
     },
     "optReadItLaterGrant": {
         "message": "Utilisation de l'Read It Later"
@@ -57,7 +57,7 @@
         "message": "URL de l'image de fond"
     },
     "optBackgroundImageUrlSave": {
-        "message": "demande"
+        "message": "Confirmer"
     },
     "optBackgroundImageUrlSaveSucceed": {
         "message": "Reussi."
@@ -66,25 +66,25 @@
         "message": "Twitter"
     },
     "optTweetAtShortenByContextMenu": {
-        "message": "Lorsque vous raccourcissez URL par le menu contextuel, afficher la fenetre de poster sur Twitter automatiquement."
+        "message": "Lorsque vous raccourcissez une URL par le menu contextuel, afficher automatiquement la fenêtre pour poster sur Twitter."
     },
     "optTweetAtShortenByPopup": {
-        "message": "Lorsque vous réduisez la fenêtre pop-up affiche automatiquement une fenêtre de messages Twitter."
+        "message": "Lorsque vous réduisez à l'aide de la fenêtre pop-up, afficher automatiquement une la fenêtre pour poster sur Twitter."
     },
     "optTwitterSetTitle": {
-        "message": "Réglez le titre de l'onglet courant lorsque Tweet."
+        "message": "Utiliser le titre de l'onglet courant pour Twitter."
     },
     "popupShorten": {
-        "message": "Reduire"
+        "message": "Réduire"
     },
     "popupHistory": {
         "message": "Historique"
     },
     "popupLoginDesc": {
-        "message": "Pour voir votre historique, veuillez vous connecter a Google et autoriser l'acces."
+        "message": "Pour voir votre historique, veuillez vous connecter à Google et autoriser l'accès."
     },
     "popupLogin": {
-        "message": "Connexion a Google"
+        "message": "Connexion à Google"
     },
     "popupRecommend": {
         "message": "Passez le mot!"
@@ -96,25 +96,25 @@
         "message": "Page: "
     },
     "popupCompleteShorten": {
-        "message": "L'URL reduit a ete copie au presse-papiers."
+        "message": "L'URL réduit a été copié au presse-papiers."
     },
     "popupStartWatching": {
-        "message": "Commencer a surveiller"
+        "message": "Commencer à surveiller"
     },
     "popupStartedWatching": {
         "message": " Le suivi commence."
     },
     "popupUrlDetail": {
-        "message": "Details"
+        "message": "Détails"
     },
     "popupRecommendText": {
         "message": "Essayez l'extension \"goo.gl URL Shortener\" pour Chrome!"
     },
     "popupJustNow": {
-        "message": "Juste maintenant"
+        "message": "À l'instant"
     },
     "popupHoursAgo": {
-        "message": "Il ya $VALUE$ heures",
+        "message": "Il y a $VALUE$ heures",
         "placeholders": {
             "value" : {
                 "content": "$1"
@@ -122,7 +122,7 @@
         }
     },
     "popupDayAgo": {
-        "message": "Il ya $VALUE$ jour",
+        "message": "Il y a $VALUE$ jour",
         "placeholders": {
             "value" : {
                 "content": "$1"
@@ -130,7 +130,7 @@
         }
     },
     "popupDaysAgo": {
-        "message": "Il ya $VALUE$ jours",
+        "message": "Il y a $VALUE$ jours",
         "placeholders": {
             "value" : {
                 "content": "$1"
@@ -138,25 +138,25 @@
         }
     },
     "popupRegisteredReadItLater": {
-        "message": "L'URL a ete enregistre a Read It Later."
+        "message": "L'URL a été enregistré sur Read It Later."
     },
     "popupOption": {
         "message": "Option"
     },
     "ctxmenuShortenUrlAdded": {
-        "message": "Reduire l'URL (ajouter a l'historique)"
+        "message": "Réduire l'URL (ajouter à l'historique)"
     },
     "ctxmenuShortenUrlNotAdded": {
-        "message": "Reduire l'URL (sans ajouter a l'historique)"
+        "message": "Réduire l'URL (sans ajouter à l'historique)"
     },
     "ctxmenuLogin": {
-        "message": "Connexion a Google (pour enregistrer votre historique)"
+        "message": "Connexion à Google (pour enregistrer votre historique)"
     },
     "ctxmenuReadItLater": {
         "message": "Inscrivez-vous à Read It Later"
     },
     "notifyCopied": {
-        "message": "L'URL reduit ($SHORT_URL$) a ete copie au presse-papiers.",
+        "message": "L'URL réduit ($SHORT_URL$) a été copie au presse-papiers.",
         "placeholders": {
             "short_url": {
                 "content": "$1"
@@ -167,7 +167,7 @@
         "message": " Le suivi commence."
     },
     "notifyShortenFailed": {
-        "message": "La reduction d'URL a echoue. ($REQ_STATUS$)",
+        "message": "La réduction d'URL a échoué. ($REQ_STATUS$)",
         "placeholders": {
             "req_status": {
                 "content": "$1"
@@ -175,7 +175,7 @@
         }
     },
     "notifyCompleteLogin": {
-        "message": "Connexion completee. Les URLs reduits seront maintenant enregistres a votre historique."
+        "message": "Connexion complétée. Les URLs réduits seront maintenant enregistrés à votre historique."
     },
     "notifyRegisterReadItLaterFailed": {
         "message": "Impossible de s'inscrire auprès de Read It Later. ($REQ_STATUS$)",
@@ -186,6 +186,6 @@
         }
     },
     "notifyRegisteredReadItLater": {
-        "message": "Enregistré à Read It Later."
+        "message": "Enregistré sur Read It Later."
     }
 }
