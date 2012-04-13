@@ -65,11 +65,20 @@
     "optTwitter": {
         "message": "Twitter"
     },
+    "optShare": {
+        "message": "ação"
+    },
     "optTweetAtShortenByContextMenu": {
         "message": "Quando voce encurtar o menu de contexto para exibir a janela de mensagem para o Twitter automaticamente."
     },
     "optTweetAtShortenByPopup": {
         "message": "Quando você reduz a janela pop-up exibe automaticamente uma janela de mensagens do Twitter."
+    },
+    "optFacebookAtShortenByContextMenu": {
+        "message": "Quando voce encurtar o menu de contexto para exibir a janela de mensagem para o Facebook automaticamente."
+    },
+    "optFacebookAtShortenByPopup": {
+        "message": "Quando você reduz a janela pop-up exibe automaticamente uma janela de mensagens do Facebook."
     },
     "optTwitterSetTitle": {
         "message": "Definir o título da guia da corrente quando twittar."

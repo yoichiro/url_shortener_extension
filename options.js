@@ -36,6 +36,9 @@ Option.prototype = {
         $("optTweetAtShortenByContextMenu").innerHTML = chrome.i18n.getMessage("optTweetAtShortenByContextMenu");
         $("optTwitterSetTitle").innerHTML = chrome.i18n.getMessage("optTwitterSetTitle");
         $("optTweetAtShortenByPopup").innerHTML = chrome.i18n.getMessage("optTweetAtShortenByPopup");
+        $("optShare").innerHTML = chrome.i18n.getMessage("optShare");
+        $("optFacebookAtShortenByContextMenu").innerHTML = chrome.i18n.getMessage("optFacebookAtShortenByContextMenu");
+        $("optFacebookAtShortenByPopup").innerHTML = chrome.i18n.getMessage("optFacebookAtShortenByPopup");
     },
     restoreConfigurations: function() {
         $("not_show_notification_after_login").checked =
@@ -54,6 +57,8 @@ Option.prototype = {
             this.bg.gl.isShortenDirectlyAtLogin();
         $("tweet_at_shorten_by_context_menu").checked =
             this.bg.gl.isTweetAtShortenByContextMenu();
+        $("facebook_at_shorten_by_context_menu").checked =
+            this.bg.gl.isFacebookAtShortenByContextMenu();
         var readItLaterUsername = this.bg.gl.getReadItLaterUsername();
         if (readItLaterUsername) {
             $("read_it_later_username").value = readItLaterUsername;
@@ -70,6 +75,8 @@ Option.prototype = {
         $("twitter_set_title").checked = this.bg.gl.isTwitterSetTitle();
         $("tweet_at_shorten_by_popup").checked =
             this.bg.gl.isTweetAtShortenByPopup();
+        $("facebook_at_shorten_by_popup").checked =
+            this.bg.gl.isFacebookAtShortenByPopup();
     },
     assignEventHandlers: function() {
         $("not_show_notification_after_login").onclick =
@@ -100,6 +107,10 @@ Option.prototype = {
             this.onClickTwitterSetTitle.bind(this);
         $("tweet_at_shorten_by_popup").onclick =
             this.onClickTweetAtShortenByPopup.bind(this);
+        $("facebook_at_shorten_by_context_menu").onclick =
+            this.onClickFacebookAtShortenByContextMenu.bind(this);
+        $("facebook_at_shorten_by_popup").onclick =
+            this.onClickFacebookAtShortenByPopup.bind(this);
     },
     onClickNotShowNotificationAfterLogin: function() {
         this.changeCheckboxConfiguration("not_show_notification_after_login");
@@ -125,12 +136,22 @@ Option.prototype = {
     },
     onClickTweetAtShortenByContextMenu: function() {
         this.changeCheckboxConfiguration("tweet_at_shorten_by_context_menu");
+        if ($("tweet_at_shorten_by_context_menu").checked
+            && $("facebook_at_shorten_by_context_menu").checked) {
+            $("facebook_at_shorten_by_context_menu").checked = false;
+            this.onClickFacebookAtShortenByContextMenu();
+        }
     },
     onClickTwitterSetTitle: function() {
         this.changeCheckboxConfiguration("twitter_set_title");
     },
     onClickTweetAtShortenByPopup: function() {
         this.changeCheckboxConfiguration("tweet_at_shorten_by_popup");
+        if ($("tweet_at_shorten_by_popup").checked
+            && $("facebook_at_shorten_by_popup").checked) {
+            $("facebook_at_shorten_by_popup").checked = false;
+            this.onClickFacebookAtShortenByPopup();
+        }
     },
     changeCheckboxConfiguration: function(name) {
         localStorage[name] = $(name).checked ? "true" : "";
@@ -197,6 +218,22 @@ Option.prototype = {
         setTimeout(function() {
             $("background_image_url_result").innerHTML = "";
         }, 5000);
+    },
+    onClickFacebookAtShortenByContextMenu: function() {
+        this.changeCheckboxConfiguration("facebook_at_shorten_by_context_menu");
+        if ($("facebook_at_shorten_by_context_menu").checked
+            && $("tweet_at_shorten_by_context_menu").checked) {
+            $("tweet_at_shorten_by_context_menu").checked = false;
+            this.onClickTweetAtShortenByContextMenu();
+        }
+    },
+    onClickFacebookAtShortenByPopup: function() {
+        this.changeCheckboxConfiguration("facebook_at_shorten_by_popup");
+        if ($("facebook_at_shorten_by_popup").checked
+            && $("tweet_at_shorten_by_popup").checked) {
+            $("tweet_at_shorten_by_popup").checked = false;
+            this.onClickTweetAtShortenByPopup();
+        }
     }
 };
 

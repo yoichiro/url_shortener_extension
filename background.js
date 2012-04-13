@@ -140,6 +140,8 @@ Gl.prototype = {
                         this.showSucceedMessage(req);
                         if (this.isTweetAtShortenByContextMenu()) {
                             this.showTweetWindow(req.responseJSON.id);
+                        } else if (this.isFacebookAtShortenByContextMenu()) {
+                            this.showFacebookWindow(req.responseJSON.id);
                         }
                     }.bind(this),
                     onFailure: function(req) {
@@ -176,7 +178,7 @@ Gl.prototype = {
         window.open(
             link,
             "_blank",
-            "width=670,height=360");
+            "width=680,height=360");
     },
     showSucceedMessage: function(req) {
         var shortUrl = req.responseJSON.id;
@@ -408,11 +410,17 @@ Gl.prototype = {
     isTweetAtShortenByContextMenu: function() {
         return Boolean(localStorage["tweet_at_shorten_by_context_menu"]);
     },
+    isFacebookAtShortenByContextMenu: function() {
+        return Boolean(localStorage["facebook_at_shorten_by_context_menu"]);
+    },
     isTwitterSetTitle: function() {
         return Boolean(localStorage["twitter_set_title"]);
     },
     isTweetAtShortenByPopup: function() {
         return Boolean(localStorage["tweet_at_shorten_by_popup"]);
+    },
+    isFacebookAtShortenByPopup: function() {
+        return Boolean(localStorage["facebook_at_shorten_by_popup"]);
     },
     getReadItLaterUsername: function() {
         return localStorage["read_it_later_username"];

@@ -65,11 +65,20 @@
     "optTwitter": {
         "message": "Twitter"
     },
+    "optShare": {
+        "message": "доля"
+    },
     "optTweetAtShortenByContextMenu": {
         "message": "В то время было сокращено из контекстного меню, чтобы открыть окно автоматически сообщения Twitter."
     },
     "optTweetAtShortenByPopup": {
         "message": "В то время, был сокращен с всплывающее окно, чтобы открыть окно автоматически сообщения Twitter."
+    },
+    "optFacebookAtShortenByContextMenu": {
+        "message": "В то время было сокращено из контекстного меню, чтобы открыть окно автоматически сообщения Facebook."
+    },
+    "optFacebookAtShortenByPopup": {
+        "message": "В то время, был сокращен с всплывающее окно, чтобы открыть окно автоматически сообщения .acebook"
     },
     "optTwitterSetTitle": {
         "message": "Чтобы задать название текущей закладки, когда бормотание."

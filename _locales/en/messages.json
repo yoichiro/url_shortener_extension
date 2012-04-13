@@ -65,11 +65,20 @@
     "optTwitter": {
         "message": "Twitter"
     },
+    "optShare": {
+        "message": "Share"
+    },
     "optTweetAtShortenByContextMenu": {
         "message": "When you shorten URL by the context menu, display the window to post to Twitter automatically."
     },
     "optTweetAtShortenByPopup": {
         "message": "When you shorten URL by the pop-up window, display the window to post to Twitter automatically."
+    },
+    "optFacebookAtShortenByContextMenu": {
+        "message": "When you shorten URL by the context menu, display the window to post to Facebook automatically."
+    },
+    "optFacebookAtShortenByPopup": {
+        "message": "When you shorten URL by the pop-up window, display the window to post to Facebook automatically."
     },
     "optTwitterSetTitle": {
         "message": "Set the title of the current tab when tweet."

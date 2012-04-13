@@ -65,11 +65,20 @@
     "optTwitter": {
         "message": "Twitter"
     },
+    "optShare": {
+        "message": "Part"
+    },
     "optTweetAtShortenByContextMenu": {
         "message": "Lorsque vous raccourcissez URL par le menu contextuel, afficher la fenetre de poster sur Twitter automatiquement."
     },
     "optTweetAtShortenByPopup": {
         "message": "Lorsque vous réduisez la fenêtre pop-up affiche automatiquement une fenêtre de messages Twitter."
+    },
+    "optFacebookAtShortenByContextMenu": {
+        "message": "Lorsque vous raccourcissez URL par le menu contextuel, afficher la fenetre de poster sur Facebook automatiquement."
+    },
+    "optFacebookAtShortenByPopup": {
+        "message": "Lorsque vous réduisez la fenêtre pop-up affiche automatiquement une fenêtre de messages Facebook."
     },
     "optTwitterSetTitle": {
         "message": "Réglez le titre de l'onglet courant lorsque Tweet."

@@ -65,11 +65,20 @@
     "optTwitter": {
         "message": "Twitter"
     },
+    "optShare": {
+        "message": "共有"
+    },
     "optTweetAtShortenByContextMenu": {
         "message": "コンテキストメニューから短縮した時に、自動的にTwitter投稿ウィンドウを表示する。"
     },
     "optTweetAtShortenByPopup": {
         "message": "ポップアップウィンドウから短縮した時に、自動的にTwitter投稿ウィンドウを表示する。"
+    },
+    "optFacebookAtShortenByContextMenu": {
+        "message": "コンテキストメニューから短縮した時に、自動的にFacebook投稿ウィンドウを表示する。"
+    },
+    "optFacebookAtShortenByPopup": {
+        "message": "ポップアップウィンドウから短縮した時に、自動的にFacebook投稿ウィンドウを表示する。"
     },
     "optTwitterSetTitle": {
         "message": "つぶやく際にカレントタブのタイトルをセットする。"

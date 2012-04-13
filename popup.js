@@ -361,12 +361,13 @@ Popup.prototype = {
             this.clearShortenResult();
             this.bg.gl.shortenLongUrl(url, this.getCurrentTabTitle(), {
                 onSuccess: function(req) {
-                    console.log("aaa");
                     this.setShortUrl(req.responseJSON.id, false);
                     if (this.bg.gl.isTweetAtShortenByPopup()) {
                         this.bg.gl.showTweetWindow(req.responseJSON.id,
                                                    this.bg.gl.isTwitterSetTitle(),
                                                    this.getCurrentTabTitle());
+                    } else if (this.bg.gl.isFacebookAtShortenByPopup()) {
+                        this.bg.gl.showFacebookWindow(req.responseJSON.id);
                     } else {
                         if (this.bg.gl.wasAuthorized()) {
                             this.loadHistory();
