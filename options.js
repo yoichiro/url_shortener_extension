@@ -39,6 +39,8 @@ Option.prototype = {
         $("optShare").innerHTML = chrome.i18n.getMessage("optShare");
         $("optFacebookAtShortenByContextMenu").innerHTML = chrome.i18n.getMessage("optFacebookAtShortenByContextMenu");
         $("optFacebookAtShortenByPopup").innerHTML = chrome.i18n.getMessage("optFacebookAtShortenByPopup");
+        $("optAmazon").innerHTML = chrome.i18n.getMessage("optAmazon");
+        $("optAmazonShortUrl").innerHTML = chrome.i18n.getMessage("optAmazonShortUrl");
     },
     restoreConfigurations: function() {
         $("not_show_notification_after_login").checked =
@@ -77,6 +79,8 @@ Option.prototype = {
             this.bg.gl.isTweetAtShortenByPopup();
         $("facebook_at_shorten_by_popup").checked =
             this.bg.gl.isFacebookAtShortenByPopup();
+        $("amazon_short_url").checked =
+            this.bg.gl.isAmazonShortUrl();
     },
     assignEventHandlers: function() {
         $("not_show_notification_after_login").onclick =
@@ -111,6 +115,8 @@ Option.prototype = {
             this.onClickFacebookAtShortenByContextMenu.bind(this);
         $("facebook_at_shorten_by_popup").onclick =
             this.onClickFacebookAtShortenByPopup.bind(this);
+        $("amazon_short_url").onclick =
+            this.onClickAmazonShortUrl.bind(this);
     },
     onClickNotShowNotificationAfterLogin: function() {
         this.changeCheckboxConfiguration("not_show_notification_after_login");
@@ -234,6 +240,9 @@ Option.prototype = {
             $("tweet_at_shorten_by_popup").checked = false;
             this.onClickTweetAtShortenByPopup();
         }
+    },
+    onClickAmazonShortUrl: function() {
+        this.changeCheckboxConfiguration("amazon_short_url");
     }
 };
 

@@ -328,7 +328,10 @@ Popup.prototype = {
     },
     setCurrentLongUrl: function() {
         chrome.tabs.getSelected(null, function(tab) {
-            $("input_long_url").value = tab.url;
+            var longUrl = this.bg.gl.preProcessLongUrl(tab.url);
+            $("input_long_url").value = longUrl;
+            $("input_long_url").focus();
+            $("input_long_url").select();
             this.currentTabTitle = tab.title;
             if (this.bg.gl.wasAuthorized()) {
                 if (this.bg.gl.isShortenDirectlyAtLogin()) {

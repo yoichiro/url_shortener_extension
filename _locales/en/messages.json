@@ -83,6 +83,12 @@
     "optTwitterSetTitle": {
         "message": "Set the title of the current tab when tweet."
     },
+    "optAmazon": {
+        "message": "Amazon"
+    },
+    "optAmazonShortUrl": {
+        "message": "Adopt a short URL to an item page."
+    },
     "popupShorten": {
         "message": "Shorten"
     },

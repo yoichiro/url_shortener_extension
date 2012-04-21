@@ -83,6 +83,12 @@
     "optTwitterSetTitle": {
         "message": "Definir o título da guia da corrente quando twittar."
     },
+    "optAmazon": {
+        "message": "Amazon"
+    },
+    "optAmazonShortUrl": {
+        "message": "Para adotar uma URL curta para a página do item."
+    },
     "popupShorten": {
         "message": "encurtamento"
     },

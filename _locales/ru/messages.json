@@ -83,6 +83,12 @@
     "optTwitterSetTitle": {
         "message": "Чтобы задать название текущей закладки, когда бормотание."
     },
+    "optAmazon": {
+        "message": "Amazon"
+    },
+    "optAmazonShortUrl": {
+        "message": "Чтобы принять короткий URL в продукте."
+    },
     "popupShorten": {
         "message": "сокращение"
     },

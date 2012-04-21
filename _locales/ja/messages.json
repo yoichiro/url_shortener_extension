@@ -83,6 +83,12 @@
     "optTwitterSetTitle": {
         "message": "つぶやく際にカレントタブのタイトルをセットする。"
     },
+    "optAmazon": {
+        "message": "Amazon"
+    },
+    "optAmazonShortUrl": {
+        "message": "商品ページに短いURLを採用する。"
+    },
     "popupShorten": {
         "message": "短縮"
     },

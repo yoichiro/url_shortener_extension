@@ -135,7 +135,8 @@ Gl.prototype = {
             title: title,
             contexts: ["page"],
             onclick: function(info, tab) {
-                this.shortenLongUrl(tab.url, tab.title, {
+                var longUrl = this.preProcessLongUrl(tab.url);
+                this.shortenLongUrl(longUrl, tab.title, {
                     onSuccess: function(req) {
                         this.showSucceedMessage(req);
                         if (this.isTweetAtShortenByContextMenu()) {
@@ -380,6 +381,19 @@ Gl.prototype = {
         chrome.browserAction.setBadgeText({text: text});
         chrome.browserAction.setBadgeBackgroundColor({color: color});
     },
+    preProcessLongUrl: function(longUrl) {
+        if (this.isAmazonShortUrl()) {
+            var amazon =
+                longUrl.match(/^http:\/\/www.amazon.([a-z.]+)\//);
+            if (amazon) {
+                var isbn = longUrl.match(/\/(\d+)\//);
+                if (isbn) {
+                    return "http://www.amazon." + amazon[1] + "/dp/" + isbn[1] + "/";
+                }
+            }
+        }
+        return longUrl;
+    },
     wasAuthorized: function() {
         return this.authorized;
     },
@@ -459,6 +473,9 @@ Gl.prototype = {
             onFailure: callbacks.onFailure,
             onComplete: callbacks.onComplete
         });
+    },
+    isAmazonShortUrl: function() {
+        return Boolean(localStorage["amazon_short_url"]);
     }
 };
 

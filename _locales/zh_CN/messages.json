@@ -83,6 +83,12 @@
     "optTwitterSetTitle": {
         "message": "设置当前选项卡的标题时鸣叫"
     },
+    "optAmazon": {
+        "message": "Amazon"
+    },
+    "optAmazonShortUrl": {
+        "message": "采用短网址的项目页。"
+    },
     "popupShorten": {
         "message": "短縮"
     },

@@ -83,6 +83,12 @@
     "optTwitterSetTitle": {
         "message": "Utiliser le titre de l'onglet courant pour Twitter."
     },
+    "optAmazon": {
+        "message": "Amazon"
+    },
+    "optAmazonShortUrl": {
+        "message": "Pour adopter une URL courte à la page produit."
+    },
     "popupShorten": {
         "message": "Réduire"
     },
