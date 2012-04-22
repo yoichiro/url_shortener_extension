@@ -386,7 +386,7 @@ Gl.prototype = {
             var amazon =
                 longUrl.match(/^http:\/\/www.amazon.([a-z.]+)\//);
             if (amazon) {
-                var isbn = longUrl.match(/\/(\d+)\//);
+                var isbn = longUrl.match(/\/([A-Z0-9]+)\//);
                 if (isbn) {
                     return "http://www.amazon." + amazon[1] + "/dp/" + isbn[1] + "/";
                 }
