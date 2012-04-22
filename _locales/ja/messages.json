@@ -21,7 +21,7 @@
         "message": "コンテキストメニューを表示しない。"
     },
     "optDontStartWatching": {
-        "message": "URLが短縮された際に自動的に監視を開始する。"
+        "message": "URLが短縮された際に自動的に監視を開始しない。"
     },
     "optShorten": {
         "message": "短縮"

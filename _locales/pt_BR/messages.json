@@ -21,7 +21,7 @@
         "message": "Nao exibir o menu de contexto."
     },
     "optDontStartWatching": {
-        "message": "Automaticamente quando voce iniciar o monitoramento de um curto URL."
+        "message": "Não começar a assistir automaticamente quando a URL é encurtada."
     },
     "optShorten": {
         "message": "encurtamento"

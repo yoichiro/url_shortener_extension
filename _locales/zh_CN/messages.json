@@ -21,7 +21,7 @@
         "message": "不表示鼠标右键菜单。"
     },
     "optDontStartWatching": {
-        "message": "生成短缩网址同时自动开始监视。"
+        "message": "不要开始看URL时自动缩短。"
     },
     "optShorten": {
         "message": "短縮"
