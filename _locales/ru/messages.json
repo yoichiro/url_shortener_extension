@@ -1,6 +1,6 @@
 {
     "extDescription": {
-        "message": "Это расширение предоставляет интерфейс для использования Shortener URL Google быстро."
+        "message": "Это расширение предоставляет интерфейс для быстрого и удобного использования URL Shortener от Google."
     },
     "optNotification": {
         "message": "Уведомление"
@@ -9,94 +9,94 @@
         "message": "Не отображать сообщение после входа в Google."
     },
     "optDontShowMsgCopyClipboard": {
-        "message": "Не показывать сообщение после того, как сокращенный URL, скопированный в буфер обмена с помощью контекстного меню."
+        "message": "Не отображать сообщение после копирования сокращенного URL в буфер обмена с помощью контекстного меню."
     },
     "optDontShowMsgRegisterReadItLater": {
-        "message": "Не отображает сообщение Вам после регистрации вашего URL читать это позже с помощью контекстного меню."
+        "message": "Не отображать сообщение после сохранения сокращенного URL в Read It Later с помощью контекстного меню."
     },
     "optContextMenu": {
         "message": "Контекстное меню"
     },
     "optDontShowContextMenu": {
-        "message": "Не отображается контекстное меню."
+        "message": "Не отображать контекстное меню."
     },
     "optDontStartWatching": {
-        "message": "Не запускать автоматически при просмотре URL сокращается."
+        "message": "Не начинать просмотр автоматически после сокращения URL."
     },
     "optShorten": {
-        "message": "сокращение"
+        "message": "Cокращено"
     },
     "optShortenDirectlyAtNotLogin": {
-        "message": "Если вы не вошли в систему, чтобы сократить URL автоматически при нажатии на кнопку расширения."
+        "message": "Сократить URL напрямую по клику на кнопку расширения без необходимости вохода в систему."
     },
     "optShortenDirectlyAtLogin": {
-        "message": "Когда вы вошли в систему, чтобы сократить URL автоматически при нажатии на кнопку расширения."
+        "message": "Сократить URL напрямую по клику на кнопку расширения после входа в систему."
     },
     "optReadItLater": {
         "message": "Read It Later"
     },
     "optReadItLaterUsername": {
-        "message": "имя пользователя"
+        "message": "Имя пользователя"
     },
     "optReadItLaterPassword": {
-        "message": "пароль"
+        "message": "Пароль"
     },
     "optReadItLaterSave": {
-        "message": "Сохранить и сертификационные испытания"
+        "message": "Сохранить и протестировать аутентификацию"
     },
     "optReadItLaterSucceed": {
-        "message": "Был успешным."
+        "message": "Завершено успешно."
     },
     "optReadItLaterGrant": {
         "message": "Используйте Read It Later"
     },
     "optReadItLaterRemoveGrant": {
-        "message": "Остановить использование"
+        "message": "Прекратить использование"
     },
     "optBackgroundImageUrl": {
         "message": "URL фонового изображения"
     },
     "optBackgroundImageUrlSave": {
-        "message": "применение"
+        "message": "Применить"
     },
     "optBackgroundImageUrlSaveSucceed": {
-        "message": "Был успешным."
+        "message": "Завершено успешно."
     },
     "optTwitter": {
         "message": "Twitter"
     },
     "optShare": {
-        "message": "доля"
+        "message": "Поделиться"
     },
     "optTweetAtShortenByContextMenu": {
-        "message": "В то время было сокращено из контекстного меню, чтобы открыть окно автоматически сообщения Twitter."
+        "message": "Постить в Twitter автоматически после сокращения URL из контекстного меню."
     },
     "optTweetAtShortenByPopup": {
-        "message": "В то время, был сокращен с всплывающее окно, чтобы открыть окно автоматически сообщения Twitter."
+        "message": "Постить в Twitter автоматически после сокращения URL из всплывающего окна."
     },
     "optFacebookAtShortenByContextMenu": {
-        "message": "В то время было сокращено из контекстного меню, чтобы открыть окно автоматически сообщения Facebook."
+        "message": "Постить в Facebook автоматически после сокращения URL из контекстнго меню."
     },
     "optFacebookAtShortenByPopup": {
-        "message": "В то время, был сокращен с всплывающее окно, чтобы открыть окно автоматически сообщения .acebook"
+        "message": "Постить в Facebook автоматически после сокращения URL из всплывающго окна."
     },
     "optTwitterSetTitle": {
-        "message": "Чтобы задать название текущей закладки, когда бормотание."
+        "message": "Указать заголовок текущей закладки при посте в Twitter. "
     },
     "optAmazon": {
         "message": "Amazon"
     },
     "optAmazonShortUrl": {
-        "message": "Чтобы принять короткий URL в продукте."
+        "message": "Использовать сокращенный URL на странице продукта."
     },
     "popupShorten": {
-        "message": "сокращение"
+        "message": "Сокращено"
     },
     "popupHistory": {
-        "message": "история"
+        "message": "Архив"
     },
     "popupLoginDesc": {
-        "message": "Если вы хотите проверить свою историю, перейдите разрешения Войти Google."
+        "message": "Если вы хотите просмотреть предыдущие записи, авторизируйтесь в Google."
     },
     "popupLogin": {
         "message": "Войти в Google"
@@ -105,31 +105,31 @@
         "message": "Рекомендовать!"
     },
     "popupStopWatching": {
-        "message": "Чтобы остановить мониторинг"
+        "message": "Прекратить просмотр"
     },
     "popupPage": {
-        "message": "страница: "
+        "message": "Страница: "
     },
     "popupCompleteShorten": {
-        "message": "Скопировать в буфер обмена сокращения URL."
+        "message": "Скопировать сокращенный URL в буфер."
     },
     "popupStartWatching": {
-        "message": "Начала мониторинга"
+        "message": "Начать просмотр"
     },
     "popupStartedWatching": {
-        "message": "Мониторинг начался."
+        "message": "Просмотр начался."
     },
     "popupUrlDetail": {
-        "message": "деталь"
+        "message": "Подробности"
     },
     "popupRecommendText": {
-        "message": "\"goo.gl URL Shortener\" Chrome Пожалуйста, попробуйте расширение!"
+        "message": "Попробуйте Chrome расширение \"goo.gl URL Shortener\"!"
     },
     "popupJustNow": {
-        "message": "сейчас"
+        "message": "Прямо сейчас"
     },
     "popupHoursAgo": {
-        "message": "$VALUE$ часа назад",
+        "message": "$VALUE$ часов назад",
         "placeholders": {
             "value" : {
                 "content": "$1"
@@ -137,7 +137,7 @@
         }
     },
     "popupDayAgo": {
-        "message": "$VALUE$ дня назад",
+        "message": "$VALUE$ день назад",
         "placeholders": {
             "value" : {
                 "content": "$1"
@@ -145,7 +145,7 @@
         }
     },
     "popupDaysAgo": {
-        "message": "$VALUE$ дня назад",
+        "message": "$VALUE$ дней назад",
         "placeholders": {
             "value" : {
                 "content": "$1"
@@ -153,25 +153,25 @@
         }
     },
     "popupRegisteredReadItLater": {
-        "message": "Был зарегистрирован в Read It Later URL-адрес."
+        "message": "URL был сохранен в Read It Later."
     },
     "popupOption": {
-        "message": "вариант"
+        "message": "Опция"
     },
     "ctxmenuShortenUrlAdded": {
-        "message": "сокращения URL (Будет добавлен в истории)"
+        "message": "Сокращенный URL (добавлен в архив)"
     },
     "ctxmenuShortenUrlNotAdded": {
-        "message": "сократить URL (Не будет добавлена ​​в истории)"
+        "message": "Сокращенный URL (не добавлен в архив)"
     },
     "ctxmenuLogin": {
-        "message": "Войти в Google (Чтобы быть записан в историю)"
+        "message": "Войти в Google (чтобы сохранить в архив)"
     },
     "ctxmenuReadItLater": {
-        "message": "На учете в Read It Later"
+        "message": "Сохраниь в Read It Later"
     },
     "notifyCopied": {
-        "message": "Скопировать в буфер обмена сокращения URL ($SHORT_URL$).",
+        "message": "Скопировать соркащенный ($SHORT_URL$) URL в буфер обмена",
         "placeholders": {
             "short_url": {
                 "content": "$1"
@@ -179,7 +179,7 @@
         }
     },
     "notifyStartWatching": {
-        "message": "Мониторинг начался."
+        "message": "Просмотр начался."
     },
     "notifyShortenFailed": {
         "message": "Не удалось сократить URL.($REQ_STATUS$)",
@@ -190,10 +190,10 @@
         }
     },
     "notifyCompleteLogin": {
-        "message": "Утверждение была завершена. Сокращение URL записан в историю вам."
+        "message": "Аутентификация завершена. Сокращенный URL будет сохранен в ваш архив."
     },
     "notifyRegisterReadItLaterFailed": {
-        "message": "Не удалось зарегистрировать на Read It Later.($REQ_STATUS$)",
+        "message": "Не удалось сохранить в Read It Later.($REQ_STATUS$)",
         "placeholders": {
             "req_status": {
                 "content": "$1"
@@ -201,6 +201,6 @@
         }
     },
     "notifyRegisteredReadItLater": {
-        "message": "Был зарегистрирован в Read It Later."
+        "message": "Успешно сохранен в Read It Later."
     }
 }
