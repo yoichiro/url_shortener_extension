@@ -159,7 +159,7 @@ Gl.prototype = {
             chrome.tabs.getSelected(null, function(tab) {
                 window.open(
                     "https://twitter.com/share?url="
-                        + encodeURIComponent("http://goo.gl/QzrtB")
+                        + encodeURIComponent(shortUrl)
                         + "&text="
                         + encodeURIComponent(tab.title),
                     "_blank",
@@ -168,7 +168,7 @@ Gl.prototype = {
         } else {
             window.open(
                 "https://twitter.com/share?url="
-                    + encodeURIComponent("http://goo.gl/QzrtB"),
+                    + encodeURIComponent(shortUrl),
                 "_blank",
                 "width=550,height=450");
         }
