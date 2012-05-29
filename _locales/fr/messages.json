@@ -202,5 +202,8 @@
     },
     "notifyRegisteredReadItLater": {
         "message": "Enregistré sur Read It Later."
+    },
+    "webintentMessageSucceed": {
+        "message": "Succède à raccourcir."
     }
 }

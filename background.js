@@ -138,7 +138,7 @@ Gl.prototype = {
                 var longUrl = this.preProcessLongUrl(tab.url);
                 this.shortenLongUrl(longUrl, tab.title, {
                     onSuccess: function(req) {
-                        this.showSucceedMessage(req);
+                        this.showSucceedMessage(req.responseJSON.id);
                         if (this.isTweetAtShortenByContextMenu()) {
                             this.showTweetWindow(req.responseJSON.id);
                         } else if (this.isFacebookAtShortenByContextMenu()) {
@@ -181,8 +181,7 @@ Gl.prototype = {
             "_blank",
             "width=680,height=360");
     },
-    showSucceedMessage: function(req) {
-        var shortUrl = req.responseJSON.id;
+    showSucceedMessage: function(shortUrl) {
         $("buffer").value = shortUrl;
         $("buffer").focus();
         $("buffer").select();
@@ -281,7 +280,9 @@ Gl.prototype = {
                 longUrl: longUrl
             }),
             onSuccess: function(req) {
-                this.storeTitleHistory(longUrl, title);
+                if (title) {
+                    this.storeTitleHistory(longUrl, title);
+                }
                 callbacks.onSuccess(req);
             }.bind(this),
             onFailure: callbacks.onFailure,

@@ -1,7 +1,7 @@
 {
     "name": "goo.gl URL Shortener extension",
     "description": "__MSG_extDescription__",
-    "version": "1.26.3",
+    "version": "1.27.0",
     "browser_action": {
         "default_icon": "./url_shortener_extension_19.png",
         "default_title": "URL Shortener",
@@ -23,5 +23,14 @@
     },
     "background_page": "./background.html",
     "options_page": "options.html",
-    "default_locale": "en"
+    "default_locale": "en",
+    "intents": {
+        "http://webintents.org/shorten": [
+        {
+            "type": ["text/uri-list"],
+            "href": "./webintent.html",
+            "title": "goo.gl URL Shortener extension",
+            "disposition": "inline"
+        }
+    ]}
 }

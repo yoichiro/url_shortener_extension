@@ -202,5 +202,8 @@
     },
     "notifyRegisteredReadItLater": {
         "message": "Успешно сохранен в Read It Later."
+    },
+    "webintentMessageSucceed": {
+        "message": "Преемник сокращаться."
     }
 }

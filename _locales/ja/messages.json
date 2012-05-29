@@ -202,5 +202,8 @@
     },
     "notifyRegisteredReadItLater": {
         "message": "Read It Laterに登録しました。"
+    },
+    "webintentMessageSucceed": {
+        "message": "短縮に成功しました。"
     }
 }

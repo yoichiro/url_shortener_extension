@@ -1,0 +1,82 @@
+body {
+    font-family: "Verdana","Arial",sans-serif;
+    font-size: 14px;
+}
+
+div.title_pane {
+    margin-bottom: 5px;
+}
+
+div.title_pane img {
+    float: left;
+    width: 40px;
+    height: 40px;
+}
+
+div.title_pane div.title {
+    font-size: 15px;
+    font-family: "cursive",cursive;
+    float: left;
+    margin-left: 10px;
+}
+
+button {
+    border: 1px solid #3079ed;
+    background-color: #4d90fe;
+    color: white !important;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+#progress_pane {
+    width: 100%;
+}
+
+#progress_pane img {
+    margin-left: 120px;
+}
+
+#result_pane {
+    width: 100%;
+    display: none;
+}
+
+#result_pane td {
+    font-size: 14px;
+}
+
+#result_pane input {
+    border: none;
+    font-size: 14px;
+    width: 180px;
+}
+
+span.message_ok {
+    color: green;
+}
+
+span.message_ng {
+    color: red;
+}
+
+#message {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    width: 250px;
+    height: 20px;
+}
+
+div.success {
+    color: green;
+}
+
+div.failure {
+    color: red;
+}
+
+#btnReturn {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}

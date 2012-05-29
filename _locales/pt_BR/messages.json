@@ -202,5 +202,8 @@
     },
     "notifyRegisteredReadItLater": {
         "message": "Registrados para Read It Later."
+    },
+    "webintentMessageSucceed": {
+        "message": "Sucedido encurtar."
     }
 }

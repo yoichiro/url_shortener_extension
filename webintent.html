@@ -1,0 +1,40 @@
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="./webintent.css" />
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/prototype/1.7.0.0/prototype.js"></script>
+  <script type="text/javascript" src="./utils.js"></script>
+  <script type="text/javascript" src="./webintent.js"></script>
+</head>
+
+<body onload="wi.start();">
+
+<div class="title_pane">
+  <img src="./url_shortener_extension_48.png" />
+  <div class="title">goo.gl<br />URL Shortener extension</div>
+  <br style="clear: both;" />
+</div>
+
+<div id="progress_pane">
+  <img src="./progress.gif" />
+</div>
+
+<div id="result_pane">
+  <table>
+    <tr>
+      <td>Long URL:</td>
+      <td><input type="text" id="longUrl" readonly /></td>
+    </tr>
+    <tr>
+      <td>Short URL:</td>
+      <td><input type="text" id="shortUrl" readonly /></td>
+    </tr>
+  </table>
+</div>
+
+<div id="message"></div>
+<button id="btnReturn">Return</button>
+
+</body>
+
+</html>

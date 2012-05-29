@@ -202,5 +202,8 @@
     },
     "notifyRegisteredReadItLater": {
         "message": "注册为Read It Later。"
+    },
+    "webintentMessageSucceed": {
+        "message": "成功地缩短。"
     }
 }
