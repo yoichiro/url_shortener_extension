@@ -1,135 +1,135 @@
 {
     "extDescription": {
-        "message": "Esta extensao fornece uma interface de usuario para usar o Google URL Shortener rapidamente."
+        "message": "Esta extensão oferece uma maneira rápida de usar o Google URL Shortener."
     },
     "optNotification": {
-        "message": "mensagem de notificacao"
+        "message": "Notificações"
     },
     "optDontShowMsgLogin": {
-        "message": "Nao mostrar mensagens depois de fazer login no Google."
+        "message": "Não mostrar mensagens depois de fazer login ao Google."
     },
     "optDontShowMsgCopyClipboard": {
-        "message": "Nao mostrar mensagens depois de copiar URL curta para a area de transferencia usando o menu de contexto."
+        "message": "Não mostrar mensagens depois de copiar URL curta para a área de transferência usando o menu de contexto."
     },
     "optDontShowMsgRegisterReadItLater": {
-        "message": "Não mostrar mensagens depois de registrar um URL para Read It Later usando o menu de contexto."
+        "message": "Não mostrar mensagens depois de registrar uma URL para o Read It Later usando o menu de contexto."
     },
     "optContextMenu": {
-        "message": "menu de Contexto"
+        "message": "Menu de contexto"
     },
     "optDontShowContextMenu": {
-        "message": "Nao exibir o menu de contexto."
+        "message": "Não exibir o menu de contexto."
     },
     "optDontStartWatching": {
-        "message": "Não começar a assistir automaticamente quando a URL é encurtada."
+        "message": "Não começar a monitorar automaticamente quando uma URL for encurtada."
     },
     "optShorten": {
-        "message": "encurtamento"
+        "message": "Encurtamento"
     },
     "optShortenDirectlyAtNotLogin": {
-        "message": "Quando voce nao esta logado, encurtar a URL automaticamente quando voce pressiona o botao da extensao."
+        "message": "Encurtar uma URL automaticamente quando pressionar o botão da extensão enquanto NÃO estiver logado."
     },
     "optShortenDirectlyAtLogin": {
-        "message": "Quando voce esta logado, voce encurtar a URL automaticamente quando voce pressiona o botao da extensao."
+        "message": "Encurtar uma URL automaticamente quando pressionar o botão da extensão enquanto estiver logado."
     },
     "optReadItLater": {
         "message": "Read It Later"
     },
     "optReadItLaterUsername": {
-        "message": "Nome de Usuário"
+        "message": "Nome de usuário"
     },
     "optReadItLaterPassword": {
-        "message": "senha"
+        "message": "Senha"
     },
     "optReadItLaterSave": {
-        "message": "Salve e teste de certificação"
+        "message": "Salvar e testar autenticação"
     },
     "optReadItLaterSucceed": {
-        "message": "Sucedido."
+        "message": "Alteração efetuada com sucesso."
     },
     "optReadItLaterGrant": {
-        "message": "Usando o Read It Later"
+        "message": "Usar o Read It Later"
     },
     "optReadItLaterRemoveGrant": {
-        "message": "Acabar com o uso"
+        "message": "Não usar mais"
     },
     "optBackgroundImageUrl": {
-        "message": "URL imagem de fundo"
+        "message": "URL da imagem de fundo"
     },
     "optBackgroundImageUrlSave": {
-        "message": "aplicação"
+        "message": "Aplicar"
     },
     "optBackgroundImageUrlSaveSucceed": {
-        "message": "Sucedido."
+        "message": "Alteração efetuada com sucesso."
     },
     "optTwitter": {
         "message": "Twitter"
     },
     "optShare": {
-        "message": "ação"
+        "message": "Compartilhamento"
     },
     "optTweetAtShortenByContextMenu": {
-        "message": "Quando voce encurtar o menu de contexto para exibir a janela de mensagem para o Twitter automaticamente."
+        "message": "Quando encurtar uma URL pelo menu de contexto, exibir automaticamente uma janela para postar no Twitter."
     },
     "optTweetAtShortenByPopup": {
-        "message": "Quando você reduz a janela pop-up exibe automaticamente uma janela de mensagens do Twitter."
+        "message": "Quando encurtar uma URL pela janela pop-up, exibir automaticamente uma janela para postar no Twitter."
     },
     "optFacebookAtShortenByContextMenu": {
-        "message": "Quando voce encurtar o menu de contexto para exibir a janela de mensagem para o Facebook automaticamente."
+        "message": "Quando encurtar uma URL pelo menu de contexto, exibir automaticamente uma janela para postar no Facebook."
     },
     "optFacebookAtShortenByPopup": {
-        "message": "Quando você reduz a janela pop-up exibe automaticamente uma janela de mensagens do Facebook."
+        "message": "Quando encurtar uma URL pela janela pop-up, exibir automaticamente uma janela para postar no Facebook."
     },
     "optTwitterSetTitle": {
-        "message": "Definir o título da guia da corrente quando twittar."
+        "message": "Usar o título da guia atual quando for twittar."
     },
     "optAmazon": {
         "message": "Amazon"
     },
     "optAmazonShortUrl": {
-        "message": "Para adotar uma URL curta para a página do item."
+        "message": "Usar a URL curta da página do produto."
     },
     "popupShorten": {
-        "message": "encurtamento"
+        "message": "Encurtar"
     },
     "popupHistory": {
-        "message": "historia"
+        "message": "Histórico"
     },
     "popupLoginDesc": {
-        "message": "Se voce quiser verificar se a sua historia, faca o login autorizacao para o Google."
+        "message": "Para utilizar o histórico, autorize o login com sua conta do Google."
     },
     "popupLogin": {
-        "message": "Acesse o Google"
+        "message": "Login no Google"
     },
     "popupRecommend": {
-        "message": "Recomendar esta!"
+        "message": "Recomendar esta extensão!"
     },
     "popupStopWatching": {
-        "message": "Para parar de monitorar"
+        "message": "Parar o monitoramento"
     },
     "popupPage": {
-        "message": "pagina: "
+        "message": "Página: "
     },
     "popupCompleteShorten": {
-        "message": "Encurtar o URL copiado para o clipboard."
+        "message": "A URL curta foi copiada para área de transferência."
     },
     "popupStartWatching": {
         "message": "Iniciar o monitoramento"
     },
     "popupStartedWatching": {
-        "message": "Monitoramento comecou."
+        "message": "Monitoramento iniciado."
     },
     "popupUrlDetail": {
-        "message": "detalhe"
+        "message": "Detalhes"
     },
     "popupRecommendText": {
-        "message": "\"goo.gl URL Shortener\" Por favor, tente Chrome extensoes!"
+        "message": "Experimente agora a extensão \"goo.gl URL Shortener\"!"
     },
     "popupJustNow": {
-        "message": "agora"
+        "message": "Agora"
     },
     "popupHoursAgo": {
-        "message": "$VALUE$ horas antes",
+        "message": "$VALUE$ horas atrás",
         "placeholders": {
             "value" : {
                 "content": "$1"
@@ -137,7 +137,7 @@
         }
     },
     "popupDayAgo": {
-        "message": "$VALUE$ dia atras",
+        "message": "$VALUE$ dia atrás",
         "placeholders": {
             "value" : {
                 "content": "$1"
@@ -145,7 +145,7 @@
         }
     },
     "popupDaysAgo": {
-        "message": "$VALUE$ dias atras",
+        "message": "$VALUE$ dias atrás",
         "placeholders": {
             "value" : {
                 "content": "$1"
@@ -153,25 +153,25 @@
         }
     },
     "popupRegisteredReadItLater": {
-        "message": "O URL foi registrado para Read It Later."
+        "message": "A URL foi registrada no Read It Later."
     },
     "popupOption": {
-        "message": "Opção"
+        "message": "Opções"
     },
     "ctxmenuShortenUrlAdded": {
-        "message": "Encurtar uma URL (serao adicionados a historia)"
+        "message": "Encurtar uma URL (registrar no histórico)"
     },
     "ctxmenuShortenUrlNotAdded": {
-        "message": "Encurtar uma URL (nao acrescentou a historia)"
+        "message": "Encurtar uma URL (não registrar no histórico)"
     },
     "ctxmenuLogin": {
-        "message": "Efetue login no Google (a ser gravada na historia)"
+        "message": "Logar no Google (para registrar no histórico)"
     },
     "ctxmenuReadItLater": {
-        "message": "Registre-se para Read It Later"
+        "message": "Registrar no Read It Later"
     },
     "notifyCopied": {
-        "message": "Encurtar o URL ($SHORT_URL$) copiado para o clipboard.",
+        "message": "A URL curta ($SHORT_URL$) foi copiada para a área de transferência.",
         "placeholders": {
             "short_url": {
                 "content": "$1"
@@ -179,10 +179,10 @@
         }
     },
     "notifyStartWatching": {
-        "message": "Monitoramento comecou."
+        "message": "Monitoramento iniciado."
     },
     "notifyShortenFailed": {
-        "message": "Nao conseguiu encurtar a URL. ($REQ_STATUS$)",
+        "message": "Encurtamento da URL falhou. ($REQ_STATUS$)",
         "placeholders": {
             "req_status": {
                 "content": "$1"
@@ -190,10 +190,10 @@
         }
     },
     "notifyCompleteLogin": {
-        "message": "Autorizacao e concluida. URL encurtar e registrada em seu historico."
+        "message": "Autorização concluída. As URLs curtas passarão a serem registradas em seu histórico."
     },
     "notifyRegisterReadItLaterFailed": {
-        "message": "Falha ao registrar com Read It Later. ($REQ_STATUS$)",
+        "message": "Falha ao registrar no Read It Later. ($REQ_STATUS$)",
         "placeholders": {
             "req_status": {
                 "content": "$1"
@@ -201,9 +201,9 @@
         }
     },
     "notifyRegisteredReadItLater": {
-        "message": "Registrados para Read It Later."
+        "message": "Registrado no Read It Later."
     },
     "webintentMessageSucceed": {
-        "message": "Sucedido encurtar."
+        "message": "Encurtamento efetuado com sucesso."
     }
 }
