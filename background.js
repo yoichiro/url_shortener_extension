@@ -242,6 +242,7 @@ Gl.prototype = {
                 onSuccess: function(req) {
                     this.authorized = true;
                     this.appendTitleToUserHistory(req);
+                    this.hilightFavoriteUrls(req);
                     callbacks.onSuccess(req);
                 }.bind(this),
                 onFailure: function(req) {
@@ -270,6 +271,24 @@ Gl.prototype = {
             }
         });
         localStorage["title_history"] = Object.toJSON(newTitleHistory);
+    },
+    hilightFavoriteUrls: function(req) {
+        var items = req.responseJSON.items;
+        var favoriteItems = new Array();
+        var favoriteUrls = this.getFavoriteUrls();
+        items.each(function(item) {
+            if (favoriteUrls.include(item.id)) {
+                favoriteItems.push(item);
+                item["favorite"] = true;
+            } else {
+                item["favorite"] = false;
+            }
+        });
+        favoriteItems.each(function(item) {
+            items = items.without(item);
+            items.unshift(item);
+        });
+        req.responseJSON.items = items;
     },
     shortenLongUrl: function(longUrl, title, callbacks) {
         var url = "https://www.googleapis.com/urlshortener/v1/url";
@@ -477,6 +496,24 @@ Gl.prototype = {
     },
     isAmazonShortUrl: function() {
         return Boolean(localStorage["amazon_short_url"]);
+    },
+    getFavoriteUrls: function() {
+        var favoriteUrls = localStorage["favorite_urls"] || "[]";
+        favoriteUrls = favoriteUrls.evalJSON();
+        return favoriteUrls;
+    },
+    setFavoriteUrl: function(url, checked) {
+        var favoriteUrls = this.getFavoriteUrls();
+        if (checked) {
+            if (!favoriteUrls.include(url)) {
+                favoriteUrls.push(url);
+            }
+        } else {
+            if (favoriteUrls.include(url)) {
+                favoriteUrls = favoriteUrls.without(url);
+            }
+        }
+        localStorage["favorite_urls"] = Object.toJSON(favoriteUrls);
     }
 };
 

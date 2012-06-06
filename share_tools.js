@@ -49,9 +49,9 @@ ShareTools.prototype = {
             script.setAttribute("src", "http://platform.twitter.com/widgets.js");
             a.appendChild(script);
             $("twitter").appendChild(a);
-            Utils.setVisible($("twitter"), true);
+            utils.setVisible($("twitter"), true);
         } else {
-            Utils.setVisible($("twitter"), false);
+            utils.setVisible($("twitter"), false);
         }
     },
     setFacebook: function(url) {
@@ -66,9 +66,9 @@ ShareTools.prototype = {
                 }.bind(self);
             }.bind(this)(url);
             $("facebook").appendChild(img);
-            Utils.setVisible($("facebook"), true);
+            utils.setVisible($("facebook"), true);
         } else {
-            Utils.setVisible($("facebook"), false);
+            utils.setVisible($("facebook"), false);
         }
     },
     setGMail: function(url) {
@@ -84,9 +84,9 @@ ShareTools.prototype = {
             img.src = "./mail.png";
             a.appendChild(img);
             $("mail").appendChild(a);
-            Utils.setVisible($("mail"), true);
+            utils.setVisible($("mail"), true);
         } else {
-            Utils.setVisible($("mail"), false);
+            utils.setVisible($("mail"), false);
         }
     },
     setUrlDetail: function(url) {
@@ -99,9 +99,9 @@ ShareTools.prototype = {
                 + "' target='_blank'>"
                 + chrome.i18n.getMessage("popupUrlDetail")
                 + "</a>";
-            Utils.setVisible($("url_detail"), true);
+            utils.setVisible($("url_detail"), true);
         } else {
-            Utils.setVisible($("url_detail"), false);
+            utils.setVisible($("url_detail"), false);
         }
     },
     setQRCode: function(url) {
@@ -116,9 +116,9 @@ ShareTools.prototype = {
                 }.bind(this);
             }.bind(this)(url);
             img.onmouseout = this.hideQRCode.bind(this);
-            Utils.setVisible($("qrcode"), true);
+            utils.setVisible($("qrcode"), true);
         } else {
-            Utils.setVisible($("qrcode"), false);
+            utils.setVisible($("qrcode"), false);
         }
     },
     showQRCode: function(url) {
@@ -126,14 +126,14 @@ ShareTools.prototype = {
         var img = document.createElement("img");
         img.src = url + ".qr";
         $("qrcode_pane").appendChild(img);
-        Utils.setVisible($("qrcode_pane"), true);
+        utils.setVisible($("qrcode_pane"), true);
     },
     hideQRCode: function(url) {
-        Utils.setVisible($("qrcode_pane"), false);
+        utils.setVisible($("qrcode_pane"), false);
     },
     checkReadItLaterPermission: function() {
         this.bg.gl.checkReadItLaterGrant(function(result) {
-            Utils.setVisible($("read_it_later"), result);
+            utils.setVisible($("read_it_later"), result);
         }.bind(this));
     },
     onClickReadItLater: function() {

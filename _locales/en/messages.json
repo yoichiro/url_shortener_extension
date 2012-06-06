@@ -158,6 +158,9 @@
     "popupOption": {
         "message": "Option"
     },
+    "popupFavoriteCheckbox": {
+        "message": "Display with high priority."
+    },
     "ctxmenuShortenUrlAdded": {
         "message": "Shorten URL (added to history)"
     },

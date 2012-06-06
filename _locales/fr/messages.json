@@ -158,6 +158,9 @@
     "popupOption": {
         "message": "Option"
     },
+    "popupFavoriteCheckbox": {
+        "message": "Afficher avec une priorité élevée."
+    },
     "ctxmenuShortenUrlAdded": {
         "message": "Réduire l'URL (ajouter à l'historique)"
     },

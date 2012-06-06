@@ -158,6 +158,9 @@
     "popupOption": {
         "message": "Опция"
     },
+    "popupFavoriteCheckbox": {
+        "message": "Дисплей с высоким приоритетом."
+    },
     "ctxmenuShortenUrlAdded": {
         "message": "Сокращенный URL (добавлен в архив)"
     },

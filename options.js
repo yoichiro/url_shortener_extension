@@ -164,8 +164,8 @@ Option.prototype = {
     },
     checkReadItLaterGrant: function() {
         this.bg.gl.checkReadItLaterGrant(function(result) {
-            Utils.setVisible($("readItLaterGranted"), result);
-            Utils.setVisible($("readItLaterNotGrant"), !result);
+            utils.setVisible($("readItLaterGranted"), result);
+            utils.setVisible($("readItLaterNotGrant"), !result);
         }.bind(this));
         this.bg.gl.setupContextMenus();
     },
@@ -195,7 +195,8 @@ Option.prototype = {
             },
             onSuccess: function(req) {
                 localStorage["is_authenticated_read_it_later"] = "1";
-                $("read_it_later_result").innerHTML = chrome.i18n.getMessage("optReadItLaterSucceed");
+                $("read_it_later_result").innerHTML =
+                    chrome.i18n.getMessage("optReadItLaterSucceed");
             },
             onFailure: function(req) {
                 localStorage["is_authenticated_read_it_later"] = "0";

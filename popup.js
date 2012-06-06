@@ -68,8 +68,8 @@ Popup.prototype = {
         return false;
     },
     setDisplayMode: function(needLogin) {
-        Utils.setVisible($("login_pane"), needLogin);
-        Utils.setVisible($("history_table"), !needLogin);
+        utils.setVisible($("login_pane"), needLogin);
+        utils.setVisible($("history_table"), !needLogin);
     },
     loadHistory: function() {
         this.setLoadHistoryProgressVisible(true);
@@ -92,8 +92,8 @@ Popup.prototype = {
         }
     },
     setLoadHistoryProgressVisible: function(visible) {
-        Utils.setVisible($("history_table_progress"), visible);
-        Utils.setVisible($("history_table"), !visible);
+        utils.setVisible($("history_table_progress"), visible);
+        utils.setVisible($("history_table"), !visible);
     },
     onClickShortUrlLink: function(url) {
         this.setShortUrl(url, true);
@@ -105,30 +105,34 @@ Popup.prototype = {
         var count = Math.min(startIndex + 10, items.length);
         for (var i = startIndex; i < count; i++) {
             var item = items[i];
-            var tr = document.createElement("tr");
+            var tr = utils.createElement("tr", {}, [], table);
 
-            var longUrlTd = document.createElement("td");
-            var longUrlDiv = document.createElement("div");
-            longUrlDiv.addClassName("long_url");
-            var longUrlA = document.createElement("a");
-            longUrlA.setAttribute("href", item.longUrl);
-            longUrlA.setAttribute("title", item.longUrl);
-            longUrlA.setAttribute("target", "_blank");
-            var longUrlText = document.createTextNode(item.title);
-            longUrlA.appendChild(longUrlText);
-            longUrlDiv.appendChild(longUrlA);
-            longUrlTd.appendChild(longUrlDiv);
-            tr.appendChild(longUrlTd);
+            var favTd = utils.createElement("td", {}, [], tr);
+            var favCheckbox = utils.createElement("input", {
+                "type": "checkbox",
+                "title": chrome.i18n.getMessage("popupFavoriteCheckbox")}, [], favTd);
+            if (item.favorite) {
+                favCheckbox.checked = true;
+            }
+            favCheckbox.onchange = function(item, target) {
+                return function() {
+                    this.onChangeFavCheckbox(item, target.checked);
+                }.bind(this);
+            }.bind(this)(item, favCheckbox);
 
-            var shortUrlTd = document.createElement("td");
-            var shortUrlDiv = document.createElement("div");
-            shortUrlDiv.addClassName("short_url");
-            var shortUrlA = document.createElement("a");
-            shortUrlA.setAttribute("href", item.id);
-            shortUrlA.setAttribute(
-                "title",
-                chrome.i18n.getMessage("popupStartWatching")
-            );
+            var longUrlTd = utils.createElement("td", {}, [], tr);
+            var longUrlDiv = utils.createElement("div", {}, ["long_url"], longUrlTd);
+            var longUrlA = utils.createElement("a", {
+                "href": item.longUrl,
+                "title": item.longUrl,
+                "target": "_blank"}, [], longUrlDiv);
+            utils.createTextNode(item.title, longUrlA);
+
+            var shortUrlTd = utils.createElement("td", {}, [], tr);
+            var shortUrlDiv = utils.createElement("div", {}, ["short_url"], shortUrlTd);
+            var shortUrlA = utils.createElement("a", {
+                "href": item.id,
+                "title": chrome.i18n.getMessage("popupStartWatching")}, [], shortUrlDiv);
             shortUrlA.onclick = function(url) {
                 return function() {
                     this.onClickShortUrlLink(url);
@@ -140,29 +144,22 @@ Popup.prototype = {
                 }.bind(this);
             }.bind(this)(item);
             shortUrlA.onmouseout = this.stopDetailTimer.bind(this);
-            var shortUrlText = document.createTextNode(item.id.substring(7));
-            shortUrlA.appendChild(shortUrlText);
-            shortUrlDiv.appendChild(shortUrlA);
-            shortUrlTd.appendChild(shortUrlDiv);
-            tr.appendChild(shortUrlTd);
+            utils.createTextNode(item.id.substring(7), shortUrlA);
 
-            var countTd = document.createElement("td");
-            var countDiv = document.createElement("div");
-            countDiv.addClassName("click_count");
-            var countText = document.createTextNode(
-                item.analytics.allTime.shortUrlClicks);
+            var countTd = utils.createElement("td", {}, [], tr);
+            var countDiv = utils.createElement("div", {}, ["click_count"], countTd);
             countDiv.onmouseover = function(item) {
                 return function() {
                     this.startClickCountsTimer(item);
                 }.bind(this);
             }.bind(this)(item);
             countDiv.onmouseout = this.stopClickCountsTimer.bind(this);
-            countDiv.appendChild(countText);
-            countTd.appendChild(countDiv);
-            tr.appendChild(countTd);
-
-            table.appendChild(tr);
+            utils.createTextNode(item.analytics.allTime.shortUrlClicks, countDiv);
         }
+    },
+    onChangeFavCheckbox: function(item, checked) {
+        this.bg.gl.setFavoriteUrl(item.id, checked);
+        this.loadHistory();
     },
     startDetailTimer: function(item) {
         var timer = setTimeout(function(item) {
@@ -177,7 +174,7 @@ Popup.prototype = {
             clearTimeout(timer);
         });
         this.detailTimer = new Array();
-        Utils.setVisible($("detail_pane"), false);
+        utils.setVisible($("detail_pane"), false);
     },
     startClickCountsTimer: function(item) {
         var timer = setTimeout(function(item) {
@@ -192,15 +189,15 @@ Popup.prototype = {
             clearTimeout(timer);
         });
         this.clickCountsTimer = new Array();
-        Utils.setVisible($("click_counts_pane"), false);
+        utils.setVisible($("click_counts_pane"), false);
     },
     showDetailPane: function(item) {
-        Utils.setVisible($("detail_pane"), true);
+        utils.setVisible($("detail_pane"), true);
         Element.setStyle($("detail_pane"), {
             height: "220px"
         });
-        Utils.setVisible($("detail_pane_progress"), true);
-        Utils.setVisible($("detail_url_info"), false);
+        utils.setVisible($("detail_pane_progress"), true);
+        utils.setVisible($("detail_url_info"), false);
         this.bg.gl.loadUrlInformation(item.id, {
             onSuccess: function(req) {
                 var item = req.responseJSON;
@@ -210,8 +207,8 @@ Popup.prototype = {
                 this.stopDetailTimer();
             }.bind(this),
             onComplete: function(req) {
-                Utils.setVisible($("detail_pane_progress"), false);
-                Utils.setVisible($("detail_url_info"), true);
+                utils.setVisible($("detail_pane_progress"), false);
+                utils.setVisible($("detail_url_info"), true);
                 Element.setStyle($("detail_pane"), {
                     height: "auto"
                 });
@@ -270,9 +267,9 @@ Popup.prototype = {
         }
     },
     showClickCountsPane: function(item) {
-        Utils.setVisible($("click_counts_pane"), true);
-        Utils.setVisible($("click_counts_pane_progress"), true);
-        Utils.setVisible($("click_counts_info"), false);
+        utils.setVisible($("click_counts_pane"), true);
+        utils.setVisible($("click_counts_pane_progress"), true);
+        utils.setVisible($("click_counts_info"), false);
         this.bg.gl.loadUrlInformation(item.id, {
             onSuccess: function(req) {
                 var item = req.responseJSON;
@@ -282,8 +279,8 @@ Popup.prototype = {
                 this.stopClickCountsTimer();
             }.bind(this),
             onComplete: function(req) {
-                Utils.setVisible($("click_counts_pane_progress"), false);
-                Utils.setVisible($("click_counts_info"), true);
+                utils.setVisible($("click_counts_pane_progress"), false);
+                utils.setVisible($("click_counts_info"), true);
             }.bind(this)
         });
     },
