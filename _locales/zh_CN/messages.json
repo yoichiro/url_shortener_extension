@@ -158,6 +158,9 @@
     "popupOption": {
         "message": "股权"
     },
+    "popupFavoriteCheckbox": {
+        "message": "显示具有高优先级。"
+    },
     "ctxmenuShortenUrlAdded": {
         "message": "生成短缩网址 (保留历史记录)"
     },

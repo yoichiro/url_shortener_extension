@@ -20,8 +20,8 @@ WebIntent.prototype = {
                 this.onFailureShorten(req);
             }.bind(this),
             onComplete: function(req) {
-                Utils.setVisible($("progress_pane"), false);
-                Utils.setVisible($("result_pane"), true);
+                utils.setVisible($("progress_pane"), false);
+                utils.setVisible($("result_pane"), true);
             }.bind(this)
         });
     },
@@ -31,25 +31,25 @@ WebIntent.prototype = {
         $("longUrl").value = this.longUrl;
 //        var message = chrome.i18n.getMessage("webintentMessageSucceed");
         var message = "Succeeded shorten.";
-	    var messageDiv = $("message");
-	    messageDiv.innerHTML = message;
-	    messageDiv.addClassName("success");
-	    $("btnReturn").onclick = function(evt) {
+        var messageDiv = $("message");
+        messageDiv.innerHTML = message;
+        messageDiv.addClassName("success");
+        $("btnReturn").onclick = function(evt) {
             var intent = window.intent || window.webkitIntent;
             intent.postResult(shortUrl);
             window.close();
-	    }.bind(this);
+        }.bind(this);
     },
     onFailureShorten: function(req) {
-	    var message = req.status + "(" + req.statusText + ")";
-	    var messageDiv = $("message");
-	    messageDiv.innerHTML = message;
-	    messageDiv.addClass("failure");
-	    $("btnReturn").onclick = function(evt) {
+        var message = req.status + "(" + req.statusText + ")";
+        var messageDiv = $("message");
+        messageDiv.innerHTML = message;
+        messageDiv.addClass("failure");
+        $("btnReturn").onclick = function(evt) {
             var intent = window.intent || window.webkitIntent;
             intent.postFailure(message);
             window.close();
-	    }.bind(this);
+        }.bind(this);
     }
 };
 
