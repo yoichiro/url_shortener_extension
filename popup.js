@@ -36,7 +36,8 @@ Popup.prototype = {
         this.recommend.assignMessages();
     },
     assignEventHandlers: function() {
-        $("login_link").onclick = this.bg.gl.getOAuthWindow().createOpenerOnClick();
+        $("login_link").onclick =
+            this.bg.gl.getOAuthWindow().createOpenerOnClick(window);
         $("input_long_url").onclick = this.selectInputLongUrl.bind(this);
         $("shorten").onclick = this.onClickShorten.bind(this);
         $("input_short_url").onclick = this.onClickShortUrl.bind(this);

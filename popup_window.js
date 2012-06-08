@@ -48,7 +48,7 @@ shindig.oauth.popup = function(options) {
   }
 
 
-  function createOpenerOnClick() {
+  function createOpenerOnClick(parent) {
     return function() {
       // If a popup blocker blocks the window, we do nothing.  The user will
       // need to approve the popup, then click again to open the window.
@@ -59,6 +59,11 @@ shindig.oauth.popup = function(options) {
         // Poll every 100ms to check if the window has been closed
         timer = window.setInterval(checkClosed, 100);
         onOpen();
+        // Should call window.close() because don't close the parent
+        // window on Ubuntu.
+        if (parent) {
+          parent.close();
+        }
       }
       return false;
     };
