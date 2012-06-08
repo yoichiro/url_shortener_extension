@@ -161,6 +161,9 @@
     "popupFavoriteCheckbox": {
         "message": "Afficher avec une priorité élevée."
     },
+    "popupReport": {
+        "message": "Envoyez vos remarques"
+    },
     "ctxmenuShortenUrlAdded": {
         "message": "Réduire l'URL (ajouter à l'historique)"
     },

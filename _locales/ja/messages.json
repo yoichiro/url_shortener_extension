@@ -161,6 +161,9 @@
     "popupFavoriteCheckbox": {
         "message": "高い優先順位で表示されます。"
     },
+    "popupReport": {
+        "message": "フィードバックを送る"
+    },
     "ctxmenuShortenUrlAdded": {
         "message": "URLを短縮 (履歴に追加されます)"
     },

@@ -256,6 +256,11 @@ a#recommend {
     left: 0;
 }
 
+a#report {
+    position: absolute;
+    left: 0;
+}
+
 div#detail_pane {
     position: absolute;
     border: 1px solid gray;
