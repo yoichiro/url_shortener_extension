@@ -19,10 +19,19 @@ Gl.prototype = {
         this.setupOAuthWindow();
         this.contextMenuIds = new Array();
         this.setupContextMenus(false);
+        this.setupEventHandler();
     },
     clearToken: function() {
         delete localStorage["access_token"];
         delete localStorage["expires_in"];
+    },
+    setupEventHandler: function() {
+        chrome.tabs.onSelectionChanged.addListener(function(id, info) {
+            this.onSelectionChanged(id);
+        }.bind(this));
+        chrome.tabs.onUpdated.addListener(function(id, changeInfo, tab) {
+            this.onSelectionChanged(id);
+        }.bind(this));
     },
     setupOAuthWindow: function() {
         var host = location.host;
@@ -330,6 +339,14 @@ Gl.prototype = {
             titleHistory = {};
         }
         return titleHistory;
+    },
+    onSelectionChanged: function(tabId) {
+        chrome.tabs.get(tabId, function(tab) {
+            var history = this.getTitleHistory();
+            if (tab.url && history[tab.url] && tab.title) {
+                this.storeTitleHistory(tab.url, tab.title);
+            }
+        }.bind(this));
     },
     startWatchCount: function(shortUrl) {
         for (var i = 0; i < this.timers.length; i++) {

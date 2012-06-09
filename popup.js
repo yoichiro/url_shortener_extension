@@ -125,8 +125,12 @@ Popup.prototype = {
             var longUrlDiv = utils.createElement("div", {}, ["long_url"], longUrlTd);
             var longUrlA = utils.createElement("a", {
                 "href": item.longUrl,
-                "title": item.longUrl,
-                "target": "_blank"}, [], longUrlDiv);
+                "title": item.longUrl}, [], longUrlDiv);
+            longUrlA.onclick = function(item) {
+                return function() {
+                    this.onClickLongUrl(item);
+                }.bind(this);
+            }.bind(this)(item);
             utils.createTextNode(item.title, longUrlA);
 
             var shortUrlTd = utils.createElement("td", {}, [], tr);
@@ -157,6 +161,14 @@ Popup.prototype = {
             countDiv.onmouseout = this.stopClickCountsTimer.bind(this);
             utils.createTextNode(item.analytics.allTime.shortUrlClicks, countDiv);
         }
+    },
+    onClickLongUrl: function(item) {
+        this.bg.gl.storeTitleHistory(item.longUrl, item.longUrl);
+        chrome.tabs.create({
+            url: item.longUrl
+        }, function(tab) {
+            window.close();
+        }.bind(this));
     },
     onChangeFavCheckbox: function(item, checked) {
         this.bg.gl.setFavoriteUrl(item.id, checked);
