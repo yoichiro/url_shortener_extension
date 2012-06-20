@@ -41,6 +41,8 @@ Option.prototype = {
         $("optFacebookAtShortenByPopup").innerHTML = chrome.i18n.getMessage("optFacebookAtShortenByPopup");
         $("optAmazon").innerHTML = chrome.i18n.getMessage("optAmazon");
         $("optAmazonShortUrl").innerHTML = chrome.i18n.getMessage("optAmazonShortUrl");
+        $("optWatching").innerHTML = chrome.i18n.getMessage("optWatching");
+        $("optWatchingDontStartWatchingAtCheckHighPriority").innerHTML = chrome.i18n.getMessage("optWatchingDontStartWatchingAtCheckHighPriority");
     },
     restoreConfigurations: function() {
         $("not_show_notification_after_login").checked =
@@ -81,6 +83,8 @@ Option.prototype = {
             this.bg.gl.isFacebookAtShortenByPopup();
         $("amazon_short_url").checked =
             this.bg.gl.isAmazonShortUrl();
+        $("not_start_watching_at_check_high_priority").checked =
+            !this.bg.gl.isStartWatchingAtCheckHighPriority();
     },
     assignEventHandlers: function() {
         $("not_show_notification_after_login").onclick =
@@ -117,6 +121,8 @@ Option.prototype = {
             this.onClickFacebookAtShortenByPopup.bind(this);
         $("amazon_short_url").onclick =
             this.onClickAmazonShortUrl.bind(this);
+        $("not_start_watching_at_check_high_priority").onclick =
+            this.onClickNotStartWatchingAtCheckHighPriority.bind(this);
     },
     onClickNotShowNotificationAfterLogin: function() {
         this.changeCheckboxConfiguration("not_show_notification_after_login");
@@ -244,6 +250,9 @@ Option.prototype = {
     },
     onClickAmazonShortUrl: function() {
         this.changeCheckboxConfiguration("amazon_short_url");
+    },
+    onClickNotStartWatchingAtCheckHighPriority: function() {
+        this.changeCheckboxConfiguration("not_start_watching_at_check_high_priority");
     }
 };
 

@@ -89,6 +89,12 @@
     "optAmazonShortUrl": {
         "message": "Pour adopter une URL courte à la page produit."
     },
+    "optWatching": {
+        "message": "Regarder"
+    },
+    "optWatchingDontStartWatchingAtCheckHighPriority": {
+        "message": "Ne commencez pas à l'écran automatiquement lorsque vous affichez de raccourcissement d'URL sur une base prioritaire."
+    },
     "popupShorten": {
         "message": "Réduire"
     },

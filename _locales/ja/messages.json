@@ -89,6 +89,12 @@
     "optAmazonShortUrl": {
         "message": "商品ページに短いURLを採用する。"
     },
+    "optWatching": {
+        "message": "監視"
+    },
+    "optWatchingDontStartWatchingAtCheckHighPriority": {
+        "message": "短縮URLを優先的に表示した際に自動的に監視を開始しない。"
+    },
     "popupShorten": {
         "message": "短縮"
     },

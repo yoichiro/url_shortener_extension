@@ -89,6 +89,12 @@
     "optAmazonShortUrl": {
         "message": "Adopt a short URL to an item page."
     },
+    "optWatching": {
+        "message": "Watching"
+    },
+    "optWatchingDontStartWatchingAtCheckHighPriority": {
+        "message": "Don't start the watching automatically when you display URL shortening on a priority basis."
+    },
     "popupShorten": {
         "message": "Shorten"
     },
