@@ -89,6 +89,12 @@
     "optAmazonShortUrl": {
         "message": "采用短网址的项目页。"
     },
+    "optWatching": {
+        "message": "观看"
+    },
+    "optWatchingDontStartWatchingAtCheckHighPriority": {
+        "message": "不启动显示器时，会自动显示在优先基础上的网址缩短。"
+    },
     "popupShorten": {
         "message": "短縮"
     },

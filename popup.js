@@ -173,6 +173,9 @@ Popup.prototype = {
     onChangeFavCheckbox: function(item, checked) {
         this.bg.gl.setFavoriteUrl(item.id, checked);
         this.loadHistory();
+        if (this.bg.gl.isStartWatchingAtCheckHighPriority()) {
+            this.bg.gl.startWatchCount(item.id);
+        }
     },
     startDetailTimer: function(item) {
         var timer = setTimeout(function(item) {

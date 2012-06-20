@@ -89,6 +89,12 @@
     "optAmazonShortUrl": {
         "message": "Использовать сокращенный URL на странице продукта."
     },
+    "optWatching": {
+        "message": "наблюдение"
+    },
+    "optWatchingDontStartWatchingAtCheckHighPriority": {
+        "message": "Не запускайте монитор автоматически при отображении URL сокращение на приоритетной основе."
+    },
     "popupShorten": {
         "message": "Сокращено"
     },

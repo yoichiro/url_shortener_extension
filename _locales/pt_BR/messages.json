@@ -89,6 +89,12 @@
     "optAmazonShortUrl": {
         "message": "Usar a URL curta da página do produto."
     },
+    "optWatching": {
+        "message": "Assistir"
+    },
+    "optWatchingDontStartWatchingAtCheckHighPriority": {
+        "message": "Não iniciar o monitor automaticamente quando você exibir encurtamento de URL em uma base de prioridade."
+    },
     "popupShorten": {
         "message": "Encurtar"
     },

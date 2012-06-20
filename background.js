@@ -473,6 +473,9 @@ Gl.prototype = {
     isFacebookAtShortenByPopup: function() {
         return Boolean(localStorage["facebook_at_shorten_by_popup"]);
     },
+    isStartWatchingAtCheckHighPriority: function() {
+        return !Boolean(localStorage["not_start_watching_at_check_high_priority"]);
+    },
     getReadItLaterUsername: function() {
         return localStorage["read_it_later_username"];
     },
