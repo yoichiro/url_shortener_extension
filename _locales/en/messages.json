@@ -95,6 +95,9 @@
     "optWatchingDontStartWatchingAtCheckHighPriority": {
         "message": "Don't start the watching automatically when you display URL shortening on a priority basis."
     },
+    "optAdoptLinkUrlContextMenu": {
+        "message": "Shorten the link URL instead the page URL, if clicking the context menu on the link."
+    },
     "popupShorten": {
         "message": "Shorten"
     },

@@ -95,6 +95,9 @@
     "optWatchingDontStartWatchingAtCheckHighPriority": {
         "message": "Ne commencez pas à l'écran automatiquement lorsque vous affichez de raccourcissement d'URL sur une base prioritaire."
     },
+    "optAdoptLinkUrlContextMenu": {
+        "message": "Raccourcir l'URL du lien au lieu de la URL de la page, si cliquant sur le menu contextuel sur le lien."
+    },
     "popupShorten": {
         "message": "Réduire"
     },

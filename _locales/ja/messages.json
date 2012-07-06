@@ -95,6 +95,9 @@
     "optWatchingDontStartWatchingAtCheckHighPriority": {
         "message": "短縮URLを優先的に表示した際に自動的に監視を開始しない。"
     },
+    "optAdoptLinkUrlContextMenu": {
+        "message": "リンク上でコンテキストメニューをクリックした場合は、リンクURLの代わりにページのURLを短縮する。"
+    },
     "popupShorten": {
         "message": "短縮"
     },

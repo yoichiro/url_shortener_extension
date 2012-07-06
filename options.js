@@ -43,6 +43,7 @@ Option.prototype = {
         $("optAmazonShortUrl").innerHTML = chrome.i18n.getMessage("optAmazonShortUrl");
         $("optWatching").innerHTML = chrome.i18n.getMessage("optWatching");
         $("optWatchingDontStartWatchingAtCheckHighPriority").innerHTML = chrome.i18n.getMessage("optWatchingDontStartWatchingAtCheckHighPriority");
+        $("optAdoptLinkUrlContextMenu").innerHTML = chrome.i18n.getMessage("optAdoptLinkUrlContextMenu");
     },
     restoreConfigurations: function() {
         $("not_show_notification_after_login").checked =
@@ -85,6 +86,8 @@ Option.prototype = {
             this.bg.gl.isAmazonShortUrl();
         $("not_start_watching_at_check_high_priority").checked =
             !this.bg.gl.isStartWatchingAtCheckHighPriority();
+        $("adopt_link_url_context_menu").checked =
+            this.bg.gl.isAdoptLinkUrlContextMenu();
     },
     assignEventHandlers: function() {
         $("not_show_notification_after_login").onclick =
@@ -123,6 +126,8 @@ Option.prototype = {
             this.onClickAmazonShortUrl.bind(this);
         $("not_start_watching_at_check_high_priority").onclick =
             this.onClickNotStartWatchingAtCheckHighPriority.bind(this);
+        $("adopt_link_url_context_menu").onclick =
+            this.onClickAdoptLinkUrlContextMenu.bind(this);
     },
     onClickNotShowNotificationAfterLogin: function() {
         this.changeCheckboxConfiguration("not_show_notification_after_login");
@@ -253,6 +258,9 @@ Option.prototype = {
     },
     onClickNotStartWatchingAtCheckHighPriority: function() {
         this.changeCheckboxConfiguration("not_start_watching_at_check_high_priority");
+    },
+    onClickAdoptLinkUrlContextMenu: function() {
+        this.changeCheckboxConfiguration("adopt_link_url_context_menu");
     }
 };
 

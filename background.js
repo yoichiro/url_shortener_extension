@@ -97,7 +97,7 @@ Gl.prototype = {
                     chrome.contextMenus.create({
                         type: "normal",
                         title: chrome.i18n.getMessage("ctxmenuLogin"),
-                        contexts: ["page"],
+                        contexts: ["page", "link"],
                         onclick: function(info, tab) {
                             this.oauthWindow.createOpenerOnClick()();
                         }.bind(this)
@@ -115,7 +115,7 @@ Gl.prototype = {
                         chrome.contextMenus.create({
                             type: "normal",
                             title: chrome.i18n.getMessage("ctxmenuReadItLater"),
-                            contexts: ["page"],
+                            contexts: ["page", "link"],
                             onclick: function(info, tab) {
                                 this.registerToReadItLater(tab.url, {
                                     onSuccess: function(req) {
@@ -142,9 +142,15 @@ Gl.prototype = {
         return {
             type: "normal",
             title: title,
-            contexts: ["page"],
+            contexts: ["page", "link"],
             onclick: function(info, tab) {
-                var longUrl = this.preProcessLongUrl(tab.url);
+                var targetUrl;
+                if (this.isAdoptLinkUrlContextMenu() && info.linkUrl) {
+                    targetUrl = info.linkUrl;
+                } else {
+                    targetUrl = info.pageUrl;
+                }
+                var longUrl = this.preProcessLongUrl(targetUrl);
                 this.shortenLongUrl(longUrl, tab.title, {
                     onSuccess: function(req) {
                         this.showSucceedMessage(req.responseJSON.id);
@@ -475,6 +481,9 @@ Gl.prototype = {
     },
     isStartWatchingAtCheckHighPriority: function() {
         return !Boolean(localStorage["not_start_watching_at_check_high_priority"]);
+    },
+    isAdoptLinkUrlContextMenu: function() {
+        return Boolean(localStorage["adopt_link_url_context_menu"]);
     },
     getReadItLaterUsername: function() {
         return localStorage["read_it_later_username"];

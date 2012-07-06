@@ -95,6 +95,9 @@
     "optWatchingDontStartWatchingAtCheckHighPriority": {
         "message": "Не запускайте монитор автоматически при отображении URL сокращение на приоритетной основе."
     },
+    "optAdoptLinkUrlContextMenu": {
+        "message": "Сократить ссылку URL вместо URL страницы, если нажать в контекстном меню по ссылке."
+    },
     "popupShorten": {
         "message": "Сокращено"
     },

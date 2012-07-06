@@ -95,6 +95,9 @@
     "optWatchingDontStartWatchingAtCheckHighPriority": {
         "message": "不启动显示器时，会自动显示在优先基础上的网址缩短。"
     },
+    "optAdoptLinkUrlContextMenu": {
+        "message": "缩短链接的URL，而不是页面的URL，如果点击链接，上下文菜单。"
+    },
     "popupShorten": {
         "message": "短縮"
     },
