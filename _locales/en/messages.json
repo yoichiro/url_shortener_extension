@@ -12,7 +12,7 @@
         "message": "Don't show the message after copied the shortened URL to the clipboard using the context menu."
     },
     "optDontShowMsgRegisterReadItLater": {
-        "message": "Don't show messages after registering a URL to Read It Later using the context menu."
+        "message": "Don't show messages after registering a URL to Pocket using the context menu."
     },
     "optContextMenu": {
         "message": "Context menu"
@@ -33,7 +33,7 @@
         "message": "Shorten the URL directly at clicking the extension button in logged in."
     },
     "optReadItLater": {
-        "message": "Read It Later"
+        "message": "Pocket"
     },
     "optReadItLaterUsername": {
         "message": "User name"
@@ -48,7 +48,7 @@
         "message": "Succeeded."
     },
     "optReadItLaterGrant": {
-        "message": "Use Read It Later"
+        "message": "Use Pocket"
     },
     "optReadItLaterRemoveGrant": {
         "message": "End the usage"
@@ -162,7 +162,7 @@
         }
     },
     "popupRegisteredReadItLater": {
-        "message": "The URL has been registered to Read It Later."
+        "message": "The URL has been registered to Pocket."
     },
     "popupOption": {
         "message": "Option"
@@ -183,7 +183,7 @@
         "message": "Login to Google (for recording to history)"
     },
     "ctxmenuReadItLater": {
-        "message": "Register to Read It Later"
+        "message": "Register to Pocket"
     },
     "notifyCopied": {
         "message": "Copied shorten URL ($SHORT_URL$) to clipboard",
@@ -208,7 +208,7 @@
         "message": "Authentication completed. Shorten URL will be recorded to your history."
     },
     "notifyRegisterReadItLaterFailed": {
-        "message": "Failed to register with Read It Later. ($REQ_STATUS$)",
+        "message": "Failed to register with Pocket. ($REQ_STATUS$)",
         "placeholders": {
             "req_status": {
                 "content": "$1"
@@ -216,7 +216,7 @@
         }
     },
     "notifyRegisteredReadItLater": {
-        "message": "Registered to Read It Later."
+        "message": "Registered to Pocket."
     },
     "webintentMessageSucceed": {
         "message": "Succeeded shorten."

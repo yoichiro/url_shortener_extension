@@ -12,7 +12,7 @@
         "message": "Não mostrar mensagens depois de copiar URL curta para a área de transferência usando o menu de contexto."
     },
     "optDontShowMsgRegisterReadItLater": {
-        "message": "Não mostrar mensagens depois de registrar uma URL para o Read It Later usando o menu de contexto."
+        "message": "Não mostrar mensagens depois de registrar uma URL para o Pocket usando o menu de contexto."
     },
     "optContextMenu": {
         "message": "Menu de contexto"
@@ -33,7 +33,7 @@
         "message": "Encurtar uma URL automaticamente quando pressionar o botão da extensão enquanto estiver logado."
     },
     "optReadItLater": {
-        "message": "Read It Later"
+        "message": "Pocket"
     },
     "optReadItLaterUsername": {
         "message": "Nome de usuário"
@@ -48,7 +48,7 @@
         "message": "Alteração efetuada com sucesso."
     },
     "optReadItLaterGrant": {
-        "message": "Usar o Read It Later"
+        "message": "Usar o Pocket"
     },
     "optReadItLaterRemoveGrant": {
         "message": "Não usar mais"
@@ -162,7 +162,7 @@
         }
     },
     "popupRegisteredReadItLater": {
-        "message": "A URL foi registrada no Read It Later."
+        "message": "A URL foi registrada no Pocket."
     },
     "popupOption": {
         "message": "Opções"
@@ -183,7 +183,7 @@
         "message": "Logar no Google (para registrar no histórico)"
     },
     "ctxmenuReadItLater": {
-        "message": "Registrar no Read It Later"
+        "message": "Registrar no Pocket"
     },
     "notifyCopied": {
         "message": "A URL curta ($SHORT_URL$) foi copiada para a área de transferência.",
@@ -208,7 +208,7 @@
         "message": "Autorização concluída. As URLs curtas passarão a serem registradas em seu histórico."
     },
     "notifyRegisterReadItLaterFailed": {
-        "message": "Falha ao registrar no Read It Later. ($REQ_STATUS$)",
+        "message": "Falha ao registrar no Pocket. ($REQ_STATUS$)",
         "placeholders": {
             "req_status": {
                 "content": "$1"
@@ -216,7 +216,7 @@
         }
     },
     "notifyRegisteredReadItLater": {
-        "message": "Registrado no Read It Later."
+        "message": "Registrado no Pocket."
     },
     "webintentMessageSucceed": {
         "message": "Encurtamento efetuado com sucesso."

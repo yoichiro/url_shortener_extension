@@ -33,22 +33,18 @@ ShareTools.prototype = {
         this.setUrlDetail(shortUrl);
     },
     setTwitter: function(url) {
+        var self = this;
         $("twitter").innerHTML = "";
         if (url) {
-            var a = document.createElement("a");
-            a.setAttribute("href", "https://twitter.com/share");
-            a.setAttribute("class", "twitter-share-button");
-            a.setAttribute("data-count", "none");
-            a.setAttribute("data-url", url);
-            if (this.bg.gl.isTwitterSetTitle()) {
-                a.setAttribute("data-text", this.popup.getCurrentTabTitle());
-            }
-            a.innerHTML = "Tweet";
-            var script = document.createElement("script");
-            script.setAttribute("type", "text/javascript");
-            script.setAttribute("src", "http://platform.twitter.com/widgets.js");
-            a.appendChild(script);
-            $("twitter").appendChild(a);
+            var img = document.createElement("img");
+            img.src = "./twitter.png";
+            img.onclick = function(url) {
+                return function(evt) {
+                    this.bg.gl.showTweetWindow(url);
+                    window.close();
+                }.bind(self);
+            }.bind(this)(url);
+            $("twitter").appendChild(img);
             utils.setVisible($("twitter"), true);
         } else {
             utils.setVisible($("twitter"), false);
@@ -63,6 +59,7 @@ ShareTools.prototype = {
             img.onclick = function(url) {
                 return function(evt) {
                     this.bg.gl.showFacebookWindow(url);
+                    window.close();
                 }.bind(self);
             }.bind(this)(url);
             $("facebook").appendChild(img);

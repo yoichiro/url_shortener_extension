@@ -170,6 +170,9 @@ Gl.prototype = {
         };
     },
     showTweetWindow: function(shortUrl) {
+        var x = (screen.width - 550) / 2;
+        var y = (screen.height - 450) / 2;
+        var options = "width=550,height=450,left=" + x + ",top=" + y;
         if (this.isTwitterSetTitle()) {
             chrome.tabs.getSelected(null, function(tab) {
                 window.open(
@@ -178,23 +181,26 @@ Gl.prototype = {
                         + "&text="
                         + encodeURIComponent(tab.title),
                     "_blank",
-                    "width=550,height=450");
+                    options);
             }.bind(this));
         } else {
             window.open(
                 "https://twitter.com/share?url="
                     + encodeURIComponent(shortUrl),
                 "_blank",
-                "width=550,height=450");
+                options);
         }
     },
     showFacebookWindow: function(shortUrl) {
+        var x = (screen.width - 680) / 2;
+        var y = (screen.height - 360) / 2;
+        var options = "width=680,height=360,left=" + x + ",top=" + y;
         var link = "http://www.facebook.com/sharer/sharer.php?u="
             + encodeURIComponent(shortUrl);
         window.open(
             link,
             "_blank",
-            "width=680,height=360");
+            options);
     },
     showSucceedMessage: function(shortUrl) {
         $("buffer").value = shortUrl;

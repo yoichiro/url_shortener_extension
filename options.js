@@ -265,3 +265,6 @@ Option.prototype = {
 };
 
 var option = new Option();
+window.onload = function() {
+    option.start();
+};

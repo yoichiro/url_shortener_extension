@@ -12,7 +12,7 @@
         "message": "Ne pas afficher de notification après avoir copié un lien reduit à l'aide du menu contextuel."
     },
     "optDontShowMsgRegisterReadItLater": {
-        "message": "Ne pas afficher de notification après l'enregistrement d'une URL sur Read It Later utilisant le menu contextuel."
+        "message": "Ne pas afficher de notification après l'enregistrement d'une URL sur Pocket utilisant le menu contextuel."
     },
     "optContextMenu": {
         "message": "Menu contextuel"
@@ -33,7 +33,7 @@
         "message": "Lorsque vous etes connecté, raccourcir l'URL automatiquement lorsque vous appuyez sur le bouton de l'extension."
     },
     "optReadItLater": {
-        "message": "Read It Later"
+        "message": "Pocket"
     },
     "optReadItLaterUsername": {
         "message": "Nom d'utilisateur"
@@ -48,7 +48,7 @@
         "message": "Réussi."
     },
     "optReadItLaterGrant": {
-        "message": "Utilisation de l'Read It Later"
+        "message": "Utilisation de l'Pocket"
     },
     "optReadItLaterRemoveGrant": {
         "message": "Fin de l'utilisation"
@@ -162,7 +162,7 @@
         }
     },
     "popupRegisteredReadItLater": {
-        "message": "L'URL a été enregistré sur Read It Later."
+        "message": "L'URL a été enregistré sur Pocket."
     },
     "popupOption": {
         "message": "Option"
@@ -183,7 +183,7 @@
         "message": "Connexion à Google (pour enregistrer votre historique)"
     },
     "ctxmenuReadItLater": {
-        "message": "Inscrivez-vous à Read It Later"
+        "message": "Inscrivez-vous à Pocket"
     },
     "notifyCopied": {
         "message": "L'URL réduit ($SHORT_URL$) a été copie au presse-papiers.",
@@ -208,7 +208,7 @@
         "message": "Connexion complétée. Les URLs réduits seront maintenant enregistrés à votre historique."
     },
     "notifyRegisterReadItLaterFailed": {
-        "message": "Impossible de s'inscrire auprès de Read It Later. ($REQ_STATUS$)",
+        "message": "Impossible de s'inscrire auprès de Pocket. ($REQ_STATUS$)",
         "placeholders": {
             "req_status": {
                 "content": "$1"
@@ -216,7 +216,7 @@
         }
     },
     "notifyRegisteredReadItLater": {
-        "message": "Enregistré sur Read It Later."
+        "message": "Enregistré sur Pocket."
     },
     "webintentMessageSucceed": {
         "message": "Succède à raccourcir."

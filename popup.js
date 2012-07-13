@@ -444,3 +444,6 @@ Popup.prototype = {
 };
 
 var popup = new Popup();
+window.onload = function() {
+    popup.start();
+};

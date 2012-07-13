@@ -12,7 +12,7 @@
         "message": "Не отображать сообщение после копирования сокращенного URL в буфер обмена с помощью контекстного меню."
     },
     "optDontShowMsgRegisterReadItLater": {
-        "message": "Не отображать сообщение после сохранения сокращенного URL в Read It Later с помощью контекстного меню."
+        "message": "Не отображать сообщение после сохранения сокращенного URL в Pocket с помощью контекстного меню."
     },
     "optContextMenu": {
         "message": "Контекстное меню"
@@ -33,7 +33,7 @@
         "message": "Сократить URL напрямую по клику на кнопку расширения после входа в систему."
     },
     "optReadItLater": {
-        "message": "Read It Later"
+        "message": "Pocket"
     },
     "optReadItLaterUsername": {
         "message": "Имя пользователя"
@@ -48,7 +48,7 @@
         "message": "Завершено успешно."
     },
     "optReadItLaterGrant": {
-        "message": "Используйте Read It Later"
+        "message": "Используйте Pocket"
     },
     "optReadItLaterRemoveGrant": {
         "message": "Прекратить использование"
@@ -162,7 +162,7 @@
         }
     },
     "popupRegisteredReadItLater": {
-        "message": "URL был сохранен в Read It Later."
+        "message": "URL был сохранен в Pocket."
     },
     "popupOption": {
         "message": "Опция"
@@ -183,7 +183,7 @@
         "message": "Войти в Google (чтобы сохранить в архив)"
     },
     "ctxmenuReadItLater": {
-        "message": "Сохраниь в Read It Later"
+        "message": "Сохраниь в Pocket"
     },
     "notifyCopied": {
         "message": "Скопировать соркащенный ($SHORT_URL$) URL в буфер обмена",
@@ -208,7 +208,7 @@
         "message": "Аутентификация завершена. Сокращенный URL будет сохранен в ваш архив."
     },
     "notifyRegisterReadItLaterFailed": {
-        "message": "Не удалось сохранить в Read It Later.($REQ_STATUS$)",
+        "message": "Не удалось сохранить в Pocket.($REQ_STATUS$)",
         "placeholders": {
             "req_status": {
                 "content": "$1"
@@ -216,7 +216,7 @@
         }
     },
     "notifyRegisteredReadItLater": {
-        "message": "Успешно сохранен в Read It Later."
+        "message": "Успешно сохранен в Pocket."
     },
     "webintentMessageSucceed": {
         "message": "Преемник сокращаться."

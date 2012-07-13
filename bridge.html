@@ -1,24 +1,8 @@
 <html>
 <head>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/prototype/1.7.0.0/prototype.js"></script>
-<script type="text/javascript">
-function initialize() {
-  // Get the access token from the query string and set it to the cookie.
-  var hash = location.hash.substring(1);
-  hash = hash.split("&");
-  var params = {};
-  hash.each(function(p) {
-    var a = p.split("=");
-    params[a[0]] = a[1];
-  });
-  var accessToken = params.access_token;
-  localStorage["access_token"] = accessToken;
-  var expiresIn = params.expires_in;
-  localStorage["expires_in"] = expiresIn;
-  parent.window.postMessage("close", "*");
-}
-</script>
+<script type="text/javascript" src="./bridge.js"></script>
 </head>
-<body onload="initialize();">
+<body>
 </body>
 </html>

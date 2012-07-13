@@ -12,7 +12,7 @@
         "message": "コンテキストメニューを使って短縮URLをクリップボードにコピーした後にメッセージを表示しない。"
     },
     "optDontShowMsgRegisterReadItLater": {
-        "message": "コンテキストメニューを使ってRead It LaterにURLを登録した後にメッセージを表示しない。"
+        "message": "コンテキストメニューを使ってPocketにURLを登録した後にメッセージを表示しない。"
     },
     "optContextMenu": {
         "message": "コンテキストメニュー"
@@ -33,7 +33,7 @@
         "message": "ログインしているときに、拡張機能のボタンを押した際に自動的にURLを短縮する。"
     },
     "optReadItLater": {
-        "message": "Read It Later"
+        "message": "Pocket"
     },
     "optReadItLaterUsername": {
         "message": "ユーザ名"
@@ -48,7 +48,7 @@
         "message": "成功しました。"
     },
     "optReadItLaterGrant": {
-        "message": "Read It Laterを使う"
+        "message": "Pocketを使う"
     },
     "optReadItLaterRemoveGrant": {
         "message": "利用を止める"
@@ -162,7 +162,7 @@
         }
     },
     "popupRegisteredReadItLater": {
-        "message": "URLをRead It Laterに登録しました。"
+        "message": "URLをPocketに登録しました。"
     },
     "popupOption": {
         "message": "オプション"
@@ -183,7 +183,7 @@
         "message": "Googleにログイン (履歴に記録するため)"
     },
     "ctxmenuReadItLater": {
-        "message": "Read It Laterに登録"
+        "message": "Pocketに登録"
     },
     "notifyCopied": {
         "message": "短縮URL ($SHORT_URL$) をクリップボードにコピーしました。",
@@ -208,7 +208,7 @@
         "message": "認可が完了しました。短縮URLはあなたの履歴に記録されます。"
     },
     "notifyRegisterReadItLaterFailed": {
-        "message": "Read It Laterへの登録に失敗しました。($REQ_STATUS$)",
+        "message": "Pocketへの登録に失敗しました。($REQ_STATUS$)",
         "placeholders": {
             "req_status": {
                 "content": "$1"
@@ -216,7 +216,7 @@
         }
     },
     "notifyRegisteredReadItLater": {
-        "message": "Read It Laterに登録しました。"
+        "message": "Pocketに登録しました。"
     },
     "webintentMessageSucceed": {
         "message": "短縮に成功しました。"
