@@ -32,6 +32,9 @@ Gl.prototype = {
         chrome.tabs.onUpdated.addListener(function(id, changeInfo, tab) {
             this.onSelectionChanged(id);
         }.bind(this));
+        chrome.storage.onChanged.addListener(function(changes, namespace) {
+            this.onChangedStorage(changes, namespace);
+        }.bind(this));
     },
     setupOAuthWindow: function() {
         var host = location.host;
@@ -277,22 +280,6 @@ Gl.prototype = {
             return false;
         }
     },
-    appendTitleToUserHistory: function(req) {
-        var titleHistory = this.getTitleHistory();
-        var newTitleHistory = {};
-        var items = req.responseJSON.items;
-        items.each(function(item) {
-            var longUrl = item.longUrl;
-            var title = titleHistory[longUrl];
-            if (title) {
-                item["title"] = title;
-                newTitleHistory[longUrl] = title;
-            } else {
-                item["title"] = longUrl;
-            }
-        });
-        localStorage["title_history"] = Object.toJSON(newTitleHistory);
-    },
     hilightFavoriteUrls: function(req) {
         var items = req.responseJSON.items;
         var favoriteItems = new Array();
@@ -338,10 +325,28 @@ Gl.prototype = {
         }
         new Ajax.Request(url, params);
     },
+    appendTitleToUserHistory: function(req) {
+        var titleHistory = this.getTitleHistory();
+        var newTitleHistory = {};
+        var items = req.responseJSON.items;
+        items.each(function(item) {
+            var longUrl = item.longUrl;
+            var title = titleHistory[longUrl];
+            if (title) {
+                item["title"] = title;
+                newTitleHistory[longUrl] = title;
+            } else {
+                item["title"] = longUrl;
+            }
+        });
+        localStorage["title_history"] = Object.toJSON(newTitleHistory);
+        chrome.storage.sync.set({title_history: newTitleHistory});
+    },
     storeTitleHistory: function(longUrl, title) {
         var titleHistory = this.getTitleHistory();
         titleHistory[longUrl] = title;
         localStorage["title_history"] = Object.toJSON(titleHistory);
+        chrome.storage.sync.set({title_history: titleHistory});
     },
     getTitleHistory: function() {
         var titleHistory = localStorage["title_history"];
@@ -549,6 +554,15 @@ Gl.prototype = {
             }
         }
         localStorage["favorite_urls"] = Object.toJSON(favoriteUrls);
+    },
+    onChangedStorage: function(changes, namespace) {
+        for (key in changes) {
+            if (key == "title_history") {
+                var storageChange = changes[key];
+                localStorage["title_history"]
+                    = Object.toJSON(storageChange.newValue);
+            }
+        }
     }
 };
 
