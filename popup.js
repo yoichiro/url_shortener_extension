@@ -22,9 +22,14 @@ Popup.prototype = {
         this.shareTools.start();
         this.assignMessages();
         this.assignEventHandlers();
-        this.loadHistory();
         this.recommend.showRecommend();
         this.setCurrentLongUrl();
+        this.syncTitleHistory();
+    },
+    syncTitleHistory: function() {
+        this.bg.gl.loadTitleHistory(function() {
+            this.loadHistory();
+        }.bind(this));
     },
     assignMessages: function() {
         $("popupShorten").innerHTML = chrome.i18n.getMessage("popupShorten");

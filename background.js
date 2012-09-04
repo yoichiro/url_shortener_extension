@@ -563,6 +563,12 @@ Gl.prototype = {
                     = Object.toJSON(storageChange.newValue);
             }
         }
+    },
+    loadTitleHistory: function(callback) {
+        chrome.storage.sync.get(null, function(items) {
+            localStorage["title_history"] = Object.toJSON(items["title_history"]);
+            callback.call();
+        }.bind(this));
     }
 };
 
