@@ -340,13 +340,17 @@ Gl.prototype = {
             }
         });
         localStorage["title_history"] = Object.toJSON(newTitleHistory);
-        chrome.storage.sync.set({title_history: newTitleHistory});
+        chrome.storage.sync.clear(function() {
+            chrome.storage.sync.set(newTitleHistory);
+        }.bind(this));
     },
     storeTitleHistory: function(longUrl, title) {
         var titleHistory = this.getTitleHistory();
         titleHistory[longUrl] = title;
         localStorage["title_history"] = Object.toJSON(titleHistory);
-        chrome.storage.sync.set({title_history: titleHistory});
+        var data = {};
+        data[longUrl] = title;
+        chrome.storage.sync.set(data);
     },
     getTitleHistory: function() {
         var titleHistory = localStorage["title_history"];
@@ -565,9 +569,11 @@ Gl.prototype = {
         }
     },
     loadTitleHistory: function(callback) {
-        chrome.storage.sync.get(null, function(items) {
-            localStorage["title_history"] = Object.toJSON(items["title_history"]);
-            callback.call();
+        chrome.storage.sync.remove("title_history", function() {
+            chrome.storage.sync.get(null, function(items) {
+                localStorage["title_history"] = Object.toJSON(items);
+                callback.call();
+            }.bind(this));
         }.bind(this));
     }
 };
