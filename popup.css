@@ -360,7 +360,7 @@ div#qrcode_pane {
 
 div.ad_pane {
     position: absolute;
-    bottom: 25px;
+    bottom: 20px;
     width: 100%;
     height: 60px;
     text-align: center;
