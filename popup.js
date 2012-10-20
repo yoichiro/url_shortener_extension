@@ -90,11 +90,13 @@ Popup.prototype = {
             }.bind(this),
             onComplete: function(req) {
                 this.setLoadHistoryProgressVisible(false);
+                this.showAd();
             }.bind(this)
         });
         if (!result) {
             this.setLoadHistoryProgressVisible(false);
             this.setDisplayMode(true);
+            this.showAd();
         }
     },
     setLoadHistoryProgressVisible: function(visible) {
@@ -445,6 +447,13 @@ Popup.prototype = {
     },
     onClickClearTimer: function() {
         this.bg.gl.startWatchCount(null);
+    },
+    showAd: function() {
+        var lang = window.navigator.language;
+        var iframe = document.createElement("iframe");
+        iframe.src = "http://www.eisbahn.jp/use/index.php?lang=" + lang;
+        iframe.scrolling = "no";
+        $("ad_pane").appendChild(iframe);
     }
 };
 

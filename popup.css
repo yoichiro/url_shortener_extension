@@ -358,7 +358,7 @@ div#qrcode_pane {
     display: none;
 }
 
-div.ad_pane {
+div#ad_pane {
     position: absolute;
     bottom: 20px;
     width: 100%;
@@ -367,7 +367,7 @@ div.ad_pane {
     override: hidden;
 }
 
-div.ad_pane iframe {
+div#ad_pane iframe {
     width: 468px;
     height: 100%;
     border: 0px;
