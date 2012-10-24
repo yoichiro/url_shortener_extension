@@ -449,6 +449,7 @@ Popup.prototype = {
         this.bg.gl.startWatchCount(null);
     },
     showAd: function() {
+        $("ad_pane").innerHTML = "";
         var lang = window.navigator.language;
         var iframe = document.createElement("iframe");
         iframe.src = "http://www.eisbahn.jp/use/index.php?lang=" + lang;
