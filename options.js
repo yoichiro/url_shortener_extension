@@ -3,9 +3,7 @@ var Option = function() {
 };
 
 Option.prototype = {
-    bg: null,
     initialize: function() {
-        this.bg = chrome.extension.getBackgroundPage();
     },
     start: function() {
         this.assignMessages();
@@ -46,48 +44,50 @@ Option.prototype = {
         $("optAdoptLinkUrlContextMenu").innerHTML = chrome.i18n.getMessage("optAdoptLinkUrlContextMenu");
     },
     restoreConfigurations: function() {
-        $("not_show_notification_after_login").checked =
-            !this.bg.gl.isShowNotificationAfterLogin();
-        $("not_show_notification_after_copy").checked =
-            !this.bg.gl.isShowNotificationAfterCopy();
-        $("not_show_notification_after_register_read_it_later").checked =
-            !this.bg.gl.isShowNotificationAfterRegisterReadItLater();
-        $("not_show_context_menus").checked =
-            !this.bg.gl.isShowContextMenus();
-        $("not_start_watching").checked =
-            !this.bg.gl.isStartWatching();
-        $("shorten_directly_at_not_login").checked =
-            this.bg.gl.isShortenDirectlyAtNotLogin();
-        $("shorten_directly_at_login").checked =
-            this.bg.gl.isShortenDirectlyAtLogin();
-        $("tweet_at_shorten_by_context_menu").checked =
-            this.bg.gl.isTweetAtShortenByContextMenu();
-        $("facebook_at_shorten_by_context_menu").checked =
-            this.bg.gl.isFacebookAtShortenByContextMenu();
-        var readItLaterUsername = this.bg.gl.getReadItLaterUsername();
-        if (readItLaterUsername) {
-            $("read_it_later_username").value = readItLaterUsername;
-        } else {
-            $("read_it_later_username").value = "";
-        }
-        var readItLaterPassword = this.bg.gl.getReadItLaterPassword();
-        if (readItLaterPassword) {
-            $("read_it_later_password").value = readItLaterPassword;
-        } else {
-            $("read_it_later_password").value = "";
-        }
-        $("background_image_url").value = this.bg.gl.getBackgroundImageUrl();
-        $("twitter_set_title").checked = this.bg.gl.isTwitterSetTitle();
-        $("tweet_at_shorten_by_popup").checked =
-            this.bg.gl.isTweetAtShortenByPopup();
-        $("facebook_at_shorten_by_popup").checked =
-            this.bg.gl.isFacebookAtShortenByPopup();
-        $("amazon_short_url").checked =
-            this.bg.gl.isAmazonShortUrl();
-        $("not_start_watching_at_check_high_priority").checked =
-            !this.bg.gl.isStartWatchingAtCheckHighPriority();
-        $("adopt_link_url_context_menu").checked =
-            this.bg.gl.isAdoptLinkUrlContextMenu();
+        chrome.runtime.getBackgroundPage(function(bg) {
+            $("not_show_notification_after_login").checked =
+                !bg.gl.isShowNotificationAfterLogin();
+            $("not_show_notification_after_copy").checked =
+                !bg.gl.isShowNotificationAfterCopy();
+            $("not_show_notification_after_register_read_it_later").checked =
+                !bg.gl.isShowNotificationAfterRegisterReadItLater();
+            $("not_show_context_menus").checked =
+                !bg.gl.isShowContextMenus();
+            $("not_start_watching").checked =
+                !bg.gl.isStartWatching();
+            $("shorten_directly_at_not_login").checked =
+                bg.gl.isShortenDirectlyAtNotLogin();
+            $("shorten_directly_at_login").checked =
+                bg.gl.isShortenDirectlyAtLogin();
+            $("tweet_at_shorten_by_context_menu").checked =
+                bg.gl.isTweetAtShortenByContextMenu();
+            $("facebook_at_shorten_by_context_menu").checked =
+                bg.gl.isFacebookAtShortenByContextMenu();
+            var readItLaterUsername = bg.gl.getReadItLaterUsername();
+            if (readItLaterUsername) {
+                $("read_it_later_username").value = readItLaterUsername;
+            } else {
+                $("read_it_later_username").value = "";
+            }
+            var readItLaterPassword = bg.gl.getReadItLaterPassword();
+            if (readItLaterPassword) {
+                $("read_it_later_password").value = readItLaterPassword;
+            } else {
+                $("read_it_later_password").value = "";
+            }
+            $("background_image_url").value = bg.gl.getBackgroundImageUrl();
+            $("twitter_set_title").checked = bg.gl.isTwitterSetTitle();
+            $("tweet_at_shorten_by_popup").checked =
+                bg.gl.isTweetAtShortenByPopup();
+            $("facebook_at_shorten_by_popup").checked =
+                bg.gl.isFacebookAtShortenByPopup();
+            $("amazon_short_url").checked =
+                bg.gl.isAmazonShortUrl();
+            $("not_start_watching_at_check_high_priority").checked =
+                !bg.gl.isStartWatchingAtCheckHighPriority();
+            $("adopt_link_url_context_menu").checked =
+                bg.gl.isAdoptLinkUrlContextMenu();
+        });
     },
     assignEventHandlers: function() {
         $("not_show_notification_after_login").onclick =
@@ -139,8 +139,10 @@ Option.prototype = {
         this.changeCheckboxConfiguration("not_show_notification_after_register_read_it_later");
     },
     onClickNotShowContextMenus: function() {
-        this.changeCheckboxConfiguration("not_show_context_menus");
-        this.bg.gl.setupContextMenus();
+        chrome.runtime.getBackgroundPage(function(bg) {
+            this.changeCheckboxConfiguration("not_show_context_menus");
+            bg.gl.setupContextMenus();
+        }.bind(this));
     },
     onClickNotStartWatching: function() {
         this.changeCheckboxConfiguration("not_start_watching");
@@ -174,11 +176,13 @@ Option.prototype = {
         localStorage[name] = $(name).checked ? "true" : "";
     },
     checkReadItLaterGrant: function() {
-        this.bg.gl.checkReadItLaterGrant(function(result) {
-            utils.setVisible($("readItLaterGranted"), result);
-            utils.setVisible($("readItLaterNotGrant"), !result);
-        }.bind(this));
-        this.bg.gl.setupContextMenus();
+        chrome.runtime.getBackgroundPage(function(bg) {
+            bg.gl.checkReadItLaterGrant(function(result) {
+                utils.setVisible($("readItLaterGranted"), result);
+                utils.setVisible($("readItLaterNotGrant"), !result);
+            }.bind(this));
+            bg.gl.setupContextMenus();
+        });
     },
     onClickReadItLaterGrant: function() {
         chrome.permissions.request({
@@ -190,36 +194,38 @@ Option.prototype = {
         }.bind(this));
     },
     checkReadItLaterAuth: function() {
-        $("read_it_later_auth").disabled = true;
-        $("read_it_later_result").innerHTML = "";
-        var username = $("read_it_later_username").value;
-        var password = $("read_it_later_password").value;
-        localStorage["read_it_later_username"] = username;
-        localStorage["read_it_later_password"] = password;
-        var url = "https://readitlaterlist.com/v2/auth";
-        new Ajax.Request(url, {
-            method: "get",
-            parameters: {
-                username: encodeURIComponent(username),
-                password: encodeURIComponent(password),
-                apikey: this.bg.gl.getReadItLaterApiKey()
-            },
-            onSuccess: function(req) {
-                localStorage["is_authenticated_read_it_later"] = "1";
-                $("read_it_later_result").innerHTML =
-                    chrome.i18n.getMessage("optReadItLaterSucceed");
-            },
-            onFailure: function(req) {
-                localStorage["is_authenticated_read_it_later"] = "0";
-                $("read_it_later_result").innerHTML = req.status + "(" + req.statusText + ")";
-            },
-            onComplete: function() {
-                $("read_it_later_auth").disabled = false;
-                setTimeout(function() {
-                    $("read_it_later_result").innerHTML = "";
-                }, 5000);
-            }
-        });
+        chrome.runtime.getBackgroundPage(function(bg) {
+            $("read_it_later_auth").disabled = true;
+            $("read_it_later_result").innerHTML = "";
+            var username = $("read_it_later_username").value;
+            var password = $("read_it_later_password").value;
+            localStorage["read_it_later_username"] = username;
+            localStorage["read_it_later_password"] = password;
+            var url = "https://readitlaterlist.com/v2/auth";
+            new Ajax.Request(url, {
+                method: "get",
+                parameters: {
+                    username: encodeURIComponent(username),
+                    password: encodeURIComponent(password),
+                    apikey: bg.gl.getReadItLaterApiKey()
+                },
+                onSuccess: function(req) {
+                    localStorage["is_authenticated_read_it_later"] = "1";
+                    $("read_it_later_result").innerHTML =
+                        chrome.i18n.getMessage("optReadItLaterSucceed");
+                },
+                onFailure: function(req) {
+                    localStorage["is_authenticated_read_it_later"] = "0";
+                    $("read_it_later_result").innerHTML = req.status + "(" + req.statusText + ")";
+                },
+                onComplete: function() {
+                    $("read_it_later_auth").disabled = false;
+                    setTimeout(function() {
+                        $("read_it_later_result").innerHTML = "";
+                    }, 5000);
+                }
+            });
+        }.bind(this));
     },
     onClickReadItLaterRemoveGrant: function() {
         chrome.permissions.remove({

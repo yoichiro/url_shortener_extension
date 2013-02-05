@@ -3,7 +3,6 @@ var Popup = function() {
 };
 
 Popup.prototype = {
-    bg: null,
     shareTools: null,
     recommend: null,
     history: null,
@@ -11,7 +10,6 @@ Popup.prototype = {
     clickCountsTimer: null,
     currentTabTitle: null,
     initialize: function() {
-        this.bg = chrome.extension.getBackgroundPage();
         this.shareTools = new ShareTools(this);
         this.recommend = new Recommend();
         this.detailTimer = new Array();
@@ -27,8 +25,10 @@ Popup.prototype = {
         this.syncTitleHistory();
     },
     syncTitleHistory: function() {
-        this.bg.gl.loadTitleHistory(function() {
-            this.loadHistory();
+        chrome.runtime.getBackgroundPage(function(bg) {
+            bg.gl.loadTitleHistory(function() {
+                this.loadHistory();
+            }.bind(this));
         }.bind(this));
     },
     assignMessages: function() {
@@ -41,14 +41,18 @@ Popup.prototype = {
         this.recommend.assignMessages();
     },
     assignEventHandlers: function() {
-        $("login_link").onclick =
-            this.bg.gl.getOAuthWindow().createOpenerOnClick(window);
+        $("login_link").onclick = this.onClickLoginLink.bind(this);
         $("input_long_url").onclick = this.selectInputLongUrl.bind(this);
         $("shorten").onclick = this.onClickShorten.bind(this);
         $("input_short_url").onclick = this.onClickShortUrl.bind(this);
         $("clear_timer").onclick = this.onClickClearTimer.bind(this);
         $("btn_option").onclick = this.onClickOption.bind(this);
         this.recommend.assignEventHandlers();
+    },
+    onClickLoginLink: function() {
+        utils.getOAuthWindow(function() {
+            window.close();
+        }.bind(this)).createOpenerOnClick()();
     },
     onClickOption: function() {
         var url = chrome.extension.getURL("options.html");
@@ -59,12 +63,14 @@ Popup.prototype = {
         }.bind(this));
     },
     setBackgroundImage: function() {
-        var url = this.bg.gl.getBackgroundImageUrl();
-        if (url) {
-            Element.setStyle(document.body, {
-                backgroundImage: "url(" + url + ")"
-            });
-        }
+        chrome.runtime.getBackgroundPage(function(bg) {
+            var url = bg.gl.getBackgroundImageUrl();
+            if (url) {
+                Element.setStyle(document.body, {
+                    backgroundImage: "url(" + url + ")"
+                });
+            }
+        });
     },
     isInvalidCredential: function(req) {
         if (req.status == 401) {
@@ -79,25 +85,27 @@ Popup.prototype = {
     },
     loadHistory: function() {
         this.setLoadHistoryProgressVisible(true);
-        var result = this.bg.gl.lookupUserHistory({
-            onSuccess: function(req) {
-                this.history = req.responseJSON.items;
-                this.setPaginator();
-                this.showHistory(0);
-            }.bind(this),
-            onFailure: function(req) {
-                this.isInvalidCredential(req);
-            }.bind(this),
-            onComplete: function(req) {
+        chrome.runtime.getBackgroundPage(function(bg) {
+            var result = bg.gl.lookupUserHistory({
+                onSuccess: function(req) {
+                    this.history = req.responseJSON.items;
+                    this.setPaginator();
+                    this.showHistory(0);
+                }.bind(this),
+                onFailure: function(req) {
+                    this.isInvalidCredential(req);
+                }.bind(this),
+                onComplete: function(req) {
+                    this.setLoadHistoryProgressVisible(false);
+                    this.showAd();
+                }.bind(this)
+            });
+            if (!result) {
                 this.setLoadHistoryProgressVisible(false);
+                this.setDisplayMode(true);
                 this.showAd();
-            }.bind(this)
-        });
-        if (!result) {
-            this.setLoadHistoryProgressVisible(false);
-            this.setDisplayMode(true);
-            this.showAd();
-        }
+            }
+        }.bind(this));
     },
     setLoadHistoryProgressVisible: function(visible) {
         utils.setVisible($("history_table_progress"), visible);
@@ -150,39 +158,47 @@ Popup.prototype = {
                     this.onClickShortUrlLink(url);
                 }.bind(this);
             }.bind(this)(item.id);
-            shortUrlA.onmouseover = function(item) {
-                return function() {
-                    this.startDetailTimer(item);
-                }.bind(this);
-            }.bind(this)(item);
-            shortUrlA.onmouseout = this.stopDetailTimer.bind(this);
+            if (item.analytics) {
+                shortUrlA.onmouseover = function(item) {
+                    return function() {
+                        this.startDetailTimer(item);
+                    }.bind(this);
+                }.bind(this)(item);
+                shortUrlA.onmouseout = this.stopDetailTimer.bind(this);
+            }
             utils.createTextNode(item.id.substring(7), shortUrlA);
 
-            var countTd = utils.createElement("td", {}, [], tr);
-            var countDiv = utils.createElement("div", {}, ["click_count"], countTd);
-            countDiv.onmouseover = function(item) {
-                return function() {
-                    this.startClickCountsTimer(item);
-                }.bind(this);
-            }.bind(this)(item);
-            countDiv.onmouseout = this.stopClickCountsTimer.bind(this);
-            utils.createTextNode(item.analytics.allTime.shortUrlClicks, countDiv);
+            if (item.analytics) {
+                var countTd = utils.createElement("td", {}, [], tr);
+                var countDiv = utils.createElement("div", {}, ["click_count"], countTd);
+                countDiv.onmouseover = function(item) {
+                    return function() {
+                        this.startClickCountsTimer(item);
+                    }.bind(this);
+                }.bind(this)(item);
+                countDiv.onmouseout = this.stopClickCountsTimer.bind(this);
+                utils.createTextNode(item.analytics.allTime.shortUrlClicks, countDiv);
+            }
         }
     },
     onClickLongUrl: function(item) {
-        this.bg.gl.storeTitleHistory(item.longUrl, item.longUrl);
-        chrome.tabs.create({
-            url: item.longUrl
-        }, function(tab) {
-            window.close();
+        chrome.runtime.getBackgroundPage(function(bg) {
+            bg.gl.storeTitleHistory(item.longUrl, item.longUrl);
+            chrome.tabs.create({
+                url: item.longUrl
+            }, function(tab) {
+                window.close();
+            }.bind(this));
         }.bind(this));
     },
     onChangeFavCheckbox: function(item, checked) {
-        this.bg.gl.setFavoriteUrl(item.id, checked);
-        this.loadHistory();
-        if (this.bg.gl.isStartWatchingAtCheckHighPriority()) {
-            this.bg.gl.startWatchCount(item.id);
-        }
+        chrome.runtime.getBackgroundPage(function(bg) {
+            bg.gl.setFavoriteUrl(item.id, checked);
+            this.loadHistory();
+            if (bg.gl.isStartWatchingAtCheckHighPriority()) {
+                bg.gl.startWatchCount(item.id);
+            }
+        }.bind(this));
     },
     startDetailTimer: function(item) {
         var timer = setTimeout(function(item) {
@@ -221,22 +237,24 @@ Popup.prototype = {
         });
         utils.setVisible($("detail_pane_progress"), true);
         utils.setVisible($("detail_url_info"), false);
-        this.bg.gl.loadUrlInformation(item.id, {
-            onSuccess: function(req) {
-                var item = req.responseJSON;
-                this.setDetailInformation(item);
-            }.bind(this),
-            onFailure: function(req) {
-                this.stopDetailTimer();
-            }.bind(this),
-            onComplete: function(req) {
-                utils.setVisible($("detail_pane_progress"), false);
-                utils.setVisible($("detail_url_info"), true);
-                Element.setStyle($("detail_pane"), {
-                    height: "auto"
-                });
-            }.bind(this)
-        });
+        chrome.runtime.getBackgroundPage(function(bg) {
+            bg.gl.loadUrlInformation(item.id, {
+                onSuccess: function(req) {
+                    var item = req.responseJSON;
+                    this.setDetailInformation(item);
+                }.bind(this),
+                onFailure: function(req) {
+                    this.stopDetailTimer();
+                }.bind(this),
+                onComplete: function(req) {
+                    utils.setVisible($("detail_pane_progress"), false);
+                    utils.setVisible($("detail_url_info"), true);
+                    Element.setStyle($("detail_pane"), {
+                        height: "auto"
+                    });
+                }.bind(this)
+            });
+        }.bind(this));
     },
     setDetailInformation: function(item) {
         var now = (new Date()).getTime();
@@ -293,19 +311,21 @@ Popup.prototype = {
         utils.setVisible($("click_counts_pane"), true);
         utils.setVisible($("click_counts_pane_progress"), true);
         utils.setVisible($("click_counts_info"), false);
-        this.bg.gl.loadUrlInformation(item.id, {
-            onSuccess: function(req) {
-                var item = req.responseJSON;
-                this.setClickCountsInformation(item);
-            }.bind(this),
-            onFailure: function(req) {
-                this.stopClickCountsTimer();
-            }.bind(this),
-            onComplete: function(req) {
-                utils.setVisible($("click_counts_pane_progress"), false);
-                utils.setVisible($("click_counts_info"), true);
-            }.bind(this)
-        });
+        chrome.runtime.getBackgroundPage(function(bg) {
+            bg.gl.loadUrlInformation(item.id, {
+                onSuccess: function(req) {
+                    var item = req.responseJSON;
+                    this.setClickCountsInformation(item);
+                }.bind(this),
+                onFailure: function(req) {
+                    this.stopClickCountsTimer();
+                }.bind(this),
+                onComplete: function(req) {
+                    utils.setVisible($("click_counts_pane_progress"), false);
+                    utils.setVisible($("click_counts_info"), true);
+                }.bind(this)
+            });
+        }.bind(this));
     },
     setClickCountsInformation: function(item) {
         var table = $("click_counts_section_table");
@@ -347,21 +367,23 @@ Popup.prototype = {
         }
     },
     setCurrentLongUrl: function() {
-        chrome.tabs.getSelected(null, function(tab) {
-            var longUrl = this.bg.gl.preProcessLongUrl(tab.url);
-            $("input_long_url").value = longUrl;
-            $("input_long_url").focus();
-            $("input_long_url").select();
-            this.currentTabTitle = tab.title;
-            if (this.bg.gl.wasAuthorized()) {
-                if (this.bg.gl.isShortenDirectlyAtLogin()) {
-                    this.onClickShorten();
+        chrome.runtime.getBackgroundPage(function(bg) {
+            chrome.tabs.getSelected(null, function(tab) {
+                var longUrl = bg.gl.preProcessLongUrl(tab.url);
+                $("input_long_url").value = longUrl;
+                $("input_long_url").focus();
+                $("input_long_url").select();
+                this.currentTabTitle = tab.title;
+                if (bg.gl.wasAuthorized()) {
+                    if (bg.gl.isShortenDirectlyAtLogin()) {
+                        this.onClickShorten();
+                    }
+                } else {
+                    if (bg.gl.isShortenDirectlyAtNotLogin()) {
+                        this.onClickShorten();
+                    }
                 }
-            } else {
-                if (this.bg.gl.isShortenDirectlyAtNotLogin()) {
-                    this.onClickShorten();
-                }
-            }
+            }.bind(this));
         }.bind(this));
     },
     getCurrentTabTitle: function() {
@@ -382,50 +404,54 @@ Popup.prototype = {
             this.setVisibleForm($("shorten"), false);
             this.setVisibleForm($("shorten_progress"), true);
             this.clearShortenResult();
-            this.bg.gl.shortenLongUrl(url, this.getCurrentTabTitle(), {
-                onSuccess: function(req) {
-                    this.setShortUrl(req.responseJSON.id, false);
-                    if (this.bg.gl.isTweetAtShortenByPopup()) {
-                        this.bg.gl.showTweetWindow(req.responseJSON.id,
-                                                   this.bg.gl.isTwitterSetTitle(),
-                                                   this.getCurrentTabTitle());
-                    } else if (this.bg.gl.isFacebookAtShortenByPopup()) {
-                        this.bg.gl.showFacebookWindow(req.responseJSON.id);
-                    } else {
-                        if (this.bg.gl.wasAuthorized()) {
-                            this.loadHistory();
+            chrome.runtime.getBackgroundPage(function(bg) {
+                bg.gl.shortenLongUrl(url, this.getCurrentTabTitle(), {
+                    onSuccess: function(req) {
+                        this.setShortUrl(req.responseJSON.id, false);
+                        if (bg.gl.isTweetAtShortenByPopup()) {
+                            bg.gl.showTweetWindow(req.responseJSON.id,
+                                                  bg.gl.isTwitterSetTitle(),
+                                                  getCurrentTabTitle());
+                        } else if (bg.gl.isFacebookAtShortenByPopup()) {
+                            bg.gl.showFacebookWindow(req.responseJSON.id);
+                        } else {
+                            if (bg.gl.wasAuthorized()) {
+                                this.loadHistory();
+                            }
                         }
-                    }
-                }.bind(this),
-                onFailure: function(req) {
-                    $("input_short_url").value = "http://goo.gl/...";
-                    if (!this.isInvalidCredential(req)) {
-                        this.setMessage(req.status + "(" + req.statusText + ") "
-                                        + req.responseJSON.error.message,
-                                        true);
-                    }
-                }.bind(this),
-                onComplete: function(req) {
-                    this.setVisibleForm($("shorten"), true);
-                    this.setVisibleForm($("shorten_progress"), false);
-                }.bind(this)
-            });
+                    }.bind(this),
+                    onFailure: function(req) {
+                        $("input_short_url").value = "http://goo.gl/...";
+                        if (!this.isInvalidCredential(req)) {
+                            this.setMessage(req.status + "(" + req.statusText + ") "
+                                            + req.responseJSON.error.message,
+                                            true);
+                        }
+                    }.bind(this),
+                    onComplete: function(req) {
+                        this.setVisibleForm($("shorten"), true);
+                        this.setVisibleForm($("shorten_progress"), false);
+                    }.bind(this)
+                });
+            }.bind(this));
         }
     },
     setShortUrl: function(shortUrl, forceWatching) {
-        $("input_short_url").value = shortUrl;
-        var startWatching = this.bg.gl.isStartWatching();
-        var msg = chrome.i18n.getMessage("popupCompleteShorten");
-        if (forceWatching || startWatching) {
-            msg += chrome.i18n.getMessage("popupStartedWatching");
-        }
-        this.setMessage(msg, false);
-        this.shareTools.showTools(shortUrl);
-        this.onClickShortUrl();
-        document.execCommand("copy");
-        if (forceWatching || startWatching) {
-            this.bg.gl.startWatchCount(shortUrl);
-        }
+        chrome.runtime.getBackgroundPage(function(bg) {
+            $("input_short_url").value = shortUrl;
+            var startWatching = bg.gl.isStartWatching();
+            var msg = chrome.i18n.getMessage("popupCompleteShorten");
+            if (forceWatching || startWatching) {
+                msg += chrome.i18n.getMessage("popupStartedWatching");
+            }
+            this.setMessage(msg, false);
+            this.shareTools.showTools(shortUrl);
+            this.onClickShortUrl();
+            document.execCommand("copy");
+            if (forceWatching || startWatching) {
+                bg.gl.startWatchCount(shortUrl);
+            }
+        }.bind(this));
     },
     setVisibleForm: function(elem, visible) {
         Element.setStyle(elem, {
@@ -446,7 +472,9 @@ Popup.prototype = {
         $("input_short_url").select();
     },
     onClickClearTimer: function() {
-        this.bg.gl.startWatchCount(null);
+        chrome.runtime.getBackgroundPage(function(bg) {
+            bg.gl.startWatchCount(null);
+        });
     },
     showAd: function() {
         $("ad_pane").innerHTML = "";

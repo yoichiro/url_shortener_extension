@@ -3,27 +3,15 @@ var Gl = function() {
 };
 
 Gl.prototype = {
-    timers: null,
-    authorized: false,
-    shortenerApiKey: null,
-    oauthWindow: null,
-    oauthTimer: null,
-    expireTokenTime: null,
-    contextMenuIds: null,
-    readItLaterApiKey: null,
+    SHORTENER_API_KEY: "AIzaSyAJ6oQbZn48_6pXfsxTazU9IOf_oan-QgY",
+    READ_IT_LATER_API_KEY: "c77dFl55T3c8eq4bOuAi94cn90g8Id84",
+    WATCH_TIMER_NAME: "watch_timer_name",
+    OAUTH_TIMER_NAME: "oauth_timer_name",
+    EXPIRE_TOKEN_TIME: "expire_token_time",
+    AUTHORIZED_KEY: "authorized",
     initialize: function() {
-        this.clearToken();
-        this.shortenerApiKey = "AIzaSyAJ6oQbZn48_6pXfsxTazU9IOf_oan-QgY";
-        this.readItLaterApiKey = "c77dFl55T3c8eq4bOuAi94cn90g8Id84";
-        this.timers = new Array();
-        this.setupOAuthWindow();
-        this.contextMenuIds = new Array();
         this.setupContextMenus(false);
         this.setupEventHandler();
-    },
-    clearToken: function() {
-        delete localStorage["access_token"];
-        delete localStorage["expires_in"];
     },
     setupEventHandler: function() {
         chrome.tabs.onSelectionChanged.addListener(function(id, info) {
@@ -35,142 +23,132 @@ Gl.prototype = {
         chrome.storage.onChanged.addListener(function(changes, namespace) {
             this.onChangedStorage(changes, namespace);
         }.bind(this));
+        chrome.alarms.onAlarm.addListener(function(alarm) {
+            this.onAlarmReceived(alarm);
+        }.bind(this));
+        chrome.contextMenus.onClicked.addListener(function(info, tab) {
+            this.onClickContextMenu(info, tab);
+        }.bind(this));
     },
-    setupOAuthWindow: function() {
-        var host = location.host;
-        var url = "https://accounts.google.com/o/oauth2/auth?"
-            + "client_id="
-            + "1023119050412.apps.googleusercontent.com"
-            + "&redirect_uri="
-            + encodeURIComponent("http://www.eisbahn.jp/implicit/bridge.html")
-            + "&scope="
-            + encodeURIComponent("https://www.googleapis.com/auth/urlshortener")
-            + "&response_type=token"
-            + "&state="
-            + host;
-        this.oauthWindow = shindig.oauth.popup({
-            destination: url,
-            windowOptions: "width=640,height=480",
-            onOpen: function() {},
-            onClose: function() {
-                this.authorized = true;
-                this.setupContextMenus();
-                this.startOAuthTimer();
-                this.showOAuthCompletedNofitication();
-            }.bind(this)
-        });
+    onAlarmReceived: function(alarm) {
+        if (alarm.name == this.WATCH_TIMER_NAME) {
+            var shortUrl = localStorage[this.WATCH_TIMER_NAME];
+            this.startWatchCount(shortUrl);
+        } else if (alarm.name == this.OAUTH_TIMER_NAME) {
+            this.onOAuthTimer();
+        }
     },
-    getOAuthWindow: function() {
-        return this.oauthWindow;
+    onAuthorized: function() {
+        this.setAuthorized(true);
+        this.setupContextMenus();
+        this.startOAuthTimer();
+        this.showOAuthCompletedNofitication();
     },
     startOAuthTimer: function() {
-        if (this.oauthTimer) {
-            clearTimeout(this.oauthTimer);
-        }
+        chrome.alarms.clear(this.OAUTH_TIMER_NAME);
         var expiresIn = Number(localStorage["expires_in"]);
-        this.expireTokenTime = (new Date()).getTime() + expiresIn * 1000;
+        localStorage[this.EXPIRE_TOKEN_TIME] =
+            String((new Date()).getTime() + expiresIn * 1000);
         this.onOAuthTimer();
     },
     onOAuthTimer: function() {
-        var remaining = this.expireTokenTime - (new Date()).getTime();
+        var remaining =
+            Number(localStorage[this.EXPIRE_TOKEN_TIME]) - (new Date()).getTime();
         if (remaining > 0) {
-            this.oauthTimer = setTimeout(function() {
-                this.onOAuthTimer();
-            }.bind(this), 5000);
+            chrome.alarms.create(this.OAUTH_TIMER_NAME, {
+                delayInMinutes: 1
+            });
         } else {
-            this.authorized = false;
+            this.setAuthorized(false);
             this.clearToken();
             this.setupContextMenus();
         }
     },
+    clearToken: function() {
+        delete localStorage["access_token"];
+        delete localStorage["expires_in"];
+        delete localStorage[this.EXPIRE_TOKEN_TIME];
+    },
     setupContextMenus: function() {
-        for (var i = 0; i < this.contextMenuIds.length; i++) {
-            chrome.contextMenus.remove(this.contextMenuIds[i]);
-        }
-        this.contextMenuIds = new Array();
-        if (this.isShowContextMenus()) {
-            if (this.authorized) {
-                this.contextMenuIds.push(
+        chrome.contextMenus.removeAll(function() {
+            if (this.isShowContextMenus()) {
+                if (this.wasAuthorized()) {
                     chrome.contextMenus.create(
-                        this.createContextMenu(
-                            chrome.i18n.getMessage("ctxmenuShortenUrlAdded")))
-                );
-            } else {
-                this.contextMenuIds.push(
+                        this.createContextMenu("ctxmenuShortenUrlAdded"));
+                } else {
                     chrome.contextMenus.create({
+                        id: "ctxmenuLogin",
                         type: "normal",
                         title: chrome.i18n.getMessage("ctxmenuLogin"),
-                        contexts: ["page", "link"],
-                        onclick: function(info, tab) {
-                            this.oauthWindow.createOpenerOnClick()();
-                        }.bind(this)
-                    })
-                );
-                this.contextMenuIds.push(
+                        contexts: ["page", "link"]
+                    });
                     chrome.contextMenus.create(
-                        this.createContextMenu(
-                            chrome.i18n.getMessage("ctxmenuShortenUrlNotAdded")))
-                );
-            }
-            this.checkReadItLaterGrant(function(result) {
-                if (result) {
-                    this.contextMenuIds.push(
+                        this.createContextMenu("ctxmenuShortenUrlNotAdded"));
+                }
+                this.checkReadItLaterGrant(function(result) {
+                    if (result) {
                         chrome.contextMenus.create({
+                            id: "ctxmenuReadItLater",
                             type: "normal",
                             title: chrome.i18n.getMessage("ctxmenuReadItLater"),
-                            contexts: ["page", "link"],
-                            onclick: function(info, tab) {
-                                this.registerToReadItLater(tab.url, {
-                                    onSuccess: function(req) {
-                                        if (this.isShowNotificationAfterRegisterReadItLater()) {
-                                            this.showNotification(
-                                                chrome.i18n.getMessage("notifyRegisteredReadItLater")
-                                            );
-                                        }
-                                    }.bind(this),
-                                    onFailure: function(req) {
-                                        this.showFailedMessage(req, "notifyRegisterReadItLaterFailed");
-                                    }.bind(this),
-                                    onComplete: function(req) {
-                                    }
-                                });
-                            }.bind(this)
-                        })
-                    );
-                }
-            }.bind(this));
-        }
-    },
-    createContextMenu: function(title) {
-        return {
-            type: "normal",
-            title: title,
-            contexts: ["page", "link"],
-            onclick: function(info, tab) {
-                var targetUrl;
-                if (this.isAdoptLinkUrlContextMenu() && info.linkUrl) {
-                    targetUrl = info.linkUrl;
-                } else {
-                    targetUrl = info.pageUrl;
-                }
-                var longUrl = this.preProcessLongUrl(targetUrl);
-                this.shortenLongUrl(longUrl, tab.title, {
-                    onSuccess: function(req) {
-                        this.showSucceedMessage(req.responseJSON.id);
-                        if (this.isTweetAtShortenByContextMenu()) {
-                            this.showTweetWindow(req.responseJSON.id);
-                        } else if (this.isFacebookAtShortenByContextMenu()) {
-                            this.showFacebookWindow(req.responseJSON.id);
-                        }
-                    }.bind(this),
-                    onFailure: function(req) {
-                        this.showFailedMessage(req, "notifyShortenFailed");
-                    }.bind(this),
-                    onComplete: function(req) {
+                            contexts: ["page", "link"]
+                        });
                     }
                 });
-            }.bind(this)
+            }
+        }.bind(this));
+    },
+    createContextMenu: function(id) {
+        return {
+            id: id,
+            type: "normal",
+            title: chrome.i18n.getMessage(id),
+            contexts: ["page", "link"]
         };
+    },
+    onClickContextMenu: function(info, tab) {
+        var id = info.menuItemId;
+        if (id == "ctxmenuShortenUrlAdded" || id == "ctxmenuShortenUrlNotAdded") {
+            var targetUrl;
+            if (this.isAdoptLinkUrlContextMenu() && info.linkUrl) {
+                targetUrl = info.linkUrl;
+            } else {
+                targetUrl = info.pageUrl;
+            }
+            var longUrl = this.preProcessLongUrl(targetUrl);
+            this.shortenLongUrl(longUrl, tab.title, {
+                onSuccess: function(req) {
+                    this.showSucceedMessage(req.responseJSON.id);
+                    if (this.isTweetAtShortenByContextMenu()) {
+                        this.showTweetWindow(req.responseJSON.id);
+                    } else if (this.isFacebookAtShortenByContextMenu()) {
+                        this.showFacebookWindow(req.responseJSON.id);
+                    }
+                }.bind(this),
+                onFailure: function(req) {
+                    this.showFailedMessage(req, "notifyShortenFailed");
+                }.bind(this),
+                onComplete: function(req) {
+                }
+            });
+        } else if (id == "ctxmenuLogin") {
+            utils.getOAuthWindow().createOpenerOnClick()();
+        } else if (id == "ctxmenuReadItLater") {
+            this.registerToReadItLater(tab.url, {
+                onSuccess: function(req) {
+                    if (this.isShowNotificationAfterRegisterReadItLater()) {
+                        this.showNotification(
+                            chrome.i18n.getMessage("notifyRegisteredReadItLater")
+                        );
+                    }
+                }.bind(this),
+                onFailure: function(req) {
+                    this.showFailedMessage(req, "notifyRegisterReadItLaterFailed");
+                }.bind(this),
+                onComplete: function(req) {
+                }
+            });
+        }
     },
     showTweetWindow: function(shortUrl) {
         var x = (screen.width - 550) / 2;
@@ -264,13 +242,13 @@ Gl.prototype = {
                     "Authorization", "OAuth " + accessToken
                 ],
                 onSuccess: function(req) {
-                    this.authorized = true;
+                    this.setAuthorized(true);
                     this.appendTitleToUserHistory(req);
                     this.hilightFavoriteUrls(req);
                     callbacks.onSuccess(req);
                 }.bind(this),
                 onFailure: function(req) {
-                    this.authorized = false;
+                    this.setAuthorized(false);
                     callbacks.onFailure(req);
                 }.bind(this),
                 onComplete: callbacks.onComplete
@@ -321,7 +299,7 @@ Gl.prototype = {
                 "Authorization", "OAuth " + accessToken
             ];
         } else {
-            url += "?key=" + this.shortenerApiKey;
+            url += "?key=" + this.SHORTENER_API_KEY;
         }
         new Ajax.Request(url, params);
     },
@@ -370,11 +348,8 @@ Gl.prototype = {
         }.bind(this));
     },
     startWatchCount: function(shortUrl) {
-        for (var i = 0; i < this.timers.length; i++) {
-            clearTimeout(this.timers[i]);
-        }
-        this.timers = new Array();
         if (!shortUrl) {
+            chrome.alarms.clear(this.WATCH_TIMER_NAME);
             chrome.browserAction.setBadgeText({text: ""});
             return;
         }
@@ -388,10 +363,10 @@ Gl.prototype = {
                 this.setBadge(null, -1);
             }.bind(this),
             onComplete: function(req) {
-                var timer = setTimeout(function() {
-                    this.startWatchCount(shortUrl);
-                }.bind(this), 60000);
-                this.timers.push(timer);
+                localStorage[this.WATCH_TIMER_NAME] = shortUrl;
+                chrome.alarms.create(this.WATCH_TIMER_NAME, {
+                    delayInMinutes: 1
+                });
             }.bind(this)
         });
     },
@@ -416,7 +391,7 @@ Gl.prototype = {
             params["parameters"] = {
                 shortUrl: shortUrl,
                 projection: "FULL",
-                key: this.shortenerApiKey
+                key: this.SHORTENER_API_KEY
             };
         }
         new Ajax.Request(url, params);
@@ -453,10 +428,13 @@ Gl.prototype = {
         return longUrl;
     },
     wasAuthorized: function() {
-        return this.authorized;
+        return localStorage[this.AUTHORIZED_KEY] == "true";
+    },
+    setAuthorized: function(authorized) {
+        localStorage[this.AUTHORIZED_KEY] = authorized ? "true" : "false";
     },
     getReadItLaterApiKey: function() {
-        return this.readItLaterApiKey;
+        return this.READ_IT_LATER_API_KEY;
     },
     isShowNotificationAfterLogin: function() {
         return !Boolean(localStorage["not_show_notification_after_login"]);
