@@ -4,11 +4,9 @@ var ShareTools = function(p) {
 
 ShareTools.prototype = {
     popup: null,
-    bg: null,
     readItLaterProgress: null,
     initialize: function(p) {
         this.popup = p;
-        this.bg = chrome.extension.getBackgroundPage();
         this.readItLaterProgress = false;
     },
     start: function() {
@@ -40,8 +38,10 @@ ShareTools.prototype = {
             img.src = "./twitter.png";
             img.onclick = function(url) {
                 return function(evt) {
-                    this.bg.gl.showTweetWindow(url);
-                    window.close();
+                    chrome.runtime.getBackgroundPage(function(bg) {
+                        bg.gl.showTweetWindow(url);
+                        window.close();
+                    });
                 }.bind(self);
             }.bind(this)(url);
             $("twitter").appendChild(img);
@@ -58,8 +58,10 @@ ShareTools.prototype = {
             img.src = "./facebook_16.png";
             img.onclick = function(url) {
                 return function(evt) {
-                    this.bg.gl.showFacebookWindow(url);
-                    window.close();
+                    chrome.runtime.getBackgroundPage(function(bg) {
+                        bg.gl.showFacebookWindow(url);
+                        window.close();
+                    });
                 }.bind(self);
             }.bind(this)(url);
             $("facebook").appendChild(img);
@@ -129,8 +131,10 @@ ShareTools.prototype = {
         utils.setVisible($("qrcode_pane"), false);
     },
     checkReadItLaterPermission: function() {
-        this.bg.gl.checkReadItLaterGrant(function(result) {
-            utils.setVisible($("read_it_later"), result);
+        chrome.runtime.getBackgroundPage(function(bg) {
+            bg.gl.checkReadItLaterGrant(function(result) {
+                utils.setVisible($("read_it_later"), result);
+            }.bind(this));
         }.bind(this));
     },
     onClickReadItLater: function() {
@@ -140,22 +144,24 @@ ShareTools.prototype = {
         this.readItLaterProgress = true;
         this.showReadItLaterProgress(true);
         var longUrl = $("input_long_url").value;
-        this.bg.gl.registerToReadItLater(longUrl, {
-            onSuccess: function(req) {
-                this.popup.setMessage(
-                    chrome.i18n.getMessage(
-                        "popupRegisteredReadItLater"),
-                    false);
-            }.bind(this),
-            onFailure: function(req) {
-                this.popup.setMessage(
-                    req.status + "(" + req.statusText + ")", true);
-            }.bind(this),
-            onComplete: function() {
-                this.showReadItLaterProgress(false);
-                this.readItLaterProgress = false;
-            }.bind(this)
-        });
+        chrome.runtime.getBackgroundPage(function(bg) {
+            bg.gl.registerToReadItLater(longUrl, {
+                onSuccess: function(req) {
+                    this.popup.setMessage(
+                        chrome.i18n.getMessage(
+                            "popupRegisteredReadItLater"),
+                        false);
+                }.bind(this),
+                onFailure: function(req) {
+                    this.popup.setMessage(
+                        req.status + "(" + req.statusText + ")", true);
+                }.bind(this),
+                onComplete: function() {
+                    this.showReadItLaterProgress(false);
+                    this.readItLaterProgress = false;
+                }.bind(this)
+            });
+        }.bind(this));
     },
     showReadItLaterProgress: function(progress) {
         if (progress) {

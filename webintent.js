@@ -4,7 +4,6 @@ var WebIntent = function() {
 
 WebIntent.prototype = {
     initialize: function() {
-        this.bg = chrome.extension.getBackgroundPage();
     },
     start: function() {
         this.shortenUrl();
@@ -12,18 +11,20 @@ WebIntent.prototype = {
     shortenUrl: function() {
         var intent = window.intent || window.webkitIntent;
         this.longUrl = intent.data;
-        this.bg.gl.shortenLongUrl(this.longUrl, null, {
-            onSuccess: function(req) {
-                this.onSuccessShorten(req);
-            }.bind(this),
-            onFailure: function(req) {
-                this.onFailureShorten(req);
-            }.bind(this),
-            onComplete: function(req) {
-                utils.setVisible($("progress_pane"), false);
-                utils.setVisible($("result_pane"), true);
-            }.bind(this)
-        });
+        chrome.runtime.getBackgroundPage(function(bg) {
+            bg.gl.shortenLongUrl(this.longUrl, null, {
+                onSuccess: function(req) {
+                    this.onSuccessShorten(req);
+                }.bind(this),
+                onFailure: function(req) {
+                    this.onFailureShorten(req);
+                }.bind(this),
+                onComplete: function(req) {
+                    utils.setVisible($("progress_pane"), false);
+                    utils.setVisible($("result_pane"), true);
+                }.bind(this)
+            });
+        }.bind(this));
     },
     onSuccessShorten: function(req) {
         var shortUrl = req.responseJSON.id;
