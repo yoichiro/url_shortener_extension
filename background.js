@@ -56,7 +56,7 @@ Gl.prototype = {
             Number(localStorage[this.EXPIRE_TOKEN_TIME]) - (new Date()).getTime();
         if (remaining > 0) {
             chrome.alarms.create(this.OAUTH_TIMER_NAME, {
-                delayInMinutes: 1
+                delayInMinutes: 5
             });
         } else {
             this.setAuthorized(false);
@@ -365,7 +365,7 @@ Gl.prototype = {
             onComplete: function(req) {
                 localStorage[this.WATCH_TIMER_NAME] = shortUrl;
                 chrome.alarms.create(this.WATCH_TIMER_NAME, {
-                    delayInMinutes: 1
+                    delayInMinutes: 5
                 });
             }.bind(this)
         });
