@@ -6,10 +6,12 @@ Option.prototype = {
     initialize: function() {
     },
     start: function() {
-        this.assignMessages();
-        this.assignEventHandlers();
-        this.restoreConfigurations();
-        this.checkReadItLaterGrant();
+        chrome.runtime.getBackgroundPage(function(bg) {
+            this.assignMessages();
+            this.assignEventHandlers();
+            this.restoreConfigurations(bg);
+            this.checkReadItLaterGrant();
+        }.bind(this));
     },
     assignMessages: function() {
         $("optNotification").innerHTML = chrome.i18n.getMessage("optNotification");
@@ -43,51 +45,49 @@ Option.prototype = {
         $("optWatchingDontStartWatchingAtCheckHighPriority").innerHTML = chrome.i18n.getMessage("optWatchingDontStartWatchingAtCheckHighPriority");
         $("optAdoptLinkUrlContextMenu").innerHTML = chrome.i18n.getMessage("optAdoptLinkUrlContextMenu");
     },
-    restoreConfigurations: function() {
-        chrome.runtime.getBackgroundPage(function(bg) {
-            $("not_show_notification_after_login").checked =
-                !bg.gl.isShowNotificationAfterLogin();
-            $("not_show_notification_after_copy").checked =
-                !bg.gl.isShowNotificationAfterCopy();
-            $("not_show_notification_after_register_read_it_later").checked =
-                !bg.gl.isShowNotificationAfterRegisterReadItLater();
-            $("not_show_context_menus").checked =
-                !bg.gl.isShowContextMenus();
-            $("not_start_watching").checked =
-                !bg.gl.isStartWatching();
-            $("shorten_directly_at_not_login").checked =
-                bg.gl.isShortenDirectlyAtNotLogin();
-            $("shorten_directly_at_login").checked =
-                bg.gl.isShortenDirectlyAtLogin();
-            $("tweet_at_shorten_by_context_menu").checked =
-                bg.gl.isTweetAtShortenByContextMenu();
-            $("facebook_at_shorten_by_context_menu").checked =
-                bg.gl.isFacebookAtShortenByContextMenu();
-            var readItLaterUsername = bg.gl.getReadItLaterUsername();
-            if (readItLaterUsername) {
-                $("read_it_later_username").value = readItLaterUsername;
-            } else {
-                $("read_it_later_username").value = "";
-            }
-            var readItLaterPassword = bg.gl.getReadItLaterPassword();
-            if (readItLaterPassword) {
-                $("read_it_later_password").value = readItLaterPassword;
-            } else {
-                $("read_it_later_password").value = "";
-            }
-            $("background_image_url").value = bg.gl.getBackgroundImageUrl();
-            $("twitter_set_title").checked = bg.gl.isTwitterSetTitle();
-            $("tweet_at_shorten_by_popup").checked =
-                bg.gl.isTweetAtShortenByPopup();
-            $("facebook_at_shorten_by_popup").checked =
-                bg.gl.isFacebookAtShortenByPopup();
-            $("amazon_short_url").checked =
-                bg.gl.isAmazonShortUrl();
-            $("not_start_watching_at_check_high_priority").checked =
-                !bg.gl.isStartWatchingAtCheckHighPriority();
-            $("adopt_link_url_context_menu").checked =
-                bg.gl.isAdoptLinkUrlContextMenu();
-        });
+    restoreConfigurations: function(bg) {
+        $("not_show_notification_after_login").checked =
+            !bg.gl.isShowNotificationAfterLogin();
+        $("not_show_notification_after_copy").checked =
+            !bg.gl.isShowNotificationAfterCopy();
+        $("not_show_notification_after_register_read_it_later").checked =
+            !bg.gl.isShowNotificationAfterRegisterReadItLater();
+        $("not_show_context_menus").checked =
+            !bg.gl.isShowContextMenus();
+        $("not_start_watching").checked =
+            !bg.gl.isStartWatching();
+        $("shorten_directly_at_not_login").checked =
+            bg.gl.isShortenDirectlyAtNotLogin();
+        $("shorten_directly_at_login").checked =
+            bg.gl.isShortenDirectlyAtLogin();
+        $("tweet_at_shorten_by_context_menu").checked =
+            bg.gl.isTweetAtShortenByContextMenu();
+        $("facebook_at_shorten_by_context_menu").checked =
+            bg.gl.isFacebookAtShortenByContextMenu();
+        var readItLaterUsername = bg.gl.getReadItLaterUsername();
+        if (readItLaterUsername) {
+            $("read_it_later_username").value = readItLaterUsername;
+        } else {
+            $("read_it_later_username").value = "";
+        }
+        var readItLaterPassword = bg.gl.getReadItLaterPassword();
+        if (readItLaterPassword) {
+            $("read_it_later_password").value = readItLaterPassword;
+        } else {
+            $("read_it_later_password").value = "";
+        }
+        $("background_image_url").value = bg.gl.getBackgroundImageUrl();
+        $("twitter_set_title").checked = bg.gl.isTwitterSetTitle();
+        $("tweet_at_shorten_by_popup").checked =
+            bg.gl.isTweetAtShortenByPopup();
+        $("facebook_at_shorten_by_popup").checked =
+            bg.gl.isFacebookAtShortenByPopup();
+        $("amazon_short_url").checked =
+            bg.gl.isAmazonShortUrl();
+        $("not_start_watching_at_check_high_priority").checked =
+            !bg.gl.isStartWatchingAtCheckHighPriority();
+        $("adopt_link_url_context_menu").checked =
+            bg.gl.isAdoptLinkUrlContextMenu();
     },
     assignEventHandlers: function() {
         $("not_show_notification_after_login").onclick =

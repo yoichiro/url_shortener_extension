@@ -9,9 +9,9 @@ ShareTools.prototype = {
         this.popup = p;
         this.readItLaterProgress = false;
     },
-    start: function() {
+    start: function(bg) {
         this.assignEventHandlers();
-        this.checkReadItLaterPermission();
+        this.checkReadItLaterPermission(bg);
     },
     assignEventHandlers: function() {
         $("read_it_later").onclick = this.onClickReadItLater.bind(this);
@@ -130,11 +130,9 @@ ShareTools.prototype = {
     hideQRCode: function(url) {
         utils.setVisible($("qrcode_pane"), false);
     },
-    checkReadItLaterPermission: function() {
-        chrome.runtime.getBackgroundPage(function(bg) {
-            bg.gl.checkReadItLaterGrant(function(result) {
-                utils.setVisible($("read_it_later"), result);
-            }.bind(this));
+    checkReadItLaterPermission: function(bg) {
+        bg.gl.checkReadItLaterGrant(function(result) {
+            utils.setVisible($("read_it_later"), result);
         }.bind(this));
     },
     onClickReadItLater: function() {

@@ -16,19 +16,19 @@ Popup.prototype = {
         this.clickCountsTimer = new Array();
     },
     start: function() {
-        this.setBackgroundImage();
-        this.shareTools.start();
-        this.assignMessages();
-        this.assignEventHandlers();
-        this.recommend.showRecommend();
-        this.setCurrentLongUrl();
-        this.syncTitleHistory();
-    },
-    syncTitleHistory: function() {
         chrome.runtime.getBackgroundPage(function(bg) {
-            bg.gl.loadTitleHistory(function() {
-                this.loadHistory();
-            }.bind(this));
+            this.setBackgroundImage(bg);
+            this.shareTools.start(bg);
+            this.assignMessages();
+            this.assignEventHandlers();
+            this.recommend.showRecommend();
+            this.setCurrentLongUrl(bg);
+            this.syncTitleHistory(bg);
+        }.bind(this));
+    },
+    syncTitleHistory: function(bg) {
+        bg.gl.loadTitleHistory(function() {
+            this.loadHistory();
         }.bind(this));
     },
     assignMessages: function() {
@@ -62,15 +62,13 @@ Popup.prototype = {
             window.close();
         }.bind(this));
     },
-    setBackgroundImage: function() {
-        chrome.runtime.getBackgroundPage(function(bg) {
-            var url = bg.gl.getBackgroundImageUrl();
-            if (url) {
-                Element.setStyle(document.body, {
-                    backgroundImage: "url(" + url + ")"
-                });
-            }
-        });
+    setBackgroundImage: function(bg) {
+        var url = bg.gl.getBackgroundImageUrl();
+        if (url) {
+            Element.setStyle(document.body, {
+                backgroundImage: "url(" + url + ")"
+            });
+        }
     },
     isInvalidCredential: function(req) {
         if (req.status == 401) {
@@ -366,24 +364,22 @@ Popup.prototype = {
             $("paginator").appendChild(link);
         }
     },
-    setCurrentLongUrl: function() {
-        chrome.runtime.getBackgroundPage(function(bg) {
-            chrome.tabs.getSelected(null, function(tab) {
-                var longUrl = bg.gl.preProcessLongUrl(tab.url);
-                $("input_long_url").value = longUrl;
-                $("input_long_url").focus();
-                $("input_long_url").select();
-                this.currentTabTitle = tab.title;
-                if (bg.gl.wasAuthorized()) {
-                    if (bg.gl.isShortenDirectlyAtLogin()) {
-                        this.onClickShorten();
-                    }
-                } else {
-                    if (bg.gl.isShortenDirectlyAtNotLogin()) {
-                        this.onClickShorten();
-                    }
+    setCurrentLongUrl: function(bg) {
+        chrome.tabs.getSelected(null, function(tab) {
+            var longUrl = bg.gl.preProcessLongUrl(tab.url);
+            $("input_long_url").value = longUrl;
+            $("input_long_url").focus();
+            $("input_long_url").select();
+            this.currentTabTitle = tab.title;
+            if (bg.gl.wasAuthorized()) {
+                if (bg.gl.isShortenDirectlyAtLogin()) {
+                    this.onClickShorten();
                 }
-            }.bind(this));
+            } else {
+                if (bg.gl.isShortenDirectlyAtNotLogin()) {
+                    this.onClickShorten();
+                }
+            }
         }.bind(this));
     },
     getCurrentTabTitle: function() {
