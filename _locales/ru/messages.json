@@ -98,6 +98,9 @@
     "optAdoptLinkUrlContextMenu": {
         "message": "Сократить ссылку URL вместо URL страницы, если нажать в контекстном меню по ссылке."
     },
+    "optDontShortenUrlAgainInHistoryAlready": {
+        "message": "Я не сокращать URL раз в истории уже"
+    },
     "popupShorten": {
         "message": "Сокращено"
     },

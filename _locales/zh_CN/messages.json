@@ -98,6 +98,9 @@
     "optAdoptLinkUrlContextMenu": {
         "message": "缩短链接的URL，而不是页面的URL，如果点击链接，上下文菜单。"
     },
+    "optDontShortenUrlAgainInHistoryAlready": {
+        "message": "我不缩短的URL的历史已经"
+    },
     "popupShorten": {
         "message": "短縮"
     },

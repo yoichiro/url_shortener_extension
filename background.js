@@ -117,12 +117,12 @@ Gl.prototype = {
             }
             var longUrl = this.preProcessLongUrl(targetUrl);
             this.shortenLongUrl(longUrl, tab.title, {
-                onSuccess: function(req) {
-                    this.showSucceedMessage(req.responseJSON.id);
+                onSuccess: function(shortUrl) {
+                    this.showSucceedMessage(shortUrl);
                     if (this.isTweetAtShortenByContextMenu()) {
-                        this.showTweetWindow(req.responseJSON.id);
+                        this.showTweetWindow(shortUrl);
                     } else if (this.isFacebookAtShortenByContextMenu()) {
-                        this.showFacebookWindow(req.responseJSON.id);
+                        this.showFacebookWindow(shortUrl);
                     }
                 }.bind(this),
                 onFailure: function(req) {
@@ -276,7 +276,36 @@ Gl.prototype = {
         });
         req.responseJSON.items = items;
     },
+    checkDuplicate: function(longUrl, title, callbacks) {
+        this.lookupUserHistory({
+            onSuccess: function(req) {
+                var items = req.responseJSON.items;
+                for (var i = 0; i < items.length; i++) {
+                    if (longUrl == items[i].longUrl) {
+                        callbacks.onSuccess(items[i].id);
+                        return;
+                    }
+                }
+                this.sendShortenLongUrlRequest(longUrl, title, callbacks);
+            }.bind(this),
+            onFailure: function(req) {
+                callbacks.onFailure(req);
+            },
+            onComplete: function() {
+                callbacks.onComplete();
+            }
+        });
+    },
     shortenLongUrl: function(longUrl, title, callbacks) {
+        if (this.wasAuthorized()) {
+            if (!this.isShortenUrlAgainInHistoryAlready()) {
+                this.checkDuplicate(longUrl, title, callbacks);
+                return;
+            }
+        }
+        this.sendShortenLongUrlRequest(longUrl, title, callbacks);
+    },
+    sendShortenLongUrlRequest: function(longUrl, title, callbacks) {
         var url = "https://www.googleapis.com/urlshortener/v1/url";
         var params = {
             method: "post",
@@ -288,7 +317,7 @@ Gl.prototype = {
                 if (title) {
                     this.storeTitleHistory(longUrl, title);
                 }
-                callbacks.onSuccess(req);
+                callbacks.onSuccess(req.responseJSON.id);
             }.bind(this),
             onFailure: callbacks.onFailure,
             onComplete: callbacks.onComplete
@@ -518,6 +547,10 @@ Gl.prototype = {
     },
     isAmazonShortUrl: function() {
         return Boolean(localStorage["amazon_short_url"]);
+    },
+    isShortenUrlAgainInHistoryAlready: function() {
+        var flag = localStorage["dont_shorten_url_again_in_history_already"] || true;
+        return !Boolean(flag);
     },
     getFavoriteUrls: function() {
         var favoriteUrls = localStorage["favorite_urls"] || "[]";

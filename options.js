@@ -44,6 +44,7 @@ Option.prototype = {
         $("optWatching").innerHTML = chrome.i18n.getMessage("optWatching");
         $("optWatchingDontStartWatchingAtCheckHighPriority").innerHTML = chrome.i18n.getMessage("optWatchingDontStartWatchingAtCheckHighPriority");
         $("optAdoptLinkUrlContextMenu").innerHTML = chrome.i18n.getMessage("optAdoptLinkUrlContextMenu");
+        $("optDontShortenUrlAgainInHistoryAlready").innerHTML = chrome.i18n.getMessage("optDontShortenUrlAgainInHistoryAlready");
     },
     restoreConfigurations: function(bg) {
         $("not_show_notification_after_login").checked =
@@ -88,6 +89,8 @@ Option.prototype = {
             !bg.gl.isStartWatchingAtCheckHighPriority();
         $("adopt_link_url_context_menu").checked =
             bg.gl.isAdoptLinkUrlContextMenu();
+        $("dont_shorten_url_again_in_history_already").checked =
+            !bg.gl.isShortenUrlAgainInHistoryAlready();
     },
     assignEventHandlers: function() {
         $("not_show_notification_after_login").onclick =
@@ -128,6 +131,11 @@ Option.prototype = {
             this.onClickNotStartWatchingAtCheckHighPriority.bind(this);
         $("adopt_link_url_context_menu").onclick =
             this.onClickAdoptLinkUrlContextMenu.bind(this);
+        $("dont_shorten_url_again_in_history_already").onclick =
+            this.onClickDontShortenUrlAgainInHistoryAlready.bind(this);
+    },
+    onClickDontShortenUrlAgainInHistoryAlready: function() {
+        this.changeCheckboxConfiguration("dont_shorten_url_again_in_history_already");
     },
     onClickNotShowNotificationAfterLogin: function() {
         this.changeCheckboxConfiguration("not_show_notification_after_login");

@@ -98,6 +98,9 @@
     "optAdoptLinkUrlContextMenu": {
         "message": "リンク上でコンテキストメニューをクリックした場合は、リンクURLの代わりにページのURLを短縮する。"
     },
+    "optDontShortenUrlAgainInHistoryAlready": {
+        "message": "既に履歴にあるURLを再度短縮しない"
+    },
     "popupShorten": {
         "message": "短縮"
     },

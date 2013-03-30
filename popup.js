@@ -402,14 +402,14 @@ Popup.prototype = {
             this.clearShortenResult();
             chrome.runtime.getBackgroundPage(function(bg) {
                 bg.gl.shortenLongUrl(url, this.getCurrentTabTitle(), {
-                    onSuccess: function(req) {
-                        this.setShortUrl(req.responseJSON.id, false);
+                    onSuccess: function(shortUrl) {
+                        this.setShortUrl(shortUrl, false);
                         if (bg.gl.isTweetAtShortenByPopup()) {
-                            bg.gl.showTweetWindow(req.responseJSON.id,
+                            bg.gl.showTweetWindow(shortUrl,
                                                   bg.gl.isTwitterSetTitle(),
                                                   getCurrentTabTitle());
                         } else if (bg.gl.isFacebookAtShortenByPopup()) {
-                            bg.gl.showFacebookWindow(req.responseJSON.id);
+                            bg.gl.showFacebookWindow(shortUrl);
                         } else {
                             if (bg.gl.wasAuthorized()) {
                                 this.loadHistory();

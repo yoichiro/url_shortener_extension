@@ -98,6 +98,9 @@
     "optAdoptLinkUrlContextMenu": {
         "message": "Raccourcir l'URL du lien au lieu de la URL de la page, si cliquant sur le menu contextuel sur le lien."
     },
+    "optDontShortenUrlAgainInHistoryAlready": {
+        "message": "Je n'ai pas raccourcir l'URL à nouveau dans l'histoire déjà"
+    },
     "popupShorten": {
         "message": "Réduire"
     },
