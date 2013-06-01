@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "goo.gl URL Shortener extension",
     "description": "__MSG_extDescription__",
-    "version": "1.35.0",
+    "version": "1.35.1",
     "browser_action": {
         "default_icon": "./url_shortener_extension_19.png",
         "default_title": "URL Shortener",
