@@ -372,3 +372,42 @@ div#ad_pane iframe {
     height: 100%;
     border: 0px;
 }
+
+div#edit_title_base_pane {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 605px;
+    height: 460px;
+    z-index: 1;
+    background-color: white;
+    opacity: 0.5;
+    display: none;
+}
+
+div#edit_title_pane {
+    position: absolute;
+    border: 1px solid gray;
+    top: 100px;
+    left: 20px;
+    width: 450px;
+    background-color: white;
+    padding: 3px;
+    z-index: 2;
+    display: none;
+}
+
+div#edit_title_pane div {
+    width: 340px;
+    float: left;
+}
+
+div#edit_title_pane div input {
+    width: 100%;
+}
+
+div#edit_title_pane button {
+    width: 100px;
+    float: right;
+    font-size: 10.5px;
+}

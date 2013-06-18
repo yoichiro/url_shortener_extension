@@ -9,6 +9,7 @@ Popup.prototype = {
     detailTimer: null,
     clickCountsTimer: null,
     currentTabTitle: null,
+    editingItem: null,
     initialize: function() {
         this.shareTools = new ShareTools(this);
         this.recommend = new Recommend();
@@ -38,6 +39,7 @@ Popup.prototype = {
         $("popupLoginDesc").innerHTML = chrome.i18n.getMessage("popupLoginDesc");
         $("popupStopWatching").innerHTML = chrome.i18n.getMessage("popupStopWatching");
         $("btn_option").title = chrome.i18n.getMessage("popupOption");
+        $("popupUpdateTitle").innerHTML = chrome.i18n.getMessage("popupUpdateTitle");
         this.recommend.assignMessages();
     },
     assignEventHandlers: function() {
@@ -47,6 +49,8 @@ Popup.prototype = {
         $("input_short_url").onclick = this.onClickShortUrl.bind(this);
         $("clear_timer").onclick = this.onClickClearTimer.bind(this);
         $("btn_option").onclick = this.onClickOption.bind(this);
+        $("edit_title_base_pane").onclick = this.onClickEditTitleBasePane.bind(this);
+        $("update_title").onclick = this.onClickUpdateTitle.bind(this);
         this.recommend.assignEventHandlers();
     },
     onClickLoginLink: function() {
@@ -139,11 +143,17 @@ Popup.prototype = {
             var longUrlA = utils.createElement("a", {
                 "href": item.longUrl,
                 "title": item.longUrl}, [], longUrlDiv);
-            longUrlA.onclick = function(item) {
-                return function() {
-                    this.onClickLongUrl(item);
+            longUrlA.onclick = function(index, item) {
+                return function(evt) {
+                    if (evt.shiftKey) {
+                        this.editPageTitle(index, item);
+                        return false;
+                    } else {
+                        this.onClickLongUrl(item);
+                        return true;
+                    }
                 }.bind(this);
-            }.bind(this)(item);
+            }.bind(this)(i - startIndex, item);
             utils.createTextNode(item.title, longUrlA);
 
             var shortUrlTd = utils.createElement("td", {}, [], tr);
@@ -479,6 +489,31 @@ Popup.prototype = {
         iframe.src = "http://www.eisbahn.jp/use/index.php?lang=" + lang;
         iframe.scrolling = "no";
         $("ad_pane").appendChild(iframe);
+    },
+    editPageTitle: function(index, item) {
+        utils.setVisible($("edit_title_base_pane"), true);
+        Element.setStyle($("edit_title_pane"), {
+            top: String(100 + 23 * index) + "px"
+        });
+        $("input_title").value = item.title;
+        utils.setVisible($("edit_title_pane"), true);
+        this.editingItem = item;
+        $("input_title").select();
+    },
+    onClickEditTitleBasePane: function() {
+        this.hideEditTitlePane();
+    },
+    hideEditTitlePane: function() {
+        utils.setVisible($("edit_title_pane"), false);
+        utils.setVisible($("edit_title_base_pane"), false);
+    },
+    onClickUpdateTitle: function() {
+        var title = $("input_title").value;
+        chrome.runtime.getBackgroundPage(function(bg) {
+            bg.gl.storeTitleHistory(this.editingItem.longUrl, title);
+            this.hideEditTitlePane();
+            this.loadHistory();
+        }.bind(this));
     }
 };
 

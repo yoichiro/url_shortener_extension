@@ -176,6 +176,9 @@
     "popupReport": {
         "message": "フィードバックを送る"
     },
+    "popupUpdateTitle": {
+        "message": "更新"
+    },
     "ctxmenuShortenUrlAdded": {
         "message": "URLを短縮 (履歴に追加されます)"
     },

@@ -176,6 +176,9 @@
     "popupReport": {
         "message": "Send feedback"
     },
+    "popupUpdateTitle": {
+        "message": "Update"
+    },
     "ctxmenuShortenUrlAdded": {
         "message": "Shorten URL (added to history)"
     },

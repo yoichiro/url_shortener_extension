@@ -176,6 +176,9 @@
     "popupReport": {
         "message": "Отправить отзыв"
     },
+    "popupUpdateTitle": {
+        "message": "обновление"
+    },
     "ctxmenuShortenUrlAdded": {
         "message": "Сокращенный URL (добавлен в архив)"
     },

@@ -176,6 +176,9 @@
     "popupReport": {
         "message": "发送反馈"
     },
+    "popupUpdateTitle": {
+        "message": "更新"
+    },
     "ctxmenuShortenUrlAdded": {
         "message": "生成短缩网址 (保留历史记录)"
     },

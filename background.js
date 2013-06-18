@@ -18,7 +18,9 @@ Gl.prototype = {
             this.onSelectionChanged(id);
         }.bind(this));
         chrome.tabs.onUpdated.addListener(function(id, changeInfo, tab) {
-            this.onSelectionChanged(id);
+            if (changeInfo.status == "complete") {
+                this.onSelectionChanged(id);
+            }
         }.bind(this));
         chrome.storage.onChanged.addListener(function(changes, namespace) {
             this.onChangedStorage(changes, namespace);
@@ -352,12 +354,14 @@ Gl.prototype = {
         }.bind(this));
     },
     storeTitleHistory: function(longUrl, title) {
-        var titleHistory = this.getTitleHistory();
-        titleHistory[longUrl] = title;
-        localStorage["title_history"] = Object.toJSON(titleHistory);
-        var data = {};
-        data[longUrl] = title;
-        chrome.storage.sync.set(data);
+        if (longUrl != title) {
+            var titleHistory = this.getTitleHistory();
+            titleHistory[longUrl] = title;
+            localStorage["title_history"] = Object.toJSON(titleHistory);
+            var data = {};
+            data[longUrl] = title;
+            chrome.storage.sync.set(data);
+        }
     },
     getTitleHistory: function() {
         var titleHistory = localStorage["title_history"];
@@ -371,8 +375,10 @@ Gl.prototype = {
     onSelectionChanged: function(tabId) {
         chrome.tabs.get(tabId, function(tab) {
             var history = this.getTitleHistory();
-            if (tab.url && history[tab.url] && tab.title) {
-                this.storeTitleHistory(tab.url, tab.title);
+            if (!history[tab.url]) {
+                if (tab.url && tab.title) {
+                    this.storeTitleHistory(tab.url, tab.title);
+                }
             }
         }.bind(this));
     },
