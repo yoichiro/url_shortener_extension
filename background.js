@@ -31,6 +31,11 @@ Gl.prototype = {
         chrome.contextMenus.onClicked.addListener(function(info, tab) {
             this.onClickContextMenu(info, tab);
         }.bind(this));
+        chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
+            if (message == "authorized") {
+                this.onAuthorized();
+            }
+        }.bind(this));
     },
     onAlarmReceived: function(alarm) {
         if (alarm.name == this.WATCH_TIMER_NAME) {
@@ -216,17 +221,13 @@ Gl.prototype = {
         }
     },
     showNotification: function(message) {
-        var notification = webkitNotifications.createNotification(
-            "./url_shortener_extension_48.png",
-            "URL Shortener extension",
-            message
-        );
-        notification.show();
-        notification.ondisplay = function() {
-            setTimeout(function() {
-                notification.cancel();
-            }, 5000);
-        };
+        chrome.notifications.create("", {
+            type: "basic",
+            title: "URL Shortener extension",
+            message: message,
+            iconUrl: "./url_shortener_extension_48.png"
+        }, function(notificationId) {
+        });
     },
     getAccessToken: function() {
         return localStorage["access_token"];
