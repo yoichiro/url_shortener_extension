@@ -190,6 +190,17 @@ Gl.prototype = {
             "_blank",
             options);
     },
+    showGplusWindow: function(shortUrl) {
+        var x = (screen.width - 500) / 2;
+        var y = (screen.height - 450) / 2;
+        var options = "width=500,height=450,left=" + x + ",top=" + y;
+        var link = "https://plus.google.com/share?url="
+            + encodeURIComponent(shortUrl);
+        window.open(
+            link,
+            "_blank",
+            options);
+    },
     showSucceedMessage: function(shortUrl) {
         $("buffer").value = shortUrl;
         $("buffer").focus();

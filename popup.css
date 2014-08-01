@@ -170,6 +170,16 @@ div#message {
     text-align: right;
 }
 
+div#gplus {
+    float: right;
+    width: 19px;
+    height: 20px;
+    padding-top: 2px;
+    margin-right: 3px;
+    cursor: pointer;
+    display: none;
+}
+
 div#twitter {
     float: right;
     width: 19px;

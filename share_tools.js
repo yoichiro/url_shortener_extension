@@ -17,6 +17,7 @@ ShareTools.prototype = {
         $("read_it_later").onclick = this.onClickReadItLater.bind(this);
     },
     clearAll: function() {
+        this.setGplus("");
         this.setTwitter("");
         this.setFacebook("");
         this.setGMail("");
@@ -24,6 +25,7 @@ ShareTools.prototype = {
         this.setUrlDetail("");
     },
     showTools: function(shortUrl) {
+        this.setGplus(shortUrl);
         this.setTwitter(shortUrl);
         this.setFacebook(shortUrl);
         this.setGMail(shortUrl);
@@ -48,6 +50,26 @@ ShareTools.prototype = {
             utils.setVisible($("twitter"), true);
         } else {
             utils.setVisible($("twitter"), false);
+        }
+    },
+    setGplus: function(url) {
+        var self = this;
+        $("gplus").innerHTML = "";
+        if (url) {
+            var img = document.createElement("img");
+            img.src = "./gplus.png";
+            img.onclick = function(url) {
+                return function(evt) {
+                    chrome.runtime.getBackgroundPage(function(bg) {
+                        bg.gl.showGplusWindow(url);
+                        window.close();
+                    });
+                }.bind(self);
+            }.bind(this)(url);
+            $("gplus").appendChild(img);
+            utils.setVisible($("gplus"), true);
+        } else {
+            utils.setVisible($("gplus"), false);
         }
     },
     setFacebook: function(url) {
